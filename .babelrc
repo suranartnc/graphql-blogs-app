@@ -1,0 +1,22 @@
+{
+  "presets": [
+    "es2015",
+    "react",
+    "stage-0"
+  ],
+  "plugins": [
+    "transform-decorators-legacy",
+    ["module-resolver", {
+      "root": ["./src"],
+      "alias": {
+        "noxt": "./.noxt/",
+        "components": "./src/app/components",
+        "hocs": "./src/app/hocs",
+        "modules": "./src/app/modules",
+        "pages": "./src/app/pages",
+        "styles": "./src/app/styles",
+        "utils": "./src/app/utils"
+      }
+    }]
+  ]
+}
