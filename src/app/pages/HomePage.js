@@ -8,11 +8,11 @@ import { fetchData1 } from 'modules/post/postActions'
 
 import ErrorPage from 'noxt/app/pages/ErrorPage'
 
-import styles from 'styles/pages/Homepage.scss'
+// import styles from 'styles/pages/Homepage.scss'
 
-@withData(({ post, error }) => ({ post, error }), [ fetchData1 ])
-@withPage()
-@CSSModules(styles)
+// @withData(({ post, error }) => ({ post, error }), [ fetchData1 ])
+// @withPage()
+// @CSSModules(styles)
 class HomePage extends Component {
   render () {
     const { post, error } = this.props
