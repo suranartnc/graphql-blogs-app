@@ -2,13 +2,12 @@ import { createStore, applyMiddleware, compose } from 'redux'
 import { browserHistory } from 'react-router'
 import { routerMiddleware } from 'react-router-redux'
 
-import apiMiddleware from './middlewares/apiMiddleware'
 import rootReducer from './reducer'
 
-export default (initialState = {}) => {
+export default (client, initialState = {}) => {
   let middlewares = [
     routerMiddleware(browserHistory),
-    apiMiddleware
+    client.middleware(),
   ]
 
   let enhancer = applyMiddleware(...middlewares)
@@ -17,7 +16,7 @@ export default (initialState = {}) => {
     enhancer = compose(enhancer, window.devToolsExtension())
   }
 
-  const store = createStore(rootReducer, initialState, enhancer)
+  const store = createStore(rootReducer(client), initialState, enhancer)
 
   if (module.hot) {
     module.hot.accept('./reducer', () => {
