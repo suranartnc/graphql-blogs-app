@@ -5,8 +5,9 @@ import errorReducer from './modules/error/errorReducer'
 
 import customReducers from 'app/reducers'
 
-export default combineReducers({
+export default client => combineReducers({
   routing: routerReducer,
+  apollo: client.reducer(),
   error: errorReducer,
   ...customReducers
 })

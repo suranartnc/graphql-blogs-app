@@ -7,6 +7,10 @@ import getRoutes from '../app/routes'
 import prefetch from 'noxt/server/prefetch'
 import config from '../config'
 
+import { createNetworkInterface } from 'apollo-client'
+import { ApolloProvider, getDataFromTree } from 'react-apollo'
+import createApolloClient from 'noxt/app/apollo/createApolloClient'
+
 import createStore from 'noxt/app/redux/createStore'
 import { Provider } from 'react-redux'
 import ErrorPage from 'noxt/app/pages/ErrorPage'
@@ -31,7 +35,10 @@ function renderPage (content, initialState = {}) {
       <body>
         <div id="root">${content}</div>
         <script>
-          window.__INITIAL_STATE__ = ${JSON.stringify(initialState)}
+          window.__APOLLO_STATE__ = ${JSON.stringify({
+            ...initialState,
+            apollo: { data: initialState.apollo.data },
+          })}
         </script>
         <script src="${serverPath}build/vendor-react.js"></script>
         ${process.env.NODE_ENV === 'production'
@@ -44,7 +51,17 @@ function renderPage (content, initialState = {}) {
 }
 
 export default function (req, res) {
-  const store = createStore()
+  const client = createApolloClient({
+    ssrMode: true,
+    networkInterface: createNetworkInterface({
+      uri: `http://localhost:3000/graphql`,
+      opts: {
+        credentials: 'same-origin',
+        headers: req.headers,
+      },
+    }),
+  })
+  const store = createStore(client)
   const routes = getRoutes(store)
   match({
     location: req.originalUrl,
@@ -55,25 +72,17 @@ export default function (req, res) {
     } else if (redirectLocation) {
       res.redirect(302, redirectLocation.pathname + redirectLocation.search)
     } else if (renderProps && renderProps.components) {
-      let routeStatus = renderProps.routes.reduce((prev, cur) => cur.status || prev, null) || 200
-      prefetch(store.dispatch, renderProps.components, renderProps.params)
-        .then(() => {
-          const initialState = store.getState()
-          if (initialState.error !== false) {
-            routeStatus = initialState.error.status
-          } else if (routeStatus !== 200) {
-            initialState.error = {
-              status: '404',
-              message: 'Not Found'
-            }
-          }
-          const content = renderToString(
-            <Provider store={store}>
-              <RouterContext {...renderProps} />
-            </Provider>
-          )
-          const html = renderPage(content, initialState)
-          res.status(routeStatus).send(html)
+
+      const component = (
+        <ApolloProvider store={store} client={client}>
+          <RouterContext {...renderProps} />
+        </ApolloProvider>
+      )
+      getDataFromTree(component)
+        .then((context) => {
+          const content = renderToString(component)
+          const html = renderPage(content, context.store.getState())
+          res.status(200).send(html)
         })
         .catch((e) => {
           const content = renderToString(
