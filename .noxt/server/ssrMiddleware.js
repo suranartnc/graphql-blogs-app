@@ -37,7 +37,7 @@ function renderPage (content, initialState = {}) {
         <script>
           window.__APOLLO_STATE__ = ${JSON.stringify({
             ...initialState,
-            apollo: { data: initialState.apollo.data },
+          apollo: { data: initialState.apollo.data },
           })}
         </script>
         <script src="${serverPath}build/vendor-react.js"></script>
@@ -73,15 +73,17 @@ export default function (req, res) {
       res.redirect(302, redirectLocation.pathname + redirectLocation.search)
     } else if (renderProps && renderProps.components) {
 
-      const component = (
+      const app = (
         <ApolloProvider store={store} client={client}>
           <RouterContext {...renderProps} />
         </ApolloProvider>
       )
-      getDataFromTree(component)
-        .then((context) => {
-          const content = renderToString(component)
-          const html = renderPage(content, context.store.getState())
+
+      getDataFromTree(app)
+        .then(() => {
+          const content = renderToString(app)
+          const initialState = { [client.reduxRootKey]: client.getInitialState() }
+          const html = renderPage(content, initialState)
           res.status(200).send(html)
         })
         .catch((e) => {
