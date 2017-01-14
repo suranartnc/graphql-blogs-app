@@ -5,7 +5,7 @@ import { RouterContext, match } from 'react-router'
 import 'isomorphic-fetch'
 import getRoutes from '../app/routes'
 import prefetch from 'noxt/server/prefetch'
-import config from '../config'
+import config from 'noxt/config'
 
 import { createNetworkInterface } from 'apollo-client'
 import { ApolloProvider, getDataFromTree } from 'react-apollo'
@@ -37,7 +37,7 @@ function renderPage (content, initialState = {}) {
         <script>
           window.__APOLLO_STATE__ = ${JSON.stringify({
             ...initialState,
-          apollo: { data: initialState.apollo.data },
+          apollo: { data: typeof initialState.apollo.data !== 'undefined' ? initialState.apollo.data : null },
           })}
         </script>
         <script src="${serverPath}build/vendor-react.js"></script>
@@ -50,11 +50,20 @@ function renderPage (content, initialState = {}) {
   `
 }
 
+function renderErrorPage (status, message, client, res) {
+  const content = renderToString(
+    <ErrorPage status={status} message={message} />
+  )
+  const initialState = { 'apollo': client.getInitialState() }
+  const html = renderPage(content, initialState)
+  res.status(status).send(html)
+}
+
 export default function (req, res) {
   const client = createApolloClient({
     ssrMode: true,
     networkInterface: createNetworkInterface({
-      uri: `http://localhost:3000/graphql`,
+      uri: `http://${config.host}:${config.port}/graphql`,
       opts: {
         credentials: 'same-origin',
         headers: req.headers,
@@ -68,7 +77,7 @@ export default function (req, res) {
     routes
   }, (error, redirectLocation, renderProps) => {
     if (error) {
-      res.status(500).send(error.message)
+      renderErrorPage('500', error.message, client, res)
     } else if (redirectLocation) {
       res.redirect(302, redirectLocation.pathname + redirectLocation.search)
     } else if (renderProps && renderProps.components) {
@@ -82,19 +91,17 @@ export default function (req, res) {
       getDataFromTree(app)
         .then(() => {
           const content = renderToString(app)
-          const initialState = { [client.reduxRootKey]: client.getInitialState() }
+          const initialState = { 'apollo': client.getInitialState() }
           const html = renderPage(content, initialState)
           res.status(200).send(html)
+        }, (error) => {
+          renderErrorPage('500', error.message, client, res)
         })
-        .catch((e) => {
-          const content = renderToString(
-            <ErrorPage status={e.status} message={e.message} />
-          )
-          const html = renderPage(content)
-          res.status(e.status).send(html)
+        .catch((error) => {
+          renderErrorPage(error.status, error.message, client, res)
         })
     } else {
-      res.status(404).send('Not found')
+      renderErrorPage('404', 'Not Found', client, res)
     }
   })
 }

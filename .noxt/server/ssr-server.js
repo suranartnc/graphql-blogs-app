@@ -3,18 +3,17 @@ import express from 'express'
 import cookieParser from 'cookie-parser'
 import bodyParser from 'body-parser'
 import favicon from 'serve-favicon'
-
 import proxy from 'http-proxy-middleware'
 
-import config from 'noxt/config'
 import ssrMiddleware from 'noxt/server/ssrMiddleware'
+import config from 'noxt/config'
 
 const app = express()
 app.use(favicon(path.join(process.cwd(), 'static/favicon.ico')))
 app.use(express.static(path.join(process.cwd(), 'static')))
 
 app.use('/graphql', proxy({
-  target: `http://localhost:3002`
+  target: `http://${config.apiHost}:${config.apiPort}`
 }))
 
 app.use(cookieParser())

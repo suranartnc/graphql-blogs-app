@@ -16,7 +16,7 @@
   },
   "betterScripts": {
     "dev-ssr": {
-      "command": "node ./.noxt/ssr-server",
+      "command": "nodemon ./.noxt/ssr-server",
       "env": {
         "NODE_ENV": "development"
       }

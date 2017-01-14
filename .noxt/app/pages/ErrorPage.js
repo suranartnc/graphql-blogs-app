@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react'
-import withPage from 'hocs/withPage'
+// import withPage from 'hocs/withPage'
 
-@withPage()
+// @withPage()
 class ErrorPage extends Component {
   render () {
     return (
