@@ -8,7 +8,7 @@ import { graphql } from 'react-apollo'
 import styles from 'styles/pages/Homepage.scss'
 
 const GET_POSTS = gql`
-  query getPosts($limit: Int) {
+  query getPosts {
     posts(limit: 10) {
       _id
       title
@@ -18,6 +18,14 @@ const GET_POSTS = gql`
 
 @CSSModules(styles)
 class HomePage extends Component {
+
+  renderPosts () {
+    const { data: { posts } } = this.props
+    return posts.map(data => (
+      <p key={data._id}>{data.title}</p>
+    ))
+  }
+
   render () {
     return (
       <div styleName="container">
@@ -30,10 +38,18 @@ class HomePage extends Component {
             }
           ]}
         />
-        HomePage
+        {this.renderPosts()}
       </div>
     )
   }
+}
+
+HomePage.propTypes = {
+  data: PropTypes.shape({
+    posts: PropTypes.arrayOf(PropTypes.shape({
+      title: PropTypes.string.isRequired
+    }))
+  }).isRequired
 }
 
 export default graphql(GET_POSTS)(HomePage)
