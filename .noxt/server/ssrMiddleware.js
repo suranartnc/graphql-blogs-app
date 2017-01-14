@@ -5,7 +5,7 @@ import { RouterContext, match } from 'react-router'
 import 'isomorphic-fetch'
 import getRoutes from '../app/routes'
 import prefetch from 'noxt/server/prefetch'
-import config from '../config'
+import config from 'noxt/config'
 
 import { createNetworkInterface } from 'apollo-client'
 import { ApolloProvider, getDataFromTree } from 'react-apollo'
@@ -63,7 +63,7 @@ export default function (req, res) {
   const client = createApolloClient({
     ssrMode: true,
     networkInterface: createNetworkInterface({
-      uri: `http://localhost:3000/graphql`,
+      uri: `http://${config.host}:${config.port}/graphql`,
       opts: {
         credentials: 'same-origin',
         headers: req.headers,

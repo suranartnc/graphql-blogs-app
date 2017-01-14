@@ -1,9 +1,6 @@
 import React, {Component} from 'react'
 import Helmet from 'react-helmet'
 
-// import withPage from 'hocs/withPage'
-
-// @withPage()
 class AboutPage extends Component {
   render () {
     return (
