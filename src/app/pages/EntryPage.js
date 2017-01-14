@@ -28,7 +28,14 @@ class EntryPage extends Component {
 }
 
 EntryPage.propTypes = {
-
+  data: PropTypes.shape({
+    loading: PropTypes.bool.isRequired,
+    post: PropTypes.shape({
+      _id: PropTypes.string.isRequired,
+      title: PropTypes.string.isRequired,
+      body: PropTypes.string.isRequired
+    })
+  }).isRequired
 }
 
 const GET_POST = gql`
