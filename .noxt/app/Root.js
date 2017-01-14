@@ -18,12 +18,12 @@ const networkInterface = createNetworkInterface({
   opts: {
     credentials: 'same-origin',
   },
-  transportBatching: true,
+  transportBatching: true
 })
 
 const client = createApolloClient({
   networkInterface,
-  ssrForceFetchDelay: 100,
+  ssrForceFetchDelay: 100
 })
 
 const initialState = window.__APOLLO_STATE__
