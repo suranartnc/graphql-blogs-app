@@ -4,7 +4,6 @@ import { renderToString } from 'react-dom/server'
 import { RouterContext, match } from 'react-router'
 import 'isomorphic-fetch'
 import getRoutes from '../app/routes'
-import prefetch from 'noxt/server/prefetch'
 import config from 'noxt/config'
 
 import { createNetworkInterface } from 'apollo-client'
@@ -60,18 +59,20 @@ function renderErrorPage (status, message, client, res) {
 }
 
 export default function (req, res) {
+  const networkInterface = createNetworkInterface({
+    uri: `http://${config.host}:${config.port}/graphql`,
+    opts: {
+      credentials: 'same-origin',
+      headers: req.headers
+    }
+  })
   const client = createApolloClient({
-    ssrMode: true,
-    networkInterface: createNetworkInterface({
-      uri: `http://${config.host}:${config.port}/graphql`,
-      opts: {
-        credentials: 'same-origin',
-        headers: req.headers,
-      },
-    }),
+    networkInterface,
+    ssrMode: true
   })
   const store = createStore(client)
   const routes = getRoutes(store)
+
   match({
     location: req.originalUrl,
     routes
@@ -81,13 +82,11 @@ export default function (req, res) {
     } else if (redirectLocation) {
       res.redirect(302, redirectLocation.pathname + redirectLocation.search)
     } else if (renderProps && renderProps.components) {
-
       const app = (
         <ApolloProvider store={store} client={client}>
           <RouterContext {...renderProps} />
         </ApolloProvider>
       )
-
       getDataFromTree(app)
         .then(() => {
           const content = renderToString(app)
