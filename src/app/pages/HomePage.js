@@ -20,7 +20,10 @@ const GET_POSTS = gql`
 class HomePage extends Component {
 
   renderPosts () {
-    const { data: { posts } } = this.props
+    const { data: { loading, posts } } = this.props
+    if (loading === true) {
+      return <div>Loading...</div>
+    }
     return posts.map(data => (
       <p key={data._id}>{data.title}</p>
     ))
@@ -46,6 +49,7 @@ class HomePage extends Component {
 
 HomePage.propTypes = {
   data: PropTypes.shape({
+    loading: PropTypes.bool.isRequired,
     posts: PropTypes.arrayOf(PropTypes.shape({
       title: PropTypes.string.isRequired
     }))
