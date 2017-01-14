@@ -1,5 +1,6 @@
 import React, {Component, PropTypes} from 'react'
 import Helmet from 'react-helmet'
+import { Link } from 'react-router'
 import CSSModules from 'react-css-modules'
 
 import gql from 'graphql-tag'
@@ -24,8 +25,10 @@ class HomePage extends Component {
     if (loading === true) {
       return <div>Loading...</div>
     }
-    return posts.map(data => (
-      <p key={data._id}>{data.title}</p>
+    return posts.map(post => (
+      <article key={post._id}>
+        <h2><Link to={`/post/${post._id}`}>{post.title}</Link></h2>
+      </article>
     ))
   }
 

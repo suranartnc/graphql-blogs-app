@@ -12,9 +12,9 @@ const app = express()
 app.use(favicon(path.join(process.cwd(), 'static/favicon.ico')))
 app.use(express.static(path.join(process.cwd(), 'static')))
 
-app.use('/graphql', proxy({
-  target: `http://${config.apiHost}:${config.apiPort}`
-}))
+// app.use('/graphql', proxy({
+//   target: `http://${config.apiHost}:${config.apiPort}`
+// }))
 
 app.use(cookieParser())
 app.use(bodyParser.urlencoded({ extended: true }))
