@@ -4,7 +4,6 @@ import { renderToString } from 'react-dom/server'
 import { RouterContext, match } from 'react-router'
 import 'isomorphic-fetch'
 import getRoutes from '../app/routes'
-import prefetch from 'noxt/server/prefetch'
 import config from 'noxt/config'
 
 import { createNetworkInterface } from 'apollo-client'
