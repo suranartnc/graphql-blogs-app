@@ -73,6 +73,18 @@ export default graphql(addPost, {
         title,
         body
       }
+      // optimisticResponse: {
+      //   __typename: 'Mutation',
+      //   addPost: {
+      //     __typename: 'PostType',
+      //     post: {
+      //       _id: '',
+      //       title: '',
+      //       body: ''
+      //     },
+      //     errors: []
+      //   }
+      // }
     })
   })
 })(WritePage)
