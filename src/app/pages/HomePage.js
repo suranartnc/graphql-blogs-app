@@ -8,15 +8,6 @@ import { graphql } from 'react-apollo'
 
 import styles from 'styles/pages/Homepage.scss'
 
-const GET_POSTS = gql`
-  query getPosts {
-    posts(limit: 10) {
-      _id
-      title
-    }
-  }
-`
-
 @CSSModules(styles)
 class HomePage extends Component {
 
@@ -80,6 +71,16 @@ HomePage.propTypes = {
     }))
   }).isRequired
 }
+
+const GET_POSTS = gql`
+  query getPosts {
+    posts(limit: 10) {
+      _id
+      title
+      body
+    }
+  }
+`
 
 export default graphql(GET_POSTS, {
   options: {
