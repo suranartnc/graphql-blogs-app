@@ -18,11 +18,10 @@ class WritePage extends Component {
 
   handleFormSubmit = (e) => {
     e.preventDefault()
-    this.props.mutate({
-      variables: {
-        title: this.state.title,
-        body: this.state.body
-      }
+    const { title, body } = this.state
+    this.props.submitPost({
+      title,
+      body
     })
     .then(({ data }) => {
       console.log('got data', data)
@@ -45,7 +44,7 @@ class WritePage extends Component {
 }
 
 WritePage.propTypes = {
-  mutate: PropTypes.func.isRequired
+  submitPost: PropTypes.func.isRequired
 }
 
 const addPost = gql`
@@ -67,4 +66,13 @@ const addPost = gql`
   }
 `
 
-export default graphql(addPost)(WritePage)
+export default graphql(addPost, {
+  props: ({ mutate }) => ({
+    submitPost: ({ title, body }) => mutate({
+      variables: {
+        title,
+        body
+      }
+    })
+  })
+})(WritePage)
