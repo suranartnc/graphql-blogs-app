@@ -55,7 +55,8 @@ const GET_POST = gql`
   config: {
     options(ownProps)         => eg. set variables for the query/mutation, pollInterval
     name                      => rename 'data'
-    props({ ownProps, data }) => control mapping data to props
+    props({ ownProps, data })   => control mapping data to props (Query)
+    props({ ownProps, mutate }) => control mapping data to props (Mutation)
     skip(ownProps)            => eg. skip query for unauthorized user
     withRef                   => access child component, // MyComponentWithUpvote.getWrappedInstance() returns MyComponent instance
     shouldResubscribe
