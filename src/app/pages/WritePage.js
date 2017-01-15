@@ -72,6 +72,10 @@ const addPost = gql`
 
 export default graphql(addPost, {
   props: ({ mutate }) => ({
+    // Apollo Client cannot update existing queries if you want to add something to a list of objects without refetching the entire list
+    // - refetch
+    // - polling
+    // - subscriptions
     submitPost: ({ title, body }) => mutate({
       variables: {
         title,
