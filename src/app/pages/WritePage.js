@@ -1,5 +1,8 @@
 import React, {Component, PropTypes} from 'react'
 
+import { graphql } from 'react-apollo'
+import gql from 'graphql-tag'
+
 class WritePage extends Component {
 
   state = {
@@ -35,4 +38,16 @@ WritePage.propTypes = {
 
 }
 
-export default WritePage
+const addPost = gql`
+  mutation addPost($title: String!, $body: String!) {
+    addPost(
+      title: $title,
+      body: $body
+    ) {
+      post
+      errors
+    }
+  }
+`
+
+export default graphql(addPost)(WritePage)
