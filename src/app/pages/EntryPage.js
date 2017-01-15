@@ -6,6 +6,7 @@ import { graphql } from 'react-apollo'
 class EntryPage extends Component {
 
   renderPost () {
+    console.log(this.props)
     const { data: { loading, post } } = this.props
     if (loading === true) {
       return <div>Loading...</div>

@@ -8,15 +8,6 @@ import { graphql } from 'react-apollo'
 
 import styles from 'styles/pages/Homepage.scss'
 
-const GET_POSTS = gql`
-  query getPosts {
-    posts(limit: 10) {
-      _id
-      title
-    }
-  }
-`
-
 @CSSModules(styles)
 class HomePage extends Component {
 
@@ -32,6 +23,10 @@ class HomePage extends Component {
     ))
   }
 
+  onRefreshClicked = (e) => {
+    this.props.data.refetch()
+  }
+
   render () {
     return (
       <div styleName="container">
@@ -44,6 +39,7 @@ class HomePage extends Component {
             }
           ]}
         />
+        <button onClick={this.onRefreshClicked}>Refresh</button>
         {this.renderPosts()}
       </div>
     )
@@ -69,10 +65,25 @@ class HomePage extends Component {
 HomePage.propTypes = {
   data: PropTypes.shape({
     loading: PropTypes.bool.isRequired,
+    refetch: PropTypes.func.isRequired,
     posts: PropTypes.arrayOf(PropTypes.shape({
       title: PropTypes.string.isRequired
     }))
   }).isRequired
 }
 
-export default graphql(GET_POSTS)(HomePage)
+const GET_POSTS = gql`
+  query getPosts {
+    posts(limit: 10) {
+      _id
+      title
+      body
+    }
+  }
+`
+
+export default graphql(GET_POSTS, {
+  options: {
+    pollInterval: 5000  // auto refetch every 5 seconds
+  }
+})(HomePage)

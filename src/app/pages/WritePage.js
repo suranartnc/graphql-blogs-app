@@ -25,6 +25,7 @@ class WritePage extends Component {
     })
     .then(({ data }) => {
       console.log('got data', data)
+      this.props.router.push('/')
     }).catch((error) => {
       console.log('there was an error sending the query', error)
     })
@@ -44,7 +45,10 @@ class WritePage extends Component {
 }
 
 WritePage.propTypes = {
-  submitPost: PropTypes.func.isRequired
+  submitPost: PropTypes.func.isRequired,
+  router: PropTypes.shape({
+    push: PropTypes.func.isRequired
+  }).isRequired
 }
 
 const addPost = gql`
@@ -68,11 +72,27 @@ const addPost = gql`
 
 export default graphql(addPost, {
   props: ({ mutate }) => ({
+    // Apollo Client cannot update existing queries if you want to add something to a list of objects without refetching the entire list
+    // - refetch
+    // - polling
+    // - subscriptions
     submitPost: ({ title, body }) => mutate({
       variables: {
         title,
         body
       }
+      // optimisticResponse: {
+      //   __typename: 'Mutation',
+      //   addPost: {
+      //     __typename: 'PostType',
+      //     post: {
+      //       _id: '',
+      //       title: '',
+      //       body: ''
+      //     },
+      //     errors: []
+      //   }
+      // }
     })
   })
 })(WritePage)
