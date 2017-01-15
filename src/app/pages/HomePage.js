@@ -81,4 +81,8 @@ HomePage.propTypes = {
   }).isRequired
 }
 
-export default graphql(GET_POSTS)(HomePage)
+export default graphql(GET_POSTS, {
+  options: {
+    pollInterval: 5000  // auto refetch every 5 seconds
+  }
+})(HomePage)
