@@ -18,12 +18,16 @@ class WritePage extends Component {
 
   handleFormSubmit = (e) => {
     e.preventDefault()
-    console.log(this.state)
     this.props.mutate({
       variables: {
         title: this.state.title,
         body: this.state.body
       }
+    })
+    .then(({ data }) => {
+      console.log('got data', data)
+    }).catch((error) => {
+      console.log('there was an error sending the query', error)
     })
   }
 
