@@ -27,6 +27,10 @@ class HomePage extends Component {
     this.props.data.refetch()
   }
 
+  onNextPageClicked = (e) => {
+    this.props.loadNextPage()
+  }
+
   render () {
     return (
       <div styleName="container">
@@ -41,6 +45,7 @@ class HomePage extends Component {
         />
         <button onClick={this.onRefreshClicked}>Refresh</button>
         {this.renderPosts()}
+        <button onClick={this.onNextPageClicked}>Next page</button>
       </div>
     )
   }
@@ -69,7 +74,8 @@ HomePage.propTypes = {
     posts: PropTypes.arrayOf(PropTypes.shape({
       title: PropTypes.string.isRequired
     }))
-  }).isRequired
+  }).isRequired,
+  loadNextPage: PropTypes.func.isRequired
 }
 
 const GET_POSTS = gql`
@@ -85,5 +91,24 @@ const GET_POSTS = gql`
 export default graphql(GET_POSTS, {
   options: {
     pollInterval: 5000  // auto refetch every 5 seconds
+  },
+  props({ data }) {
+    return {
+      data,
+      loadNextPage() {
+        console.log('loadNextPage')
+        // return fetchMore({
+        //   variables: {
+        //     offset: feed.length,
+        //   },
+        //   updateQuery: (prev, { fetchMoreResult }) => {
+        //     if (!fetchMoreResult.data) { return prev }
+        //     return Object.assign({}, prev, {
+        //       feed: [...prev.feed, ...fetchMoreResult.data.feed]
+        //     })
+        //   }
+        // })
+      }
+    }
   }
 })(HomePage)
