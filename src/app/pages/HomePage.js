@@ -79,8 +79,8 @@ HomePage.propTypes = {
 }
 
 const GET_POSTS = gql`
-  query getPosts {
-    posts(limit: 10) {
+  query getPosts($limit: Int, $offset: Int) {
+    posts(limit: $limit, offset: $offset) {
       _id
       title
       body
@@ -90,24 +90,42 @@ const GET_POSTS = gql`
 
 export default graphql(GET_POSTS, {
   options: {
-    pollInterval: 5000  // auto refetch every 5 seconds
+    // pollInterval: 5000  // auto refetch every 5 seconds
+    variables: {
+      limit: 10,
+      offset: 0
+    }
   },
-  props({ data }) {
+  props ({ data }) {
     return {
       data,
-      loadNextPage() {
-        console.log('loadNextPage')
-        // return fetchMore({
-        //   variables: {
-        //     offset: feed.length,
-        //   },
-        //   updateQuery: (prev, { fetchMoreResult }) => {
-        //     if (!fetchMoreResult.data) { return prev }
-        //     return Object.assign({}, prev, {
-        //       feed: [...prev.feed, ...fetchMoreResult.data.feed]
-        //     })
-        //   }
-        // })
+      loadNextPage () {
+        // fetchMore => manually update the result of one query based on the data returned by another query.
+        return data.fetchMore({
+
+          // merged with variables of the query associated with the component.
+          variables: {
+            // limit = same as previous query
+            offset: data.posts.length
+          },
+
+          // needs to know how to incorporate the result of the query into the information the component is asking for
+          // updateQuery(prev, result)
+            // prev = previous result of the query in cache (no data key)
+            // result.fetchMoreResult = information returned by the fetchMore query
+            // result.queryVariables = merged query variables
+          updateQuery: (prev, { fetchMoreResult }) => {
+            if (!fetchMoreResult.data) { return prev }
+            return Object.assign({}, prev, {
+              posts: [...prev.posts, ...fetchMoreResult.data.posts]
+            })
+          }
+
+          // It can also take a query named argument, which can be a GraphQL document containing a query that will be fetched in order to fetch more information
+          // By default, the fetchMore query is the query associated with the component
+
+          // another use case: fetch only items that have been updated and update the list just the newly items (not refetch the whole list)
+        })
       }
     }
   }
