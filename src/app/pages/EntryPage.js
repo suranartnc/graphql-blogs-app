@@ -48,10 +48,24 @@ const GET_POST = gql`
   }
 `
 
+/*
+  graphql = redux's connect
+  graphql(query, config)
+  query = gql`xxxx`
+  config: {
+    options(ownProps)         => eg. set variables for the query/mutation, pollInterval
+    name                      => rename 'data'
+    props({ ownProps, data })   => control mapping data to props (Query)
+    props({ ownProps, mutate }) => control mapping data to props (Mutation)
+    skip(ownProps)            => eg. skip query for unauthorized user
+    withRef                   => access child component, // MyComponentWithUpvote.getWrappedInstance() returns MyComponent instance
+    shouldResubscribe
+  }
+*/
 export default graphql(GET_POST, {
-  options: ({ params }) => ({
+  options: (ownProps) => ({
     variables: {
-      id: params.id
+      id: ownProps.params.id
     }
   })
 })(EntryPage)

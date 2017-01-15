@@ -50,6 +50,22 @@ class HomePage extends Component {
   }
 }
 
+/*
+  The structure of the data prop
+
+  data: {
+    posts: { ... },
+
+    loading: false,
+    error: null,
+    refetch() { ... },
+    fetchMore() { ... },
+    startPolling() { ... },
+    stopPolling() { ... },
+    // ... more methods from the QuerySubscription object
+  }
+*/
+
 HomePage.propTypes = {
   data: PropTypes.shape({
     loading: PropTypes.bool.isRequired,

@@ -58,6 +58,15 @@ function renderErrorPage (status, message, client, res) {
   res.status(status).send(html)
 }
 
+
+/*
+  Creating a client
+    - NetworkInterface (custom URL of GraphqQL server)
+  Creating a provider (<ApolloProvider /> = Redux's <Provider />)
+    - connect your client instance to your component tree
+    - place above any places where you need to access GraphQL data
+
+*/
 export default function (req, res) {
   const networkInterface = createNetworkInterface({
     uri: `http://${config.apiHost}:${config.apiPort}/graphql`,
