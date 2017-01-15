@@ -19,6 +19,12 @@ class WritePage extends Component {
   handleFormSubmit = (e) => {
     e.preventDefault()
     console.log(this.state)
+    this.props.mutate({
+      variables: {
+        title: this.state.title,
+        body: this.state.body
+      }
+    })
   }
 
   render () {
@@ -35,7 +41,7 @@ class WritePage extends Component {
 }
 
 WritePage.propTypes = {
-
+  mutate: PropTypes.func.isRequired
 }
 
 const addPost = gql`
@@ -44,8 +50,15 @@ const addPost = gql`
       title: $title,
       body: $body
     ) {
-      post
-      errors
+      post {
+        _id
+        title
+        body
+      }
+      errors {
+        key
+        message
+      }
     }
   }
 `
