@@ -32,6 +32,10 @@ class HomePage extends Component {
     ))
   }
 
+  onRefreshClicked = (e) => {
+    this.props.data.refetch()
+  }
+
   render () {
     return (
       <div styleName="container">
@@ -44,6 +48,7 @@ class HomePage extends Component {
             }
           ]}
         />
+        <button onClick={this.onRefreshClicked}>Refresh</button>
         {this.renderPosts()}
       </div>
     )
@@ -69,6 +74,7 @@ class HomePage extends Component {
 HomePage.propTypes = {
   data: PropTypes.shape({
     loading: PropTypes.bool.isRequired,
+    refetch: PropTypes.func.isRequired,
     posts: PropTypes.arrayOf(PropTypes.shape({
       title: PropTypes.string.isRequired
     }))
