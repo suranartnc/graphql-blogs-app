@@ -1,10 +1,12 @@
 import ApolloClient from 'apollo-client'
 
+// Normalization with dataIdFromObject
+// Use unique IDs across all types of objects
 export default options => new ApolloClient(Object.assign({}, {
-  dataIdFromObject: (object) => {
-    if (!object._id || !object.__typename) {
-      return null
+  dataIdFromObject: (result) => {
+    if (result.id && result.__typename) {
+      return result.__typename + result.id
     }
-    return `${object.__typename}:${object._id}`
+    return null;
   },
 }, options))
