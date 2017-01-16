@@ -114,6 +114,8 @@ export default graphql(GET_POSTS, {
             // prev = previous result of the query in cache (no data key)
             // result.fetchMoreResult = information returned by the fetchMore query
             // result.queryVariables = merged query variables
+
+          // updateQuery = updateQueries with the name of query is the query associated with the component.
           updateQuery: (prev, { fetchMoreResult }) => {
             if (!fetchMoreResult.data) { return prev }
             return Object.assign({}, prev, {
