@@ -94,7 +94,8 @@ export default graphql(GET_POSTS, {
     variables: {
       limit: 10,
       offset: 0
-    }
+    },
+    forceFetch: true
   },
   props ({ data }) {
     return {

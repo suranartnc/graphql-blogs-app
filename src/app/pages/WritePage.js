@@ -81,23 +81,23 @@ export default graphql(addPost, {
       variables: {
         title,
         body
-      },
+      }
 
       // Mutation returns the single new post that was added, not the whole list
       // If we have a thousand posts, we don’t want to refetch all of them if we add a single new post.
-      optimisticResponse: {
-        __typename: 'Mutation',
-        addPost: {
-          __typename: 'addPostResponseType',
-          post: {
-            __typename: 'PostType',
-            _id: 'xxx',
-            title: 'xxx',
-            body: 'xxx'
-          },
-          errors: []
-        }
-      },
+      // optimisticResponse: {
+      //   __typename: 'Mutation',
+      //   addPost: {
+      //     __typename: 'addPostResponseType',
+      //     post: {
+      //       __typename: 'PostType',
+      //       _id: 'xxx',
+      //       title: 'xxx',
+      //       body: 'xxx'
+      //     },
+      //     errors: []
+      //   }
+      // },
 
       // Update your UI based on the result of a mutation.
       // Most of the time, your UI will update automatically based on mutation results,
@@ -112,17 +112,17 @@ export default graphql(addPost, {
 
       // Once the mutation fires and the result arrives from the server (or, a result is provided through optimistic UI),
       // our updateQueries function for the Comment query will be called and the Comment query will be updated accordingly
-      updateQueries: {
-        getPosts: (prev, { mutationResult }) => {
-          console.log('mutationResult', mutationResult)
-          const newPost = mutationResult.data.addPost.post
-          return update(prev, {
-            posts: {
-              $unshift: [newPost]
-            }
-          })
-        }
-      }
+      // updateQueries: {
+      //   getPosts: (prev, { mutationResult }) => {
+      //     console.log('mutationResult', mutationResult)
+      //     const newPost = mutationResult.data.addPost.post
+      //     return update(prev, {
+      //       posts: {
+      //         $unshift: [newPost]
+      //       }
+      //     })
+      //   }
+      // }
     })
   })
 })(WritePage)
