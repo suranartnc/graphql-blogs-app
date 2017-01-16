@@ -5,6 +5,7 @@ import CSSModules from 'react-css-modules'
 
 import gql from 'graphql-tag'
 import { graphql } from 'react-apollo'
+import update from 'immutability-helper'
 
 import styles from 'styles/pages/Homepage.scss'
 
@@ -103,6 +104,21 @@ export default graphql(GET_POSTS, {
     variables: {
       limit: 10,
       offset: 0
+    },
+
+    // Can be used to achieve the same goal as updateQueries, but more flexible and works with any type of action, not just mutations.
+
+    // reducer = query needs to know what actions should lead to an updated result (recommended)
+    // updateQueries = it is the mutation’s responsibility to update all the queries that may need to know about the results of this mutation.
+    reducer: (previousResult, action, variables) => {
+      if (action.type === 'APOLLO_MUTATION_RESULT' && action.operationName === 'addPost') {
+        return update(previousResult, {
+          posts: {
+            $unshift: [action.result.data.addPost.post]
+          }
+        })
+      }
+      return previousResult
     }
   },
   props ({ data }) {
