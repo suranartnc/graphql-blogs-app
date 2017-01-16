@@ -80,7 +80,7 @@ export default graphql(addPost, {
       variables: {
         title,
         body
-      }
+      },
 
       // Update your UI based on the result of a mutation.
       // Most of the time, your UI will update automatically based on mutation results,
@@ -110,19 +110,19 @@ export default graphql(addPost, {
 
       // Mutation returns the single new post that was added, not the whole list
       // If we have a thousand posts, we don’t want to refetch all of them if we add a single new post.
-      // optimisticResponse: {
-      //   __typename: 'Mutation',
-      //   addPost: {
-      //     __typename: 'addPostResponseType',
-      //     post: {
-      //       __typename: 'PostType',
-      //       _id: new Date().getTime(),
-      //       title,
-      //       body
-      //     },
-      //     errors: []
-      //   }
-      // }
+      optimisticResponse: {
+        __typename: 'Mutation',
+        addPost: {
+          __typename: 'addPostResponseType',
+          post: {
+            __typename: 'PostType',
+            _id: new Date().getTime(),
+            title,
+            body
+          },
+          errors: []
+        }
+      }
     })
   })
 })(WritePage)
