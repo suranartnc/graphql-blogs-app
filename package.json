@@ -58,7 +58,7 @@
   },
   "homepage": "https://github.com/suranartnc/graphql-blogs-app#readme",
   "dependencies": {
-    "apollo-client": "^0.7.1",
+    "apollo-client": "^0.7.3",
     "assets-webpack-plugin": "^3.5.0",
     "autoprefixer": "^6.6.0",
     "babel-core": "^6.21.0",

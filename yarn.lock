@@ -95,9 +95,9 @@ anymatch@^1.3.0:
     arrify "^1.0.0"
     micromatch "^2.1.5"
 
-apollo-client@^0.7.1:
-  version "0.7.1"
-  resolved "https://registry.yarnpkg.com/apollo-client/-/apollo-client-0.7.1.tgz#68a5e92cb393368d2f6745c42e54e5af9b6e57ec"
+apollo-client@^0.7.3:
+  version "0.7.3"
+  resolved "https://registry.yarnpkg.com/apollo-client/-/apollo-client-0.7.3.tgz#f27702409ce4b90c3adbd78d8434c3e8d762c7dd"
   dependencies:
     graphql-anywhere "^2.0.0"
     graphql-tag "^1.1.1"
