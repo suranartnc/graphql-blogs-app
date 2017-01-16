@@ -5,6 +5,7 @@ import CSSModules from 'react-css-modules'
 
 import gql from 'graphql-tag'
 import { graphql } from 'react-apollo'
+import update from 'immutability-helper'
 
 import styles from 'styles/pages/Homepage.scss'
 
@@ -103,6 +104,16 @@ export default graphql(GET_POSTS, {
     variables: {
       limit: 10,
       offset: 0
+    },
+    reducer: (previousResult, action, variables) => {
+      if (action.type === 'APOLLO_MUTATION_RESULT' && action.operationName === 'addPost') {
+        return update(previousResult, {
+          posts: {
+            $unshift: [action.result.data.addPost.post]
+          }
+        })
+      }
+      return previousResult
     }
   },
   props ({ data }) {
