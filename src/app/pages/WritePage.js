@@ -82,22 +82,6 @@ export default graphql(addPost, {
         body
       },
 
-      // Mutation returns the single new post that was added, not the whole list
-      // If we have a thousand posts, we don’t want to refetch all of them if we add a single new post.
-      optimisticResponse: {
-        __typename: 'Mutation',
-        addPost: {
-          __typename: 'addPostResponseType',
-          post: {
-            __typename: 'PostType',
-            _id: new Date().getTime(),
-            title,
-            body
-          },
-          errors: []
-        }
-      },
-
       // Update your UI based on the result of a mutation.
       // Most of the time, your UI will update automatically based on mutation results,
       //   as long as the object IDs in the result match up with the IDs you already have in your store
@@ -119,6 +103,24 @@ export default graphql(addPost, {
               $unshift: [newPost]
             }
           })
+        }
+      },
+
+      // While waiting for mutation results from server, use this fake result instead (will be passed to updateQueries)
+
+      // Mutation returns the single new post that was added, not the whole list
+      // If we have a thousand posts, we don’t want to refetch all of them if we add a single new post.
+      optimisticResponse: {
+        __typename: 'Mutation',
+        addPost: {
+          __typename: 'addPostResponseType',
+          post: {
+            __typename: 'PostType',
+            _id: new Date().getTime(),
+            title,
+            body
+          },
+          errors: []
         }
       }
     })
