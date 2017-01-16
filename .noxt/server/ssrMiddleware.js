@@ -34,10 +34,7 @@ function renderPage (content, initialState = {}) {
       <body>
         <div id="root">${content}</div>
         <script>
-          window.__APOLLO_STATE__ = ${JSON.stringify({
-            ...initialState,
-          apollo: { data: typeof initialState.apollo.data !== 'undefined' ? initialState.apollo.data : null },
-          })}
+          window.__APOLLO_STATE__ = ${JSON.stringify(initialState)}
         </script>
         <script src="${serverPath}build/vendor-react.js"></script>
         ${process.env.NODE_ENV === 'production'
@@ -53,7 +50,7 @@ function renderErrorPage (status, message, client, res) {
   const content = renderToString(
     <ErrorPage status={status} message={message} />
   )
-  const initialState = { 'apollo': client.getInitialState() }
+  const initialState = store.getState()
   const html = renderPage(content, initialState)
   res.status(status).send(html)
 }
@@ -99,7 +96,7 @@ export default function (req, res) {
       getDataFromTree(app)
         .then(() => {
           const content = renderToString(app)
-          const initialState = { 'apollo': client.getInitialState() }
+          const initialState = store.getState()
           const html = renderPage(content, initialState)
           res.status(200).send(html)
         }, (error) => {

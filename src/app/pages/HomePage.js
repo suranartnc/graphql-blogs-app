@@ -8,6 +8,8 @@ import { graphql } from 'react-apollo'
 
 import styles from 'styles/pages/Homepage.scss'
 
+import WritePage from 'pages/WritePage'
+
 @CSSModules(styles)
 class HomePage extends Component {
 
@@ -43,6 +45,12 @@ class HomePage extends Component {
             }
           ]}
         />
+        <div>
+          Add new post
+          <WritePage />
+        </div>
+        <br />
+        <br />
         <button onClick={this.onRefreshClicked}>Refresh</button>
         {this.renderPosts()}
         <button onClick={this.onNextPageClicked}>Next page</button>
@@ -91,6 +99,7 @@ const GET_POSTS = gql`
 export default graphql(GET_POSTS, {
   options: {
     // pollInterval: 5000  // auto refetch every 5 seconds
+    // forceFetch: true
     variables: {
       limit: 10,
       offset: 0
@@ -114,6 +123,8 @@ export default graphql(GET_POSTS, {
             // prev = previous result of the query in cache (no data key)
             // result.fetchMoreResult = information returned by the fetchMore query
             // result.queryVariables = merged query variables
+
+          // updateQuery = updateQueries with the name of query is the query associated with the component.
           updateQuery: (prev, { fetchMoreResult }) => {
             if (!fetchMoreResult.data) { return prev }
             return Object.assign({}, prev, {
