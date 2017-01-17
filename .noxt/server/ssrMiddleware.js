@@ -1,14 +1,14 @@
 import React from 'react'
 import Helmet from 'react-helmet'
-import { renderToString } from 'react-dom/server'
+import { renderToString, renderToStaticMarkup } from 'react-dom/server'
 import { RouterContext, match } from 'react-router'
 import 'isomorphic-fetch'
 import getRoutes from '../app/routes'
 import config from 'noxt/config'
 
-import { createNetworkInterface } from 'apollo-client'
-import { ApolloProvider, getDataFromTree } from 'react-apollo'
+import { ApolloProvider, renderToStringWithData  } from 'react-apollo'
 import createApolloClient from 'noxt/app/apollo/createApolloClient'
+import { getNetworkInterface, authorizationMiddleware } from 'noxt/app/apollo/transport'
 
 import createStore from 'noxt/app/redux/createStore'
 import { Provider } from 'react-redux'
@@ -20,6 +20,15 @@ const assetsManifest = process.env.webpackAssets && JSON.parse(process.env.webpa
 
 function renderPage (content, initialState = {}) {
   const head = Helmet.rewind()
+
+  const InitialStateScript = ({ state }) => {
+    return (
+      <script dangerouslySetInnerHTML={{
+        __html: `window.__APOLLO_STATE__ = ${JSON.stringify(state)}`
+      }} />
+    )
+  }
+
   return `
     <!doctype html>
     <html ${head.htmlAttributes.toString()}>
@@ -33,9 +42,7 @@ function renderPage (content, initialState = {}) {
       </head>
       <body>
         <div id="root">${content}</div>
-        <script>
-          window.__APOLLO_STATE__ = ${JSON.stringify(initialState)}
-        </script>
+        ${renderToStaticMarkup(<InitialStateScript state={initialState} />)}
         <script src="${serverPath}build/vendor-react.js"></script>
         ${process.env.NODE_ENV === 'production'
           ? `<script src="${assetsManifest.main.js}"></script>`
@@ -46,7 +53,7 @@ function renderPage (content, initialState = {}) {
   `
 }
 
-function renderErrorPage (status, message, client, res) {
+function renderErrorPage (status, message, store, res) {
   const content = renderToString(
     <ErrorPage status={status} message={message} />
   )
@@ -65,17 +72,16 @@ function renderErrorPage (status, message, client, res) {
 
 */
 export default function (req, res) {
-  const networkInterface = createNetworkInterface({
-    uri: `http://${config.apiHost}:${config.apiPort}/graphql`,
-    opts: {
-      credentials: 'same-origin',
-      headers: req.headers
-    }
-  })
+
+  const networkInterface = getNetworkInterface(`http://${config.apiHost}:${config.apiPort}/graphql`, req.headers)
+  networkInterface.use(authorizationMiddleware)
+
   const client = createApolloClient({
-    networkInterface,
-    ssrMode: true
+    ssrMode: true,    // fetch each query result once (avoid repeated force-fetching)
+    networkInterface
   })
+
+  // Create a new client or store instance for each request
   const store = createStore(client)
   const routes = getRoutes(store)
 
@@ -84,29 +90,36 @@ export default function (req, res) {
     routes
   }, (error, redirectLocation, renderProps) => {
     if (error) {
-      renderErrorPage('500', error.message, client, res)
+      renderErrorPage('500', error.message, store, res)
     } else if (redirectLocation) {
       res.redirect(302, redirectLocation.pathname + redirectLocation.search)
     } else if (renderProps && renderProps.components) {
+
       const app = (
         <ApolloProvider store={store} client={client}>
           <RouterContext {...renderProps} />
         </ApolloProvider>
       )
-      getDataFromTree(app)
-        .then(() => {
-          const content = renderToString(app)
+
+      // Takes your React tree, determines which queries are needed to render them, and then fetches them all.
+      // It returns a promise which resolves when the data is ready in your Apollo Client store.
+      // At the point that the promise resolves, your Apollo Client store will be completely initialized,
+      //   which should mean your app will now render instantly (since all queries are prefetched)
+
+      // renderToStringWithData = getDataFromTree(app) + renderToString(app)
+      renderToStringWithData(app)
+        .then((content) => {
           const initialState = store.getState()
           const html = renderPage(content, initialState)
           res.status(200).send(html)
         }, (error) => {
-          renderErrorPage('500', error.message, client, res)
+          renderErrorPage('500', error.message, store, res)
         })
         .catch((error) => {
-          renderErrorPage(error.status, error.message, client, res)
+          renderErrorPage(error.status, error.message, store, res)
         })
     } else {
-      renderErrorPage('404', 'Not Found', client, res)
+      renderErrorPage('404', 'Not Found', store, res)
     }
   })
 }
