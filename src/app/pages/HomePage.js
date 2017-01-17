@@ -99,8 +99,9 @@ const GET_POSTS = gql`
 
 export default graphql(GET_POSTS, {
   options: {
-    // pollInterval: 5000  // auto refetch every 5 seconds
+    // pollInterval: 5000   // auto refetch every 5 seconds
     // forceFetch: true
+    // ssr: false,          // skip this query during SSR
     variables: {
       limit: 10,
       offset: 0

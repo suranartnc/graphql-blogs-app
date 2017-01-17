@@ -112,6 +112,8 @@ export default function (req, res) {
       // It returns a promise which resolves when the data is ready in your Apollo Client store.
       // At the point that the promise resolves, your Apollo Client store will be completely initialized,
       //   which should mean your app will now render instantly (since all queries are prefetched)
+
+      // renderToStringWithData = getDataFromTree(app) + renderToString(app)
       renderToStringWithData(app)
         .then((content) => {
           const initialState = store.getState()
