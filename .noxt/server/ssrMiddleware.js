@@ -1,6 +1,6 @@
 import React from 'react'
 import Helmet from 'react-helmet'
-import { renderToString } from 'react-dom/server'
+import { renderToString, renderToStaticMarkup } from 'react-dom/server'
 import { RouterContext, match } from 'react-router'
 import 'isomorphic-fetch'
 import getRoutes from '../app/routes'
@@ -20,6 +20,15 @@ const assetsManifest = process.env.webpackAssets && JSON.parse(process.env.webpa
 
 function renderPage (content, initialState = {}) {
   const head = Helmet.rewind()
+
+  const InitialStateScript = ({ state }) => {
+    return (
+      <script dangerouslySetInnerHTML={{
+        __html: `window.__APOLLO_STATE__ = ${JSON.stringify(state)}`
+      }} />
+    )
+  }
+
   return `
     <!doctype html>
     <html ${head.htmlAttributes.toString()}>
@@ -33,9 +42,7 @@ function renderPage (content, initialState = {}) {
       </head>
       <body>
         <div id="root">${content}</div>
-        <script>
-          window.__APOLLO_STATE__ = ${JSON.stringify(initialState)}
-        </script>
+        ${renderToStaticMarkup(<InitialStateScript state={initialState} />)}
         <script src="${serverPath}build/vendor-react.js"></script>
         ${process.env.NODE_ENV === 'production'
           ? `<script src="${assetsManifest.main.js}"></script>`
@@ -101,6 +108,10 @@ export default function (req, res) {
         </ApolloProvider>
       )
 
+      // Takes your React tree, determines which queries are needed to render them, and then fetches them all.
+      // It returns a promise which resolves when the data is ready in your Apollo Client store.
+      // At the point that the promise resolves, your Apollo Client store will be completely initialized,
+      //   which should mean your app will now render instantly (since all queries are prefetched)
       renderToStringWithData(app)
         .then((content) => {
           const initialState = store.getState()

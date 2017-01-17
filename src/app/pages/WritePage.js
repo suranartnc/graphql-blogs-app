@@ -48,7 +48,7 @@ WritePage.propTypes = {
   submitPost: PropTypes.func.isRequired,
   router: PropTypes.shape({
     push: PropTypes.func.isRequired
-  }).isRequired
+  })
 }
 
 const addPost = gql`
