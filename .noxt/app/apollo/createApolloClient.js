@@ -15,12 +15,12 @@ export default options => new ApolloClient(Object.assign({}, {
   dataIdFromObject,
 
   // use the existing cache from the previous list view query
-  customResolvers: {
-    Query: {
-      post: (_, { _id }) => toIdValue(dataIdFromObject({
-        __typename: 'PostType',
-        _id
-      })),
-    },
-  }
+  // customResolvers: {
+  //   Query: {
+  //     post: (_, { _id }) => toIdValue(dataIdFromObject({
+  //       __typename: 'PostType',
+  //       _id
+  //     })),
+  //   },
+  // }
 }, options))
