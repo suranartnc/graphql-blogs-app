@@ -6,9 +6,9 @@ import 'isomorphic-fetch'
 import getRoutes from '../app/routes'
 import config from 'noxt/config'
 
-import { createNetworkInterface } from 'apollo-client'
 import { ApolloProvider, renderToStringWithData  } from 'react-apollo'
 import createApolloClient from 'noxt/app/apollo/createApolloClient'
+import { getNetworkInterface, authorizationMiddleware } from 'noxt/app/apollo/transport'
 
 import createStore from 'noxt/app/redux/createStore'
 import { Provider } from 'react-redux'
@@ -73,15 +73,8 @@ function renderErrorPage (status, message, store, res) {
 */
 export default function (req, res) {
 
-  const networkInterface = createNetworkInterface({
-    uri: `http://${config.apiHost}:${config.apiPort}/graphql`,
-    opts: {
-      credentials: 'same-origin',
-
-      // transfer request headers to networkInterface
-      headers: req.headers
-    }
-  })
+  const networkInterface = getNetworkInterface(`http://${config.apiHost}:${config.apiPort}/graphql`, req.headers)
+  networkInterface.use(authorizationMiddleware)
 
   const client = createApolloClient({
     ssrMode: true,    // fetch each query result once (avoid repeated force-fetching)
