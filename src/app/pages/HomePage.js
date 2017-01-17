@@ -4,7 +4,7 @@ import { Link } from 'react-router'
 import CSSModules from 'react-css-modules'
 
 import gql from 'graphql-tag'
-import { graphql } from 'react-apollo'
+import { graphql, withApollo } from 'react-apollo'
 import update from 'immutability-helper'
 
 import styles from 'styles/pages/Homepage.scss'
@@ -21,7 +21,7 @@ class HomePage extends Component {
     }
     return posts.map(post => (
       <article key={post._id}>
-        <h2><Link to={`/post/${post._id}`}>{post.title}</Link></h2>
+        <h2><Link to={`/post/${post._id}`} onMouseOver={this.prefetchEntryContent(post._id)}>{post.title}</Link></h2>
       </article>
     ))
   }
@@ -32,6 +32,24 @@ class HomePage extends Component {
 
   onNextPageClicked = (e) => {
     this.props.loadNextPage()
+  }
+
+  prefetchEntryContent = (_id) => (e) => {
+    const query = gql`
+      query getPost($_id: String!) {
+        post(_id: $_id) {
+          _id
+          title
+          body
+        }
+      }
+    `
+    this.props.client.query({
+      query,
+      variables: {
+        _id
+      }
+    })
   }
 
   render () {
@@ -97,7 +115,7 @@ const GET_POSTS = gql`
   }
 `
 
-export default graphql(GET_POSTS, {
+export default withApollo(graphql(GET_POSTS, {
   options: {
     // pollInterval: 5000   // auto refetch every 5 seconds
     // forceFetch: true
@@ -157,4 +175,4 @@ export default graphql(GET_POSTS, {
       }
     }
   }
-})(HomePage)
+})(HomePage))
