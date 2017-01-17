@@ -23,9 +23,12 @@ const networkInterface = createNetworkInterface({
 
 const client = createApolloClient({
   networkInterface,
+
+  // skip force fetching fires too early during initialization, let's check the data in the cache first
   ssrForceFetchDelay: 100
 })
 
+// Rehydrate the client using the initial state passed from the server
 const initialState = window.__APOLLO_STATE__
 const store = createStore(client, initialState);
 const routes = getRoutes(store)
