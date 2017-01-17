@@ -7,7 +7,7 @@ import getRoutes from '../app/routes'
 import config from 'noxt/config'
 
 import { createNetworkInterface } from 'apollo-client'
-import { ApolloProvider, getDataFromTree } from 'react-apollo'
+import { ApolloProvider, renderToStringWithData  } from 'react-apollo'
 import createApolloClient from 'noxt/app/apollo/createApolloClient'
 
 import createStore from 'noxt/app/redux/createStore'
@@ -46,7 +46,7 @@ function renderPage (content, initialState = {}) {
   `
 }
 
-function renderErrorPage (status, message, client, res) {
+function renderErrorPage (status, message, store, res) {
   const content = renderToString(
     <ErrorPage status={status} message={message} />
   )
@@ -65,17 +65,23 @@ function renderErrorPage (status, message, client, res) {
 
 */
 export default function (req, res) {
+
   const networkInterface = createNetworkInterface({
     uri: `http://${config.apiHost}:${config.apiPort}/graphql`,
     opts: {
       credentials: 'same-origin',
+
+      // transfer request headers to networkInterface
       headers: req.headers
     }
   })
+
   const client = createApolloClient({
-    networkInterface,
-    ssrMode: true
+    ssrMode: true,    // fetch each query result once (avoid repeated force-fetching)
+    networkInterface
   })
+
+  // Create a new client or store instance for each request
   const store = createStore(client)
   const routes = getRoutes(store)
 
@@ -84,29 +90,30 @@ export default function (req, res) {
     routes
   }, (error, redirectLocation, renderProps) => {
     if (error) {
-      renderErrorPage('500', error.message, client, res)
+      renderErrorPage('500', error.message, store, res)
     } else if (redirectLocation) {
       res.redirect(302, redirectLocation.pathname + redirectLocation.search)
     } else if (renderProps && renderProps.components) {
+
       const app = (
         <ApolloProvider store={store} client={client}>
           <RouterContext {...renderProps} />
         </ApolloProvider>
       )
-      getDataFromTree(app)
-        .then(() => {
-          const content = renderToString(app)
+
+      renderToStringWithData(app)
+        .then((content) => {
           const initialState = store.getState()
           const html = renderPage(content, initialState)
           res.status(200).send(html)
         }, (error) => {
-          renderErrorPage('500', error.message, client, res)
+          renderErrorPage('500', error.message, store, res)
         })
         .catch((error) => {
-          renderErrorPage(error.status, error.message, client, res)
+          renderErrorPage(error.status, error.message, store, res)
         })
     } else {
-      renderErrorPage('404', 'Not Found', client, res)
+      renderErrorPage('404', 'Not Found', store, res)
     }
   })
 }
