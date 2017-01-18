@@ -52,6 +52,22 @@ class HomePage extends Component {
     })
   }
 
+  onRunQueriesClicked = () => {
+    console.log('onRunQueriesClicked')
+    const testQuery = () => {
+      this.props.client.query({
+        query: GET_POSTS,
+        variables: {
+          limit: 1,
+          offset: Math.floor(Math.random()*100)+1
+        }
+      })
+    }
+    testQuery()
+    testQuery()
+    testQuery()
+  }
+
   render () {
     return (
       <div styleName="container">
@@ -64,6 +80,7 @@ class HomePage extends Component {
             }
           ]}
         />
+        <button onClick={this.onRunQueriesClicked}>Test query batching</button>
         <div>
           Add new post
           <WritePage />
@@ -95,6 +112,9 @@ class HomePage extends Component {
 */
 
 HomePage.propTypes = {
+  client: PropTypes.shape({
+    query: PropTypes.func.isRequired
+  }).isRequired,
   data: PropTypes.shape({
     loading: PropTypes.bool.isRequired,
     refetch: PropTypes.func.isRequired,

@@ -13,7 +13,7 @@ import { getNetworkInterface, authorizationMiddleware } from 'noxt/app/apollo/tr
 
 import config from 'noxt/config'
 
-const networkInterface = getNetworkInterface(`http://${config.apiHost}:${config.apiPort}/graphql`, {}, true)
+const networkInterface = getNetworkInterface(`http://${config.apiHost}:${config.apiPort}/graphql`, {})
 networkInterface.use(authorizationMiddleware)
 
 const client = createApolloClient({
