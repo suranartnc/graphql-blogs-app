@@ -107,9 +107,14 @@ export default graphql(addPost, {
       // },
 
       // While waiting for mutation results from server, use this fake result instead (will be passed to updateQueries)
+      // Once the response is received from the server, optimistic result is thrown away and replaced with the actual result.
 
-      // Mutation returns the single new post that was added, not the whole list
+      // As you can see, mutation returns the single new post that was added, not the whole list
       // If we have a thousand posts, we don’t want to refetch all of them if we add a single new post.
+
+      // If we want our optimistic response to update the UI automatically (not works with add or delete),
+      //   we have to make sure to return an optimistic response that will update the correct query result
+      // That's why we select "id" and "__typename" because that’s what our dataIdFromObject uses to determine a globally unique object ID.
       optimisticResponse: {
         __typename: 'Mutation',
         addPost: {
