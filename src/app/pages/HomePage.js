@@ -6,6 +6,7 @@ import CSSModules from 'react-css-modules'
 import gql from 'graphql-tag'
 import { graphql, withApollo } from 'react-apollo'
 import update from 'immutability-helper'
+import { MainFields } from 'app/graphql/PostFragments'
 
 import styles from 'styles/pages/Homepage.scss'
 
@@ -38,11 +39,10 @@ class HomePage extends Component {
     const query = gql`
       query getPost($_id: String!) {
         post(_id: $_id) {
-          _id
-          title
-          body
+          ...MainFields
         }
       }
+      ${MainFields}
     `
     this.props.client.query({
       query,
@@ -50,6 +50,22 @@ class HomePage extends Component {
         _id
       }
     })
+  }
+
+  onRunQueriesClicked = () => {
+    console.log('onRunQueriesClicked')
+    const testQuery = () => {
+      this.props.client.query({
+        query: GET_POSTS,
+        variables: {
+          limit: 1,
+          offset: Math.floor(Math.random()*100)+1
+        }
+      })
+    }
+    testQuery()
+    testQuery()
+    testQuery()
   }
 
   render () {
@@ -64,6 +80,7 @@ class HomePage extends Component {
             }
           ]}
         />
+        <button onClick={this.onRunQueriesClicked}>Test query batching</button>
         <div>
           Add new post
           <WritePage />
@@ -95,6 +112,9 @@ class HomePage extends Component {
 */
 
 HomePage.propTypes = {
+  client: PropTypes.shape({
+    query: PropTypes.func.isRequired
+  }).isRequired,
   data: PropTypes.shape({
     loading: PropTypes.bool.isRequired,
     refetch: PropTypes.func.isRequired,
@@ -108,11 +128,10 @@ HomePage.propTypes = {
 const GET_POSTS = gql`
   query getPosts($limit: Int, $offset: Int) {
     posts(limit: $limit, offset: $offset) {
-      _id
-      title
-      body
+      ...MainFields
     }
   }
+  ${MainFields}
 `
 
 export default withApollo(graphql(GET_POSTS, {
