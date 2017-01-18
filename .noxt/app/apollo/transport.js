@@ -1,7 +1,7 @@
 import { createNetworkInterface } from 'apollo-client'
 import config from 'noxt/config'
 
-export function getNetworkInterface (uri = '/graphql', headers = {}, transportBatching = false) {
+export function getNetworkInterface (uri = '/graphql', headers = {}, shouldBatch = false) {
   return createNetworkInterface({
     uri,
     opts: {
@@ -10,7 +10,11 @@ export function getNetworkInterface (uri = '/graphql', headers = {}, transportBa
       credentials: 'same-origin',
 
       // transfer request headers to networkInterface
-      headers
+      headers,
+
+      // Chec a queue every 10 milliseconds to see if there are any pending queries.
+      // If there are multiple queries in the queue, they are combined into one server request.
+      shouldBatch
     }
   })
 }
