@@ -12,7 +12,9 @@
     "build-vendor": "webpack -p --config ./.noxt/webpack/vendor.webpack.config.babel.js",
     "start": "npm-run-all --parallel start-ssr",
     "start-ssr": "better-npm-run start-ssr",
-    "lint": "eslint --ext .js src"
+    "lint": "eslint --ext .js src",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "betterScripts": {
     "dev-ssr": {
@@ -116,6 +118,7 @@
     "eslint-plugin-promise": "^3.4.0",
     "eslint-plugin-react": "^6.8.0",
     "eslint-plugin-standard": "^2.0.1",
-    "react-hot-loader": "3.0.0-beta.6"
+    "react-hot-loader": "3.0.0-beta.6",
+    "@kadira/storybook": "^2.21.0"
   }
 }
