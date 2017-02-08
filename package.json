@@ -23,7 +23,7 @@
       }
     },
     "dev-hmr": {
-      "command": "node ./.noxt/dev-server",
+      "command": "babel-node ./.noxt/dev-server",
       "env": {
         "NODE_ENV": "development"
       }
