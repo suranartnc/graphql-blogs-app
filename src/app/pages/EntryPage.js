@@ -3,8 +3,6 @@ import React, {Component, PropTypes} from 'react'
 import gql from 'graphql-tag'
 import { graphql } from 'react-apollo'
 
-import { MainFields } from 'app/graphql/PostFragments'
-
 class EntryPage extends Component {
 
   renderPost () {
@@ -43,10 +41,11 @@ EntryPage.propTypes = {
 const GET_POST = gql`
   query getPost($id: String!) {
     post(_id: $id) {
-      ...MainFields
+      _id
+      title
+      body
     }
   }
-  ${MainFields}
 `
 
 /*
