@@ -7,12 +7,14 @@
     "dev": "npm-run-all --parallel dev-ssr dev-hmr",
     "dev-ssr": "better-npm-run dev-ssr",
     "dev-hmr": "better-npm-run dev-hmr",
+
     "postinstall": "npm run build-vendor && npm run build",
     "build": "npm-run-all --parallel build-client build-server",
+    "build-vendor": "webpack -p --config ./.noxt/webpack/vendor.webpack.config.babel.js",
     "build-client": "webpack --config ./.noxt/webpack/webpack.config.prod.babel.js",
     "build-server": "better-npm-run build-server",
-    "build-vendor": "webpack -p --config ./.noxt/webpack/vendor.webpack.config.babel.js",
     "start": "node ./server_bundle.js",
+
     "lint": "eslint --ext .js src"
   },
   "betterScripts": {
@@ -76,7 +78,6 @@
     "immutability-helper": "^2.1.1",
     "isomorphic-fetch": "^2.2.1",
     "json-loader": "^0.5.4",
-    "node-fetch": "^1.6.3",
     "node-sass": "^4.1.1",
     "npm-run-all": "^3.1.2",
     "postcss-loader": "^1.2.1",
