@@ -95,8 +95,8 @@
     "style-loader": "^0.13.1",
     "webpack": "^2.2.1",
     "webpack-dev-middleware": "^1.10.0",
-    "webpack-externals-plugin": "^1.0.0",
-    "webpack-hot-middleware": "^2.16.1"
+    "webpack-hot-middleware": "^2.16.1",
+    "webpack-node-externals": "^1.5.4"
   },
   "devDependencies": {
     "babel-eslint": "^7.1.1",
