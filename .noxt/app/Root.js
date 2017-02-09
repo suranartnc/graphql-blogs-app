@@ -11,9 +11,7 @@ import { ApolloProvider } from 'react-apollo'
 import createApolloClient from 'noxt/app/apollo/createApolloClient'
 import { getNetworkInterface, authorizationMiddleware } from 'noxt/app/apollo/transport'
 
-import config from 'noxt/config'
-
-const networkInterface = getNetworkInterface(`http://${config.apiHost}:${config.apiPort}/graphql`, {})
+const networkInterface = getNetworkInterface('/graphql', {})
 networkInterface.use(authorizationMiddleware)
 
 const client = createApolloClient({

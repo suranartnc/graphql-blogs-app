@@ -1,5 +1,7 @@
 import path from 'path'
 import webpack from 'webpack'
+import ExternalsPlugin from 'webpack-externals-plugin'
+
 import webpackBaseConfig from './webpack.config.base.babel'
 import config from '../config'
 
@@ -10,10 +12,14 @@ export default {
   entry: path.join(process.cwd(), '.noxt/server/ssr-server.js'),
   target: 'node',
 
+  node: {
+    __filename: true,
+    __dirname: true,
+  },
+
   output: {
     publicPath: '/',
-    filename: 'server_bundle.js',
-    libraryTarget: 'commonjs2'
+    filename: 'server.bundle.js'
   },
 
   module: {
@@ -22,8 +28,41 @@ export default {
       ...webpackBaseConfig.module.rules,
       {
         test: /\.js$/,
+        exclude: /node_modules|\.git/,
         loader: 'babel-loader',
-        exclude: /(node_modules)/
+        options: {
+          babelrc: false,
+          presets: [
+            [
+              'es2015',
+              {
+                modules: false,
+                loose: true,
+              },
+            ],
+            'react',
+            'stage-0',
+          ],
+          plugins: [
+            'lodash',
+            'transform-decorators-legacy',
+            'transform-react-constant-elements',
+            'transform-react-remove-prop-types',
+            'transform-react-pure-class-to-function',
+            ["module-resolver", {
+              "root": ["./src"],
+              "alias": {
+                "noxt": "./.noxt/",
+                "components": "./src/app/components",
+                "hocs": "./src/app/hocs",
+                "modules": "./src/app/modules",
+                "pages": "./src/app/pages",
+                "styles": "./src/app/styles",
+                "utils": "./src/app/utils"
+              }
+            }]
+          ],
+        },
       },
       {
         test: /\.css$/,
@@ -68,6 +107,15 @@ export default {
         NODE_ENV: JSON.stringify('production'),
         BROWSER: JSON.stringify(false),
       },
-    })
+    }),
+    new webpack.optimize.UglifyJsPlugin({
+      compressor: {
+        warnings: false,
+      },
+    }),
+    // new ExternalsPlugin({
+    //   type: 'commonjs',
+    //   include: path.join(process.cwd(), './node_modules/'),
+    // })
   ]
 }
