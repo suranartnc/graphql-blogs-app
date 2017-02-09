@@ -5,7 +5,7 @@ import { Link } from 'react-router'
 import { graphql, withApollo } from 'react-apollo'
 import update from 'immutability-helper'
 
-import GET_POSTS_QUERIES from 'app/modules/post/graphql/GetPostsQueries'
+import { GET_POSTS } from 'app/modules/post/graphql/postQueries'
 
 class HomePage extends Component {
 
@@ -74,7 +74,7 @@ HomePage.propTypes = {
   loadNextPage: PropTypes.func.isRequired
 }
 
-export default withApollo(graphql(GET_POSTS_QUERIES, {
+export default withApollo(graphql(GET_POSTS, {
   options: {
     // pollInterval: 5000   // auto refetch every 5 seconds
     // forceFetch: true

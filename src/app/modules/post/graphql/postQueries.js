@@ -1,11 +1,11 @@
 import gql from 'graphql-tag'
-import CommonFieldsFragments from './CommonFieldsFragments'
+import { commonFields } from './postFragments'
 
-export default gql`
+export const GET_POSTS = gql`
   query getPosts($limit: Int, $offset: Int) {
     posts(limit: $limit, offset: $offset) {
-      ...CommonFields
+      ...commonFields
     }
   }
-  ${CommonFieldsFragments}
+  ${commonFields}
 `
