@@ -10,22 +10,28 @@
     "postinstall": "npm run build-vendor && npm run build",
     "build": "npm-run-all --parallel build-client build-server",
     "build-client": "webpack --config ./.noxt/webpack/webpack.config.prod.babel.js",
-    "build-server": "webpack --config ./.noxt/webpack/webpack.config.server.babel.js",
+    "build-server": "better-npm-run build-server",
     "build-vendor": "webpack -p --config ./.noxt/webpack/vendor.webpack.config.babel.js",
     "start": "node ./server_bundle.js",
     "lint": "eslint --ext .js src"
   },
   "betterScripts": {
     "dev-ssr": {
-      "command": "nodemon ./.noxt/ssr-server.js --exec babel-node",
+      "command": "nodemon ./.noxt/server/ssr-server.js --exec babel-node",
       "env": {
         "NODE_ENV": "development"
       }
     },
     "dev-hmr": {
-      "command": "babel-node ./.noxt/dev-server",
+      "command": "babel-node ./.noxt/server/dev-server",
       "env": {
         "NODE_ENV": "development"
+      }
+    },
+    "build-server": {
+      "command": "webpack --config ./.noxt/webpack/webpack.config.server.babel.js",
+      "env": {
+        "NODE_ENV": "production"
       }
     }
   },

@@ -7,7 +7,7 @@ export default {
   ...webpackBaseConfig,
 
   name: 'SSR server',
-  entry: path.join(process.cwd(), '.noxt/ssr-server.js'),
+  entry: path.join(process.cwd(), '.noxt/server/ssr-server.js'),
   target: 'node',
 
   output: {

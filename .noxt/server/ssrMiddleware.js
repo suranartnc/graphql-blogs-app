@@ -16,7 +16,11 @@ import ErrorPage from 'noxt/app/pages/ErrorPage'
 
 const wdsPath = `http://${config.host}:${config.wdsPort}/build/`
 const serverPath = `http://${config.host}:${config.port}/`
-const assetsManifest = process.env.webpackAssets && JSON.parse(process.env.webpackAssets)
+
+let assetsManifest = null
+if (process.env.NODE_ENV === 'production') {
+  assetsManifest = require('../../static/assets.json')
+}
 
 function renderPage (content, initialState = {}) {
   const head = Helmet.rewind()
