@@ -1,9 +1,19 @@
 import path from 'path'
+import fs from 'fs'
 import webpack from 'webpack'
 import ExternalsPlugin from 'webpack-externals-plugin'
 
 import webpackBaseConfig from './webpack.config.base.babel'
 import config from '../config'
+
+var nodeModules = {}
+fs.readdirSync('node_modules')
+  .filter(function(x) {
+    return ['.bin'].indexOf(x) === -1
+  })
+  .forEach(function(mod) {
+    nodeModules[mod] = 'commonjs ' + mod
+  })
 
 export default {
   ...webpackBaseConfig,
@@ -112,10 +122,8 @@ export default {
       compressor: {
         warnings: false,
       },
-    }),
-    // new ExternalsPlugin({
-    //   type: 'commonjs',
-    //   include: path.join(process.cwd(), './node_modules/'),
-    // })
-  ]
+    })
+  ],
+
+  externals: nodeModules
 }
