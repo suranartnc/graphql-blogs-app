@@ -95,12 +95,14 @@
     "sass-loader": "^4.1.1",
     "serve-favicon": "^2.3.2",
     "style-loader": "^0.13.1",
+    "styled-components": "^1.4.3",
     "webpack": "^2.2.1",
     "webpack-dev-middleware": "^1.10.0",
     "webpack-externals-plugin": "^1.0.0",
     "webpack-hot-middleware": "^2.16.1"
   },
   "devDependencies": {
+    "@kadira/storybook": "^2.21.0",
     "babel-eslint": "^7.1.1",
     "eslint": "^3.12.2",
     "eslint-config-standard": "^6.2.1",
@@ -108,7 +110,6 @@
     "eslint-plugin-promise": "^3.4.0",
     "eslint-plugin-react": "^6.8.0",
     "eslint-plugin-standard": "^2.0.1",
-    "react-hot-loader": "3.0.0-beta.6",
-    "@kadira/storybook": "^2.21.0"
+    "react-hot-loader": "3.0.0-beta.6"
   }
 }
