@@ -1,6 +1,8 @@
 import path from 'path'
 
 export default {
+  name: 'browser',
+
   output: {
     path: path.join(process.cwd(), 'static', 'build'),
   },
@@ -14,7 +16,7 @@ export default {
       {
         test: /\.json$/,
         loader: 'json-loader',
-      },
+      }
     ],
   },
 

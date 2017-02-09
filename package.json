@@ -8,44 +8,32 @@
     "dev-ssr": "better-npm-run dev-ssr",
     "dev-hmr": "better-npm-run dev-hmr",
     "postinstall": "npm run build-vendor && npm run build",
-    "build": "better-npm-run build",
+    "build": "npm-run-all --parallel build-client build-server",
     "build-vendor": "webpack -p --config ./.noxt/webpack/vendor.webpack.config.babel.js",
-    "start": "npm-run-all --parallel start-ssr",
-    "start-ssr": "better-npm-run start-ssr",
+    "build-client": "webpack --config ./.noxt/webpack/webpack.config.prod.babel.js",
+    "build-server": "better-npm-run build-server",
+    "start": "node ./server.bundle.js",
     "lint": "eslint --ext .js src",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
   "betterScripts": {
     "dev-ssr": {
-      "command": "nodemon ./.noxt/ssr-server",
+      "command": "nodemon ./.noxt/server/ssr-server.js --exec babel-node",
       "env": {
         "NODE_ENV": "development"
       }
     },
     "dev-hmr": {
-      "command": "node ./.noxt/dev-server",
+      "command": "babel-node ./.noxt/server/dev-server",
       "env": {
         "NODE_ENV": "development"
       }
     },
-    "build": {
-      "command": "webpack --config ./.noxt/webpack/webpack.config.prod.babel.js",
+    "build-server": {
+      "command": "webpack --config ./.noxt/webpack/webpack.config.server.babel.js",
       "env": {
         "NODE_ENV": "production"
-      }
-    },
-    "start-ssr": {
-      "command": "node ./.noxt/ssr-server",
-      "env": {
-        "NODE_ENV": "production",
-        "BABEL_DISABLE_CACHE": 1
-      }
-    },
-    "start-api": {
-      "command": "node ./api-server",
-      "env": {
-        "NODE_ENV": "development"
       }
     }
   },
@@ -63,6 +51,7 @@
     "apollo-client": "^0.7.3",
     "assets-webpack-plugin": "^3.5.0",
     "autoprefixer": "^6.6.0",
+    "babel-cli": "^6.22.2",
     "babel-core": "^6.21.0",
     "babel-loader": "^6.2.10",
     "babel-plugin-css-modules-transform": "^1.1.0",
@@ -84,7 +73,7 @@
     "express": "^4.14.0",
     "extract-text-webpack-plugin": "2.0.0-beta.4",
     "file-loader": "^0.9.0",
-    "graphql-tag": "^1.2.2",
+    "graphql-tag": "^1.2.4",
     "http-proxy-middleware": "^0.17.3",
     "immutability-helper": "^2.1.1",
     "isomorphic-fetch": "^2.2.1",
@@ -106,9 +95,10 @@
     "sass-loader": "^4.1.1",
     "serve-favicon": "^2.3.2",
     "style-loader": "^0.13.1",
-    "webpack": "^2.2.0-rc.4",
-    "webpack-dev-middleware": "^1.8.4",
-    "webpack-hot-middleware": "^2.14.0"
+    "webpack": "^2.2.1",
+    "webpack-dev-middleware": "^1.10.0",
+    "webpack-externals-plugin": "^1.0.0",
+    "webpack-hot-middleware": "^2.16.1"
   },
   "devDependencies": {
     "babel-eslint": "^7.1.1",

@@ -9,3 +9,5 @@ node_modules
 
 static/build
 static/assets.json
+
+server.bundle.js

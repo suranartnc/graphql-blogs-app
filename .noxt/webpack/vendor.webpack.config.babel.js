@@ -14,7 +14,11 @@ export default {
       'react-router',
       'react-router-redux',
       'react-router-scroll',
-      'redux'
+      'redux',
+      'apollo-client',
+      'graphql-tag',
+      'immutability-helper',
+      'react-apollo'
     ],
   },
 

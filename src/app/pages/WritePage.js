@@ -4,8 +4,6 @@ import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
 import update from 'immutability-helper'
 
-import { MainFields } from 'app/graphql/PostFragments'
-
 class WritePage extends Component {
 
   state = {
@@ -60,7 +58,9 @@ const addPost = gql`
       body: $body
     ) {
       post {
-        ...MainFields
+        _id
+        title
+        body
       }
       errors {
         key
@@ -68,7 +68,6 @@ const addPost = gql`
       }
     }
   }
-  ${MainFields}
 `
 
 export default graphql(addPost, {

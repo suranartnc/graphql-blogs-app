@@ -1,18 +1,12 @@
 import React, {Component, PropTypes} from 'react'
 import Helmet from 'react-helmet'
 import { Link } from 'react-router'
-import CSSModules from 'react-css-modules'
 
-import gql from 'graphql-tag'
 import { graphql, withApollo } from 'react-apollo'
 import update from 'immutability-helper'
-import { MainFields } from 'app/graphql/PostFragments'
 
-import styles from 'styles/pages/Homepage.scss'
+import { GET_POSTS } from 'app/modules/post/graphql/postQueries'
 
-import WritePage from 'pages/WritePage'
-
-@CSSModules(styles)
 class HomePage extends Component {
 
   renderPosts () {
@@ -22,50 +16,13 @@ class HomePage extends Component {
     }
     return posts.map(post => (
       <article key={post._id}>
-        <h2><Link to={`/post/${post._id}`} onMouseOver={this.prefetchEntryContent(post._id)}>{post.title}</Link></h2>
+        <h2><Link to={`/post/${post._id}`}>{post.title}</Link></h2>
       </article>
     ))
   }
 
-  onRefreshClicked = (e) => {
-    this.props.data.refetch()
-  }
-
   onNextPageClicked = (e) => {
     this.props.loadNextPage()
-  }
-
-  prefetchEntryContent = (_id) => (e) => {
-    const query = gql`
-      query getPost($_id: String!) {
-        post(_id: $_id) {
-          ...MainFields
-        }
-      }
-      ${MainFields}
-    `
-    this.props.client.query({
-      query,
-      variables: {
-        _id
-      }
-    })
-  }
-
-  onRunQueriesClicked = () => {
-    console.log('onRunQueriesClicked')
-    const testQuery = () => {
-      this.props.client.query({
-        query: GET_POSTS,
-        variables: {
-          limit: 1,
-          offset: Math.floor(Math.random()*100)+1
-        }
-      })
-    }
-    testQuery()
-    testQuery()
-    testQuery()
   }
 
   render () {
@@ -80,14 +37,6 @@ class HomePage extends Component {
             }
           ]}
         />
-        <button onClick={this.onRunQueriesClicked}>Test query batching</button>
-        <div>
-          Add new post
-          <WritePage />
-        </div>
-        <br />
-        <br />
-        <button onClick={this.onRefreshClicked}>Refresh</button>
         {this.renderPosts()}
         <button onClick={this.onNextPageClicked}>Next page</button>
       </div>
@@ -124,15 +73,6 @@ HomePage.propTypes = {
   }).isRequired,
   loadNextPage: PropTypes.func.isRequired
 }
-
-const GET_POSTS = gql`
-  query getPosts($limit: Int, $offset: Int) {
-    posts(limit: $limit, offset: $offset) {
-      ...MainFields
-    }
-  }
-  ${MainFields}
-`
 
 export default withApollo(graphql(GET_POSTS, {
   options: {
