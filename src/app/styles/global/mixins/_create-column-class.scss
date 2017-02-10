@@ -1,11 +1,12 @@
 @mixin createColumnClass() {
-
   @include spanGrid('span');
+
   @for $i from 1 through $total-columns {
     .push-#{$i} {
       left: percentage($i / $total-columns);
     }
   }
+
   @for $i from 1 through $total-columns {
     .pull-#{$i} {
       right: percentage($i / $total-columns);
@@ -22,8 +23,5 @@
         @include orderingGrid('pull', $breakpoint);
       }
     }
-  }  
-
+  }
 }
-
-

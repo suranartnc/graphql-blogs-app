@@ -90,7 +90,7 @@
 
 // mixin for center position
 @mixin centre($axis: "both", $width:"", $height:"") {
-  position:absolute;
+  position: absolute;
 
   @if $axis == "y" {
     top: 50%;

@@ -3,7 +3,7 @@
 // Generate semantic grid columns with these mixins.
 
 @mixin make-container($gutter: $gutter-default) {
-	max-width: $wrapper-max-width;
+  max-width: $wrapper-max-width;
   margin-left: auto;
   margin-right: auto;
   padding-left: ($gutter / 2);
@@ -12,7 +12,6 @@
   @if not $enable-flex {
     @include clearfix();
   }
-
 }
 
 @mixin make-row($gutter: $gutter-default) {
@@ -30,17 +29,17 @@
 }
 
 @mixin grid-column($gutter: $gutter-default) {
-    position: relative;
-    // Prevent columns from collapsing when empty
-    min-height: 1px;
-    // Inner gutter via padding
-    padding-right: ($gutter / 2);
-    padding-left: ($gutter / 2);
-		width: 100%;
+  position: relative;
+  // Prevent columns from collapsing when empty
+  min-height: 1px;
+  // Inner gutter via padding
+  padding-right: ($gutter / 2);
+  padding-left: ($gutter / 2);
+  width: 100%;
 
-    @if not($enable-flex) {
-      float: left;
-    }
+  @if not($enable-flex) {
+    float: left;
+  }
 }
 
 @mixin make-col($size, $columns: $total-columns) {
@@ -73,8 +72,7 @@
 
   @for $i from 1 through $total-columns {
     .#{$bp-name}-#{$i} {
-
-     @include make-col($i, $total-columns);
+      @include make-col($i, $total-columns);
     }
   }
 }
@@ -87,6 +85,7 @@
       }
     }
   }
+
   @if ($type == 'pull') {
     @for $i from 1 through $total-columns {
       .#{$bp-name}-pull-#{$i} {
@@ -95,6 +94,3 @@
     }
   }
 }
-
-
-
