@@ -31,7 +31,14 @@ $grid-breakpoints: (
 ) !default;
 
 // COLOR
-$brand-primary: 	#ed1c24 !default;
+
+$yellow: #ffd011 !default;
+$green: #a6e510 !default;
+$red: #ff6d4b !default;
+$purple: #624096 !default;
+$blue: #4da2ff !default;
+
+$brand-primary: 	$blue !default;
 $gray: 				#999 !default;
 $gray-lighter: 		lighten($gray, 29.5%) !default;
 $gray-light: 		lighten($gray, 20%) !default;
