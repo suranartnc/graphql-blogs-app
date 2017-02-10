@@ -1,6 +1,8 @@
 import path from 'path'
+import fs from 'fs'
 import webpack from 'webpack'
-import ExternalsPlugin from 'webpack-externals-plugin'
+import nodeExternals from 'webpack-node-externals'
+import BabiliPlugin from 'babili-webpack-plugin'
 
 import webpackBaseConfig from './webpack.config.base.babel'
 import config from '../config'
@@ -34,14 +36,17 @@ export default {
           babelrc: false,
           presets: [
             [
-              'es2015',
+              'env',
               {
+                targets: {
+                  node: "current"
+                },
                 modules: false,
-                loose: true,
+                loose: true
               },
             ],
+            'stage-1',
             'react',
-            'stage-0',
           ],
           plugins: [
             'lodash',
@@ -108,14 +113,8 @@ export default {
         BROWSER: JSON.stringify(false),
       },
     }),
-    new webpack.optimize.UglifyJsPlugin({
-      compressor: {
-        warnings: false,
-      },
-    }),
-    // new ExternalsPlugin({
-    //   type: 'commonjs',
-    //   include: path.join(process.cwd(), './node_modules/'),
-    // })
-  ]
+    new BabiliPlugin()
+  ],
+
+  externals: [nodeExternals()]
 }
