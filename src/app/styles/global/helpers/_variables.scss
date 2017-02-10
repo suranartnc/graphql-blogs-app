@@ -32,12 +32,11 @@ $grid-breakpoints: (
 
 // COLOR
 $brand-primary: 	#ed1c24 !default;
-$gray: 				#999999 !default;
+$gray: 				#999 !default;
 $gray-lighter: 		lighten($gray, 29.5%) !default;
 $gray-light: 		lighten($gray, 20%) !default;
 $gray-dark: 		darken($gray, 20%) !default;
 $gray-darker: 		darken($gray, 30%) !default;
-
 
 //** Background color for `<body>`.
 $body-bg:               #fff !default;
@@ -52,7 +51,6 @@ $link-color:            $brand-primary !default;
 //** Link hover color set via `darken()` function.
 $link-hover-color:      darken($link-color, 15%) !default;
 
-
 //== Typography
 //
 //## Font, line-height, and color for body text, headings, and more.
@@ -63,8 +61,8 @@ $font-size-root: 14px !default;
 
 $font-size-base: 1rem !default;
 $font-size-lg:   1.25rem !default;
-$font-size-sm:   .875rem !default;
-$font-size-xs:   .75rem !default;
+$font-size-sm:   0.875rem !default;
+$font-size-xs:   0.75rem !default;
 
 $line-height-base: 1.5 !default;
 
@@ -76,6 +74,6 @@ $abbr-border-color: $gray-light !default;
 $cursor-disabled:                not-allowed !default;
 
 $z-layers: (
-	'default': 1,
-	'header-fixed': 1000
+  'default': 1,
+  'header-fixed': 1000
 );

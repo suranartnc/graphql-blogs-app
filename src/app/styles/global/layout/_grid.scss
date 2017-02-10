@@ -2,13 +2,16 @@
 
 @if $enable-grid-classes {
   .container {
-      @include make-container();
+    @include make-container();
   }
+
   .row {
     @include make-row();
   }
+
   .col {
     @include grid-column();
   }
+
   @include createColumnClass();
 }
