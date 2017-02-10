@@ -2,7 +2,7 @@ import path from 'path'
 import fs from 'fs'
 import webpack from 'webpack'
 import nodeExternals from 'webpack-node-externals'
-import BabiliPlugin from 'babili-webpack-plugin'
+import UglifyJsPlugin from 'uglifyjs-webpack-plugin'
 
 import webpackBaseConfig from './webpack.config.base.babel'
 import config from '../config'
@@ -11,6 +11,9 @@ export default {
   ...webpackBaseConfig,
 
   name: 'SSR server',
+
+  devtool: 'source-map',
+
   entry: path.join(process.cwd(), '.noxt/server/ssr-server.js'),
   target: 'node',
 
@@ -113,7 +116,9 @@ export default {
         BROWSER: JSON.stringify(false),
       },
     }),
-    new BabiliPlugin()
+    new UglifyJsPlugin({
+      sourceMap: true
+    })
   ],
 
   externals: [nodeExternals()]

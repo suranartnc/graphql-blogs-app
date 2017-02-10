@@ -1,3 +1,9 @@
+if (process.env.NODE_ENV === 'production') {
+  require('source-map-support').install({
+    environment: 'node'
+  })
+}
+
 import path from 'path'
 import express from 'express'
 import cookieParser from 'cookie-parser'
