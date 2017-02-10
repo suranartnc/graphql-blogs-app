@@ -1,44 +1,46 @@
 // # Sass Mixins
 
 @mixin font-size ($sizeValue, $unit: 'rem') {
-    @if $unit == 'rem' {
-        @if not($enable-flex) {
-            font-size: $sizeValue + px;
-        }
-        font-size: ($sizeValue / strip-units($font-size-root))+rem;
-    } @else {
-        font-size: $sizeValue + em;
+  @if $unit == 'rem' {
+    @if not($enable-flex) {
+      font-size: $sizeValue + px;
     }
+
+    font-size: ($sizeValue / strip-units($font-size-root)) + rem;
+  }
+
+  @else {
+    font-size: $sizeValue + em;
+  }
 }
 
 @mixin font-face($fontName, $fileName, $path, $weight:normal, $style:normal) {
-    @font-face {
-        font-family: $fontName;
-        src: url($path+$fileName+'.eot');
-        src: url($path+$fileName+'.eot?') format('embedded-opentype'),
-             url($path+$fileName+'.woff') format('woff'),
-             url($path+$fileName+'.ttf') format('truetype'),
-             url($path+$fileName+'.svg#svgFontName') format('svg');
-        font-weight: $weight;
-        font-style: $style;
-    }
+  @font-face {
+    font-family: $fontName;
+    src: url($path+$fileName+'.eot');
+    src:
+      url($path+$fileName+'.eot?') format('embedded-opentype'),
+      url($path+$fileName+'.woff') format('woff'),
+      url($path+$fileName+'.ttf') format('truetype'),
+      url($path+$fileName+'.svg#svgFontName') format('svg');
+    font-weight: $weight;
+    font-style: $style;
+  }
 }
 
 // ===========================================================================================
 //   @ min-screen(width)                      // shortcut for @media screen and (min-width ...)
 //   @ max-screen(width)                      // shortcut for @media screen and (max-width ...)
 @mixin max-screen($res) {
-    @media screen and (max-width: $res)
-    {
-        @content;
-    }
+  @media screen and (max-width: $res) {
+    @content;
+  }
 }
 
-@mixin min-screen($res){
-    @media screen and (min-width: $res)
-    {
-        @content;
-    }
+@mixin min-screen($res) {
+  @media screen and (min-width: $res) {
+    @content;
+  }
 }
 
 // WebKit-style focus
@@ -51,79 +53,65 @@
   outline-offset: -2px;
 }
 
-
-// Utilities
-// -------------------------
-
 // Clearfix
 @mixin clearfix() {
-    &:before,
-    &:after {
-        content: " "; // 1
-        display: table; // 2
-    }
-    &:after {
-        clear: both;
-    }
+  &::before,
+  &::after {
+    content: " "; // 1
+    display: table; // 2
+  }
+
+  &::after {
+    clear: both;
+  }
 }
 
 // Image Replacement
 @mixin imageReplacement() {
-    text-indent: 100%;
-    white-space: nowrap;
-    overflow: hidden;
+  text-indent: 100%;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 @mixin visuallyhidden {
-    border: 0;
-    clip: rect(0 0 0 0);
-    overflow: hidden;
-    padding: 0;
-    position: absolute;
-    width: 1px; height: 1px;
+  border: 0;
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+  height: 1px;
 }
-
-
-@mixin font-sukhumvitbold {
-    font-family: sukhumvit;
-    font-weight: 700;
-}
-
-@mixin font-sukhumvitreg {
-    font-family: sukhumvit;
-    font-weight: 400;
-}
-
-
 
 // strip-units
 @function strip-units($number) {
   @return $number / ($number * 0 + 1);
 }
 
-
 // mixin for center position
-@mixin centre($axis: "both", $width:"", $height:""){
-    position:absolute;
+@mixin centre($axis: "both", $width:"", $height:"") {
+  position:absolute;
 
-    @if $axis == "y"{
-        top:50%;
-        height: $height;
-        margin-top: - $height / 2;
-    }
-    @if $axis == "x"{
-        left:50%;
-        width: $width;
-        margin-left: - $width / 2;
-    }
-    @if $axis == "both"{
-        left: 50%;
-        top: 50%;
-        height: $height;
-        width: $width;
-        margin-left: - $width / 2;
-        margin-top: - $height / 2;
-    }
+  @if $axis == "y" {
+    top: 50%;
+    height: $height;
+    margin-top: - $height / 2;
+  }
+
+  @if $axis == "x" {
+    left: 50%;
+    width: $width;
+    margin-left: - $width / 2;
+  }
+
+  @if $axis == "both" {
+    left: 50%;
+    top: 50%;
+    height: $height;
+    width: $width;
+    margin-left: - $width / 2;
+    margin-top: - $height / 2;
+  }
 }
 
 @mixin visuallyhidden { border: 0; clip: rect(0 0 0 0); overflow: hidden; padding: 0; position: absolute; width: 1px; height: 1px; }
@@ -131,12 +119,14 @@
 // Maintain Aspect Ratio Mixin
 @mixin aspect-ratio($width, $height) {
   position: relative;
-  &:before {
+
+  &::before {
     display: block;
     content: "";
     width: 100%;
     padding-top: ($height / $width) * 100%;
   }
+
   > .content {
     position: absolute;
     top: 0;
