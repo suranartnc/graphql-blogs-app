@@ -15,7 +15,6 @@
     "start-ssr-prod": "better-npm-run start-ssr-prod",
     "start-wds": "node ./.noxt/server/dev-server",
     "start-ssr-prod-bundle": "node ./server.bundle.js",
-
     "lint": "eslint --ext .js src"
   },
   "betterScripts": {
@@ -60,7 +59,6 @@
     "babel-preset-react-native": "^1.9.1",
     "babel-preset-react-optimize": "^1.0.1",
     "babel-preset-stage-0": "^6.16.0",
-    "babili-webpack-plugin": "^0.0.10",
     "better-npm-run": "0.0.13",
     "body-parser": "^1.15.2",
     "cookie-parser": "^1.4.3",
@@ -93,6 +91,8 @@
     "serve-favicon": "^2.3.2",
     "source-map-support": "^0.4.11",
     "style-loader": "^0.13.1",
+    "uglify-js": "git://github.com/mishoo/UglifyJS2#harmony",
+    "uglifyjs-webpack-plugin": "^0.1.4",
     "webpack": "^2.2.1",
     "webpack-dev-middleware": "^1.10.0",
     "webpack-hot-middleware": "^2.16.1",
@@ -107,8 +107,6 @@
     "eslint-plugin-promise": "^3.4.0",
     "eslint-plugin-react": "^6.8.0",
     "eslint-plugin-standard": "^2.0.1",
-    "react-hot-loader": "3.0.0-beta.6",
-    "uglify-js": "git://github.com/mishoo/UglifyJS2#harmony",
-    "uglifyjs-webpack-plugin": "^0.1.4"
+    "react-hot-loader": "3.0.0-beta.6"
   }
 }
