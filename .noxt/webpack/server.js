@@ -27,50 +27,6 @@ module.exports = function(env) {
       filename: 'server.bundle.js'
     },
 
-    module: {
-      loaders: [
-        {
-          test: /\.js$/,
-          exclude: /node_modules|\.git/,
-          loader: 'babel-loader',
-          options: getBabelOptions('production'),
-        },
-        {
-          test: /\.css$/,
-          use: [
-            'style-loader',
-            'css-loader',
-          ],
-        },
-        {
-          test: /\.scss$/,
-          use: [
-            'style-loader',
-            {
-              loader: 'css-loader',
-              options: {
-                module: true,
-                importLoaders: 1,
-                sourceMap: true,
-                localIdentName: '[name]__[local]___[hash:base64:5]',
-              },
-            },
-            {
-              loader: 'sass-loader',
-              options: {
-                sourceMap: true,
-                includePaths: [path.join(process.cwd(), 'src/app/styles')],
-              },
-            },
-          ],
-        },
-        {
-          test: /\.(jpg|png|gif)$/,
-          loader: 'file-loader',
-        },
-      ],
-    },
-
     plugins: [
       new webpack.DefinePlugin({
         'process.env': {

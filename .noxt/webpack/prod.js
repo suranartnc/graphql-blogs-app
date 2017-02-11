@@ -11,7 +11,7 @@ const commonConfig = require('./base');
 const getBabelOptions = require('./utils/getBabelOptions')
 
 module.exports = function(env) {
-  return {
+  return webpackMerge(commonConfig(), {
 
     entry: [
       path.join(process.cwd(), 'src/app/styles/global/app.scss'),
@@ -26,12 +26,6 @@ module.exports = function(env) {
 
     module: {
       loaders: [
-        {
-          test: /\.js$/,
-          exclude: /node_modules|\.git/,
-          loader: 'babel-loader',
-          options: getBabelOptions('production'),
-        },
         {
           test: /\.css$/,
           exclude: /node_modules/,
@@ -111,5 +105,5 @@ module.exports = function(env) {
       }),
       new ProgressBarPlugin(),
     ]
-  }
+  })
 }

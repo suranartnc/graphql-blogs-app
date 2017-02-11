@@ -11,6 +11,7 @@ module.exports = function(env) {
   return webpackMerge(commonConfig(), {
 
     cache: true,
+
     devtool: 'cheap-module-source-map',
 
     entry: [
@@ -24,49 +25,6 @@ module.exports = function(env) {
       publicPath: `http://${config.host}:${config.wdsPort}/build/`,
       filename: '[name].js',
       chunkFilename: '[name].chunk.js',
-    },
-
-    module: {
-      loaders: [
-        {
-          test: /\.js$/,
-          loader: 'babel-loader',
-          options: getBabelOptions('development')
-        },
-        {
-          test: /\.css$/,
-          use: [
-            'style-loader',
-            'css-loader',
-          ],
-        },
-        {
-          test: /\.scss$/,
-          use: [
-            'style-loader',
-            {
-              loader: 'css-loader',
-              options: {
-                module: true,
-                importLoaders: 1,
-                sourceMap: true,
-                localIdentName: '[name]__[local]___[hash:base64:5]',
-              },
-            },
-            {
-              loader: 'sass-loader',
-              options: {
-                sourceMap: true,
-                includePaths: [path.join(process.cwd(), 'src/app/styles')],
-              },
-            },
-          ],
-        },
-        {
-          test: /\.(jpg|png|gif)$/,
-          loader: 'file-loader',
-        },
-      ],
     },
 
     plugins: [
