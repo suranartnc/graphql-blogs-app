@@ -6,6 +6,7 @@ const nodeExternals = require('webpack-node-externals');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 const commonConfig = require('./base');
+const getBabelOptions = require('./utils/getBabelOptions')
 
 module.exports = function(env) {
   return webpackMerge(commonConfig(), {
@@ -32,42 +33,7 @@ module.exports = function(env) {
           test: /\.js$/,
           exclude: /node_modules|\.git/,
           loader: 'babel-loader',
-          options: {
-            babelrc: false,
-            presets: [
-              [
-                'env',
-                {
-                  targets: {
-                    node: "current"
-                  },
-                  modules: false,
-                  loose: true
-                },
-              ],
-              'stage-1',
-              'react',
-            ],
-            plugins: [
-              'lodash',
-              'transform-decorators-legacy',
-              'transform-react-constant-elements',
-              'transform-react-remove-prop-types',
-              'transform-react-pure-class-to-function',
-              ["module-resolver", {
-                "root": ["./src"],
-                "alias": {
-                  "noxt": "./.noxt/",
-                  "components": "./src/app/components",
-                  "hocs": "./src/app/hocs",
-                  "modules": "./src/app/modules",
-                  "pages": "./src/app/pages",
-                  "styles": "./src/app/styles",
-                  "utils": "./src/app/utils"
-                }
-              }]
-            ],
-          },
+          options: getBabelOptions('production'),
         },
         {
           test: /\.css$/,

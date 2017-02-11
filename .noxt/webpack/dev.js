@@ -5,6 +5,7 @@ const webpackMerge = require('webpack-merge');
 
 const config = require('../config');
 const commonConfig = require('./base');
+const getBabelOptions = require('./utils/getBabelOptions')
 
 module.exports = function(env) {
   return webpackMerge(commonConfig(), {
@@ -30,9 +31,7 @@ module.exports = function(env) {
         {
           test: /\.js$/,
           loader: 'babel-loader',
-          options: {
-            cacheDirectory: true,
-          },
+          options: getBabelOptions('development')
         },
         {
           test: /\.css$/,
