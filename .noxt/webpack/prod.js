@@ -19,7 +19,6 @@ module.exports = function(env) {
     ],
 
     output: {
-      publicPath: '/build/',
       filename: '[name]-[chunkhash].js',
       chunkFilename: '[name]-[chunkhash].chunk.js',
     },

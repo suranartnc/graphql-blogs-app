@@ -8,8 +8,8 @@
     "postinstall": "npm run build",
     "build": "npm run build-vendor && npm run build-client && npm run build-server",
     "build-vendor": "webpack --env=vendor -p --config ./.noxt/webpack/webpack.config.js",
-    "build-client": "webpack --env=prod --config ./.noxt/webpack/webpack.config.js",
-    "build-server": "webpack --env=server --config ./.noxt/webpack/webpack.config.js",
+    "build-client": "better-npm-run build-client",
+    "build-server": "better-npm-run build-server",
     "start": "node ./server.bundle.js",
     "start-ssr-dev": "better-npm-run start-ssr-dev",
     "start-ssr-prod": "better-npm-run start-ssr-prod",
@@ -28,6 +28,20 @@
       "command": "babel-node ./.noxt/server/ssr-server.js",
       "env": {
         "NODE_ENV": "production"
+      }
+    },
+    "build-server": {
+      "command": "webpack --env=server --config ./.noxt/webpack/webpack.config.js",
+      "env": {
+        "NODE_ENV": "production",
+        "BABEL_ENV": "production"
+      }
+    },
+    "build-client": {
+      "command": "webpack --env=prod --config ./.noxt/webpack/webpack.config.js",
+      "env": {
+        "NODE_ENV": "production",
+        "BABEL_ENV": "production"
       }
     }
   },

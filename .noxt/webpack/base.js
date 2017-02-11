@@ -6,6 +6,7 @@ module.exports = function() {
     name: 'browser',
 
     output: {
+      publicPath: '/build/',
       path: path.join(process.cwd(), 'static', 'build'),
     },
 
