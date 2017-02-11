@@ -9,7 +9,9 @@ import webpackHotMiddleware from 'webpack-hot-middleware'
 import cors from 'cors'
 
 import config from '../config'
-import webpackConfig from '../webpack/webpack.config.dev.babel.js'
+import webpackConfig from '../webpack/webpack.config.babel.js'
+
+const webpackDevConfig = webpackConfig('dev')
 
 const app = express()
 
@@ -21,7 +23,7 @@ app.use(favicon(path.join(process.cwd(), 'static/favicon.ico')))
 app.use(express.static(path.join(process.cwd(), 'static')))
 
 if (!config.isProduction) {
-  const compiler = webpack(webpackConfig)
+  const compiler = webpack(webpackDevConfig)
 
   // Webpack DashboardPlugin
   // const Dashboard = require('webpack-dashboard')
@@ -31,7 +33,7 @@ if (!config.isProduction) {
 
   app.use(webpackDevMiddleware(compiler, {
     noInfo: true,
-    publicPath: webpackConfig.output.publicPath
+    publicPath: webpackDevConfig.output.publicPath
   }))
   app.use(webpackHotMiddleware(compiler))
 }

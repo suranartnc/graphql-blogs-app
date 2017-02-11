@@ -9,8 +9,8 @@
     "dev-hmr": "better-npm-run dev-hmr",
     "postinstall": "npm run build-vendor && npm run build",
     "build": "npm-run-all --parallel build-client build-server",
-    "build-vendor": "webpack -p --config ./.noxt/webpack/vendor.webpack.config.babel.js",
-    "build-client": "webpack --config ./.noxt/webpack/webpack.config.prod.babel.js",
+    "build-vendor": "webpack --env=vendor -p --config ./.noxt/webpack/webpack.config.babel.js",
+    "build-client": "webpack --env=prod --config ./.noxt/webpack/webpack.config.babel.js",
     "build-server": "better-npm-run build-server",
     "start": "node ./server.bundle.js",
     "lint": "eslint --ext .js src"
@@ -29,7 +29,7 @@
       }
     },
     "build-server": {
-      "command": "webpack --config ./.noxt/webpack/webpack.config.server.babel.js",
+      "command": "webpack --env=server --config ./.noxt/webpack/webpack.config.babel.js",
       "env": {
         "NODE_ENV": "production"
       }
