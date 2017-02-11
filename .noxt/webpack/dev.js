@@ -3,7 +3,7 @@ import webpack from 'webpack'
 import webpackBaseConfig from './base'
 import config from '../config'
 
-export default function(env) {
+module.exports = function(env) {
   return {
     ...webpackBaseConfig,
 
@@ -26,7 +26,7 @@ export default function(env) {
 
     module: {
       ...webpackBaseConfig.module,
-      rules: [
+      loaders: [
         ...webpackBaseConfig.module.rules,
         {
           test: /\.js$/,

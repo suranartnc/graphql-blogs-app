@@ -1,21 +1,17 @@
-import path from 'path'
-import fs from 'fs'
-import webpack from 'webpack'
-import nodeExternals from 'webpack-node-externals'
-import UglifyJsPlugin from 'uglifyjs-webpack-plugin'
+const path = require('path');
+const webpack = require('webpack');
 
-import webpackBaseConfig from './base'
-import config from '../config'
+const webpackMerge = require('webpack-merge');
+const nodeExternals = require('webpack-node-externals');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
-export default function(env) {
-  return {
-    ...webpackBaseConfig,
+const commonConfig = require('./base');
 
-    name: 'SSR server',
+module.exports = function(env) {
+  return webpackMerge(commonConfig(), {
 
     devtool: 'source-map',
 
-    entry: path.join(process.cwd(), '.noxt/server/ssr-server.js'),
     target: 'node',
 
     node: {
@@ -23,15 +19,15 @@ export default function(env) {
       __dirname: true,
     },
 
+    entry: path.join(process.cwd(), '.noxt/server/ssr-server.js'),
+
     output: {
       publicPath: '/',
       filename: 'server.bundle.js'
     },
 
     module: {
-      ...webpackBaseConfig.module,
-      rules: [
-        ...webpackBaseConfig.module.rules,
+      loaders: [
         {
           test: /\.js$/,
           exclude: /node_modules|\.git/,
@@ -110,7 +106,6 @@ export default function(env) {
     },
 
     plugins: [
-      ...webpackBaseConfig.plugins,
       new webpack.DefinePlugin({
         'process.env': {
           NODE_ENV: JSON.stringify('production'),
@@ -123,5 +118,5 @@ export default function(env) {
     ],
 
     externals: [nodeExternals()]
-  }
+  })
 }

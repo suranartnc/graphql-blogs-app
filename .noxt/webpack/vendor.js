@@ -1,7 +1,7 @@
 import path from 'path'
 import webpack from 'webpack'
 
-export default function(env) {
+module.exports = function(env) {
   return {
     entry: {
       react: [

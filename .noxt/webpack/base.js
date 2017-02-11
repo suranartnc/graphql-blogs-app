@@ -1,31 +1,33 @@
 import path from 'path'
 
-export default {
-  name: 'browser',
+module.exports = function() {
+  return {
+    name: 'browser',
 
-  output: {
-    path: path.join(process.cwd(), 'static', 'build'),
-  },
+    output: {
+      path: path.join(process.cwd(), 'static', 'build'),
+    },
 
-  module: {
-    rules: [
-      {
-        test: /\.(eot|svg|ttf|woff|woff2)$/,
-        loader: 'file-loader',
-      },
-      {
-        test: /\.json$/,
-        loader: 'json-loader',
-      }
-    ],
-  },
+    module: {
+      loaders: [
+        {
+          test: /\.(eot|svg|ttf|woff|woff2)$/,
+          loader: 'file-loader',
+        },
+        {
+          test: /\.json$/,
+          loader: 'json-loader',
+        }
+      ],
+    },
 
-  resolve: {
-    extensions: [
-      '.json',
-      '.js',
-    ],
-  },
+    resolve: {
+      extensions: [
+        '.json',
+        '.js',
+      ],
+    },
 
-  plugins: [],
+    plugins: [],
+  }
 }

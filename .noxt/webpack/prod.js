@@ -6,7 +6,7 @@ import ProgressBarPlugin from 'progress-bar-webpack-plugin'
 import autoprefixer from 'autoprefixer'
 import webpackBaseConfig from './base'
 
-export default function(env) {
+module.exports = function(env) {
   return {
     ...webpackBaseConfig,
 
@@ -24,7 +24,7 @@ export default function(env) {
 
     module: {
       ...webpackBaseConfig.module,
-      rules: [
+      loaders: [
         ...webpackBaseConfig.module.rules,
         {
           test: /\.js$/,
