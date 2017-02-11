@@ -1,14 +1,16 @@
-import webpack from 'webpack'
-import path from 'path'
-import ExtractTextPlugin from 'extract-text-webpack-plugin'
-import AssetsPlugin from 'assets-webpack-plugin'
-import ProgressBarPlugin from 'progress-bar-webpack-plugin'
-import autoprefixer from 'autoprefixer'
-import webpackBaseConfig from './base'
+const path = require('path');
+const webpack = require('webpack');
+
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const AssetsPlugin = require('assets-webpack-plugin');
+const ProgressBarPlugin = require('progress-bar-webpack-plugin');
+const autoprefixer = require('autoprefixer');
+const webpackMerge = require('webpack-merge');
+
+const commonConfig = require('./base');
 
 module.exports = function(env) {
   return {
-    ...webpackBaseConfig,
 
     entry: [
       path.join(process.cwd(), 'src/app/styles/global/app.scss'),
@@ -16,16 +18,13 @@ module.exports = function(env) {
     ],
 
     output: {
-      ...webpackBaseConfig.output,
       publicPath: '/build/',
       filename: '[name]-[chunkhash].js',
       chunkFilename: '[name]-[chunkhash].chunk.js',
     },
 
     module: {
-      ...webpackBaseConfig.module,
       loaders: [
-        ...webpackBaseConfig.module.rules,
         {
           test: /\.js$/,
           exclude: /node_modules|\.git/,
@@ -108,7 +107,6 @@ module.exports = function(env) {
     },
 
     plugins: [
-      ...webpackBaseConfig.plugins,
       new webpack.DefinePlugin({
         'process.env': {
           NODE_ENV: JSON.stringify('production'),

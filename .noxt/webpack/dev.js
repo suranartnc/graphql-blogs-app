@@ -1,11 +1,13 @@
-import path from 'path'
-import webpack from 'webpack'
-import webpackBaseConfig from './base'
-import config from '../config'
+const path = require('path');
+const webpack = require('webpack');
+
+const webpackMerge = require('webpack-merge');
+
+const config = require('../config');
+const commonConfig = require('./base');
 
 module.exports = function(env) {
-  return {
-    ...webpackBaseConfig,
+  return webpackMerge(commonConfig(), {
 
     cache: true,
     devtool: 'cheap-module-source-map',
@@ -18,16 +20,13 @@ module.exports = function(env) {
     ],
 
     output: {
-      ...webpackBaseConfig.output,
       publicPath: `http://${config.host}:${config.wdsPort}/build/`,
       filename: '[name].js',
       chunkFilename: '[name].chunk.js',
     },
 
     module: {
-      ...webpackBaseConfig.module,
       loaders: [
-        ...webpackBaseConfig.module.rules,
         {
           test: /\.js$/,
           loader: 'babel-loader',
@@ -72,7 +71,6 @@ module.exports = function(env) {
     },
 
     plugins: [
-      ...webpackBaseConfig.plugins,
       new webpack.HotModuleReplacementPlugin(),
       new webpack.NoEmitOnErrorsPlugin(),
       new webpack.DefinePlugin({
@@ -90,5 +88,5 @@ module.exports = function(env) {
     performance: {
       hints: false
     }
-  }
+  })
 }
