@@ -1,47 +1,39 @@
-import path from 'path'
-import express from 'express'
-import favicon from 'serve-favicon'
+const path = require('path');
+const express = require('express');
 
-import webpack from 'webpack'
-import webpackDevMiddleware from 'webpack-dev-middleware'
-import webpackHotMiddleware from 'webpack-hot-middleware'
+const cors = require('cors');
 
-import cors from 'cors'
+const webpack = require('webpack');
+const webpackDevMiddleware = require('webpack-dev-middleware');
+const webpackHotMiddleware = require('webpack-hot-middleware');
 
-import config from '../config'
-import webpackConfig from '../webpack/webpack.config.babel.js'
+const webpackConfig = require('../webpack/webpack.config.js');
+const config = require('../config');
 
-const webpackDevConfig = webpackConfig('dev')
+const webpackDevConfig = webpackConfig('dev');
 
-const app = express()
+const app = express();
 
 if (!config.isProduction) {
   app.use(cors())
 }
 
-app.use(favicon(path.join(process.cwd(), 'static/favicon.ico')))
-app.use(express.static(path.join(process.cwd(), 'static')))
+app.use(express.static(path.join(process.cwd(), 'static')));
 
 if (!config.isProduction) {
-  const compiler = webpack(webpackDevConfig)
-
-  // Webpack DashboardPlugin
-  // const Dashboard = require('webpack-dashboard')
-  // const DashboardPlugin = require('webpack-dashboard/plugin')
-  // const dashboard = new Dashboard()
-  // compiler.apply(new DashboardPlugin(dashboard.setData))
+  const compiler = webpack(webpackDevConfig);
 
   app.use(webpackDevMiddleware(compiler, {
     noInfo: true,
     publicPath: webpackDevConfig.output.publicPath
-  }))
-  app.use(webpackHotMiddleware(compiler))
+  }));
+  app.use(webpackHotMiddleware(compiler));
 }
 
 app.listen(config.wdsPort, (err) => {
   if (err) {
-    console.log(err)
-    return
+    console.log(err);
+    return;
   }
-  console.log(`Webpack Dev Server listening on ${config.host}:${config.wdsPort}`)
+  console.log(`Webpack Dev Server listening on ${config.host}:${config.wdsPort}`);
 })

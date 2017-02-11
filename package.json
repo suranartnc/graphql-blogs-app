@@ -4,32 +4,29 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "npm-run-all --parallel dev-ssr dev-hmr",
-    "dev-ssr": "better-npm-run dev-ssr",
-    "dev-hmr": "better-npm-run dev-hmr",
-    "postinstall": "npm run build-vendor && npm run build",
-    "build": "npm-run-all --parallel build-client build-server",
-    "build-vendor": "webpack --env=vendor -p --config ./.noxt/webpack/webpack.config.babel.js",
-    "build-client": "webpack --env=prod --config ./.noxt/webpack/webpack.config.babel.js",
-    "build-server": "better-npm-run build-server",
+    "dev": "npm-run-all --parallel start-ssr-dev start-wds",
+    "postinstall": "npm run build",
+    "build": "npm run build-vendor && npm run build-client && npm run build-server",
+    "build-vendor": "webpack --env=vendor -p --config ./.noxt/webpack/webpack.config.js",
+    "build-client": "webpack --env=prod --config ./.noxt/webpack/webpack.config.js",
+    "build-server": "webpack --env=server --config ./.noxt/webpack/webpack.config.js",
     "start": "node ./server.bundle.js",
+    "start-ssr-dev": "better-npm-run start-ssr-dev",
+    "start-ssr-prod": "better-npm-run start-ssr-prod",
+    "start-wds": "node ./.noxt/server/dev-server",
+    "start-ssr-prod-bundle": "node ./server.bundle.js",
+
     "lint": "eslint --ext .js src"
   },
   "betterScripts": {
-    "dev-ssr": {
+    "start-ssr-dev": {
       "command": "nodemon ./.noxt/server/ssr-server.js --exec babel-node",
       "env": {
         "NODE_ENV": "development"
       }
     },
-    "dev-hmr": {
-      "command": "babel-node ./.noxt/server/dev-server",
-      "env": {
-        "NODE_ENV": "development"
-      }
-    },
-    "build-server": {
-      "command": "webpack --env=server --config ./.noxt/webpack/webpack.config.babel.js",
+    "start-ssr-prod": {
+      "command": "babel-node ./.noxt/server/ssr-server.js",
       "env": {
         "NODE_ENV": "production"
       }
