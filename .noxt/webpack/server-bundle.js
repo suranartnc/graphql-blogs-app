@@ -39,7 +39,7 @@ module.exports = function(env) {
             {
               loader: 'file-loader',
               query: {
-                name: '[path][name]-[hash:8].[ext]',
+                name: 'images/[name]-[hash:8].[ext]',
               }
             },
             {

@@ -34,7 +34,7 @@ module.exports = function(env) {
           exclude: /node_modules/,
           loader: 'file-loader',
           query: {
-            name: '[path][name].[ext]?[hash:8]',
+            name: 'images/[name].[ext]?[hash:8]',
           },
         }
       ]
