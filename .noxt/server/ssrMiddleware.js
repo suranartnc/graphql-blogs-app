@@ -19,7 +19,7 @@ const serverPath = `http://${config.host}:${config.port}/`
 
 let assetsManifest = null
 if (process.env.NODE_ENV === 'production') {
-  assetsManifest = require('../../static/assets.json')
+  assetsManifest = require('../../static/build/assets.json')
 }
 
 function renderPage (content, initialState = {}) {

@@ -115,7 +115,7 @@ module.exports = function(env) {
       }),
       new AssetsPlugin({
         filename: 'assets.json',
-        path: path.join(process.cwd(), 'static'),
+        path: path.join(process.cwd(), 'static', 'build'),
         prettyPrint: true,
       }),
       new ExtractTextPlugin({
