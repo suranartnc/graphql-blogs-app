@@ -14,7 +14,8 @@
         "modules": "./src/app/modules",
         "pages": "./src/app/pages",
         "styles": "./src/app/styles",
-        "utils": "./src/app/utils"
+        "utils": "./src/app/utils",
+        "static": "./static"
       }
     }]
   ],

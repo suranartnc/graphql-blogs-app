@@ -60,9 +60,27 @@ module.exports = function(env) {
         },
         {
           test: /\.(jpg|png|gif)$/,
+          exclude: /node_modules/,
           loaders: [
             'file-loader',
-            'image-webpack-loader?{progressive:true, optimizationLevel: 7, interlaced: false, pngquant:{quality: "65-90", speed: 4}}',
+            {
+              loader: 'image-webpack-loader',
+              query: {
+                mozjpeg: {
+                  progressive: true,
+                },
+                gifsicle: {
+                  interlaced: false,
+                },
+                optipng: {
+                  optimizationLevel: 4,
+                },
+                pngquant: {
+                  quality: '75-90',
+                  speed: 3,
+                },
+              },
+            }
           ],
         },
       ],
