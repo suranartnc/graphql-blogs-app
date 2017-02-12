@@ -16,8 +16,12 @@ module.exports = function(env) {
     target: 'node',
 
     node: {
-      __filename: true,
-      __dirname: true,
+      console: false,
+      global: false,
+      process: false,
+      Buffer: false,
+      __filename: false,
+      __dirname: false,
     },
 
     entry: path.join(process.cwd(), '.noxt/server/ssr-server.js'),
@@ -36,7 +40,8 @@ module.exports = function(env) {
       }),
       new UglifyJsPlugin({
         sourceMap: true
-      })
+      }),
+      new webpack.optimize.LimitChunkCountPlugin({ maxChunks: 1 }),
     ],
 
     externals: [nodeExternals()]
