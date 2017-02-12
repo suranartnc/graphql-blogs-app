@@ -48,10 +48,6 @@ module.exports = function() {
           ],
         },
         {
-          test: /\.(jpg|png|gif)$/,
-          loader: 'file-loader',
-        },
-        {
           test: /\.(eot|svg|ttf|woff|woff2)$/,
           loader: 'file-loader',
         },

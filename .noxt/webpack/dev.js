@@ -27,6 +27,16 @@ module.exports = function(env) {
       chunkFilename: '[name].chunk.js',
     },
 
+    module: {
+      loaders: [
+        {
+          test: /\.(jpe?g|png|gif|svg)$/i,
+          exclude: /node_modules/,
+          loader: 'file-loader'
+        }
+      ]
+    },
+
     plugins: [
       new webpack.HotModuleReplacementPlugin(),
       new webpack.NamedModulesPlugin(),

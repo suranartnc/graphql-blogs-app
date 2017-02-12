@@ -59,7 +59,7 @@ module.exports = function(env) {
           }),
         },
         {
-          test: /\.(jpg|png|gif)$/,
+          test: /\.(jpe?g|png|gif|svg)$/i,
           exclude: /node_modules/,
           loaders: [
             'file-loader',
