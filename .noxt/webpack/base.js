@@ -3,7 +3,6 @@ const getBabelOptions = require('./utils/getBabelOptions')
 
 module.exports = function() {
   return {
-    name: 'browser',
 
     output: {
       publicPath: '/build/',

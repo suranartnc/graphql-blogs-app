@@ -20,6 +20,27 @@
     }]
   ],
   "env": {
+    "server": {
+      "presets": [
+        [
+          "env",
+          {
+            "targets": {
+              "node": "current"
+            }
+          }
+        ]
+      ],
+      "plugins": [
+        [
+          "babel-plugin-webpack-loaders",
+          {
+            "config": "./.noxt/webpack/server-runtime.js",
+            "verbose": false
+          }
+        ]
+      ]
+    },
     "development": {
       "presets": [
         [
