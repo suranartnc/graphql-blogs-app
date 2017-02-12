@@ -10,11 +10,11 @@
     "build-vendor": "webpack --env=vendor -p --config ./.noxt/webpack/webpack.config.js",
     "build-client": "better-npm-run build-client",
     "build-server": "better-npm-run build-server",
-    "start": "node ./static/build/server.bundle.js",
+    "start": "node ./server.bundle.js",
     "start-ssr-dev": "better-npm-run start-ssr-dev",
     "start-ssr-prod": "better-npm-run start-ssr-prod",
     "start-wds": "node ./.noxt/server/dev-server",
-    "start-ssr-prod-bundle": "node ./static/build/server.bundle.js",
+    "start-ssr-prod-bundle": "node ./server.bundle.js",
     "lint": "eslint --ext .js src"
   },
   "betterScripts": {

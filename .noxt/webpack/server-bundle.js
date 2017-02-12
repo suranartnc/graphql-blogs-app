@@ -27,7 +27,7 @@ module.exports = function(env) {
     entry: path.join(process.cwd(), '.noxt/server/ssr-server.js'),
 
     output: {
-      filename: 'server.bundle.js'
+      filename: '../../server.bundle.js'
     },
 
     module: {
