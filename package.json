@@ -10,11 +10,11 @@
     "build-vendor": "webpack --env=vendor -p --config ./.noxt/webpack/webpack.config.js",
     "build-client": "better-npm-run build-client",
     "build-server": "better-npm-run build-server",
-    "start": "node ./server.bundle.js",
+    "start": "node ./static/build/server.bundle.js",
     "start-ssr-dev": "better-npm-run start-ssr-dev",
     "start-ssr-prod": "better-npm-run start-ssr-prod",
     "start-wds": "node ./.noxt/server/dev-server",
-    "start-ssr-prod-bundle": "node ./server.bundle.js",
+    "start-ssr-prod-bundle": "node ./static/build/server.bundle.js",
     "lint": "eslint --ext .js src"
   },
   "betterScripts": {
@@ -22,7 +22,7 @@
       "command": "nodemon ./.noxt/server/ssr-server.js --exec babel-node",
       "env": {
         "NODE_ENV": "development",
-        "BABEL_ENV": "server",
+        "BABEL_ENV": "server-runtime",
         "BABEL_DISABLE_CACHE": 1
       }
     },
@@ -30,12 +30,12 @@
       "command": "babel-node ./.noxt/server/ssr-server.js",
       "env": {
         "NODE_ENV": "production",
-        "BABEL_ENV": "server",
+        "BABEL_ENV": "server-runtime",
         "BABEL_DISABLE_CACHE": 1
       }
     },
     "build-server": {
-      "command": "webpack --env=server --config ./.noxt/webpack/webpack.config.js",
+      "command": "webpack --env=server-bundle --config ./.noxt/webpack/webpack.config.js",
       "env": {
         "NODE_ENV": "production",
         "BABEL_ENV": "production"

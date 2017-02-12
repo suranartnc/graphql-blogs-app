@@ -20,7 +20,7 @@
     }]
   ],
   "env": {
-    "server": {
+    "server-runtime": {
       "presets": [
         [
           "env",

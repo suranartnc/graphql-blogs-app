@@ -65,7 +65,7 @@ module.exports = function(env) {
             {
               loader: 'file-loader',
               query: {
-                name: env === 'dev' ? '[path][name].[ext]?[hash:8]' : '[hash:8].[ext]',
+                name: '[path][name]-[hash:8].[ext]',
               }
             },
             {

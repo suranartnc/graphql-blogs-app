@@ -27,8 +27,42 @@ module.exports = function(env) {
     entry: path.join(process.cwd(), '.noxt/server/ssr-server.js'),
 
     output: {
-      path: path.join(process.cwd()),
       filename: 'server.bundle.js'
+    },
+
+    module: {
+      loaders: [
+        {
+          test: /\.(jpe?g|png|gif|svg)$/i,
+          exclude: /node_modules/,
+          loaders: [
+            {
+              loader: 'file-loader',
+              query: {
+                name: '[path][name]-[hash:8].[ext]',
+              }
+            },
+            {
+              loader: 'image-webpack-loader',
+              query: {
+                mozjpeg: {
+                  progressive: true,
+                },
+                gifsicle: {
+                  interlaced: false,
+                },
+                optipng: {
+                  optimizationLevel: 4,
+                },
+                pngquant: {
+                  quality: '75-90',
+                  speed: 3,
+                },
+              },
+            }
+          ],
+        }
+      ]
     },
 
     plugins: [
