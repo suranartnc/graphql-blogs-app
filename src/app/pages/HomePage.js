@@ -7,6 +7,8 @@ import update from 'immutability-helper'
 
 import { GET_POSTS } from 'app/modules/post/graphql/postQueries'
 
+import logo from 'static/images/react.png'
+
 class HomePage extends Component {
 
   renderPosts () {
@@ -37,6 +39,7 @@ class HomePage extends Component {
             }
           ]}
         />
+        <img src={logo} width="200" />
         {this.renderPosts()}
         <button onClick={this.onNextPageClicked}>Next page</button>
       </div>

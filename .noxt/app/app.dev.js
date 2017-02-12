@@ -4,19 +4,20 @@ import { AppContainer } from 'react-hot-loader'
 
 import Root from './Root'
 
-const mountNode = document.getElementById('root')
+function renderWithHMR (Component) {
+  return render(
+    <AppContainer>
+      <Component />
+    </AppContainer>,
+    document.getElementById('root')
+  )
+}
 
-render(<AppContainer><Root /></AppContainer>, mountNode)
+renderWithHMR(Root)
 
 if (module.hot) {
   module.hot.accept('./Root', () => {
     const NextRootApp = require('./Root').default
-
-    render(
-      <AppContainer>
-        <NextRootApp />
-      </AppContainer>,
-      mountNode
-    )
+    renderWithHMR(NextRootApp)
   })
 }

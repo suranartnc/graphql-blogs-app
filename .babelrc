@@ -1,8 +1,7 @@
 {
   "presets": [
-    "es2015",
-    "react",
-    "stage-0"
+    "stage-1",
+    "react"
   ],
   "plugins": [
     "transform-decorators-legacy",
@@ -15,8 +14,64 @@
         "modules": "./src/app/modules",
         "pages": "./src/app/pages",
         "styles": "./src/app/styles",
-        "utils": "./src/app/utils"
+        "utils": "./src/app/utils",
+        "static": "./static"
       }
     }]
-  ]
+  ],
+  "env": {
+    "server-runtime": {
+      "presets": [
+        [
+          "env",
+          {
+            "targets": {
+              "node": "current"
+            }
+          }
+        ]
+      ],
+      "plugins": [
+        [
+          "babel-plugin-webpack-loaders",
+          {
+            "config": "./.noxt/webpack/server-runtime.js",
+            "verbose": false
+          }
+        ]
+      ]
+    },
+    "development": {
+      "presets": [
+        [
+          "env",
+          {
+            "targets": {
+              "node": "current"
+            }
+          }
+        ]
+      ]
+    },
+    "production": {
+      "presets": [
+        [
+          "env",
+          {
+            "targets": {
+              "node": "current"
+            },
+            "modules": false,
+            "loose": true
+          }
+        ]
+      ],
+      "plugins": [
+        "lodash",
+        "transform-react-constant-elements",
+        "transform-react-remove-prop-types",
+        "transform-react-pure-class-to-function"
+      ]
+    }
+  }
 }
