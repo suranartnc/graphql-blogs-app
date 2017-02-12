@@ -65,7 +65,7 @@ module.exports = function(env) {
             {
               loader: 'file-loader',
               query: {
-                name: 'images/[name]-[hash:8].[ext]',
+                name: 'images/min/[name]-[hash:8].[ext]',
               }
             },
             {

@@ -3,6 +3,8 @@ import Helmet from 'react-helmet'
 import { renderToString, renderToStaticMarkup } from 'react-dom/server'
 import { RouterContext, match } from 'react-router'
 import 'isomorphic-fetch'
+import tryRequire from 'try-require'
+
 import getRoutes from '../app/routes'
 import config from 'noxt/config'
 
@@ -19,7 +21,7 @@ const serverPath = `http://${config.host}:${config.port}/`
 
 let assetsManifest = null
 if (process.env.NODE_ENV === 'production') {
-  assetsManifest = require('../../static/build/assets.json')
+  assetsManifest = tryRequire('../../static/build/assets.json')
 }
 
 function renderPage (content, initialState = {}) {
