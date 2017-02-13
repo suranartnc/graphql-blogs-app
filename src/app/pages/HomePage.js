@@ -8,6 +8,7 @@ import update from 'immutability-helper'
 import { GET_POSTS } from 'app/modules/post/graphql/postQueries'
 
 import logo from 'static/images/react.png'
+import '../styles/pages/Homepage.scss'
 
 class HomePage extends Component {
 
@@ -18,7 +19,7 @@ class HomePage extends Component {
     }
     return posts.map(post => (
       <article key={post._id}>
-        <h2><Link to={`/post/${post._id}`}>{post.title}</Link></h2>
+        <h2 styleName="title"><Link to={`/post/${post._id}`}>{post.title}</Link></h2>
       </article>
     ))
   }
