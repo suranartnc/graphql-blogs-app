@@ -4,9 +4,13 @@ const webpack = require('webpack');
 const webpackMerge = require('webpack-merge');
 const nodeExternals = require('webpack-node-externals');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const autoprefixer = require('autoprefixer');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const commonConfig = require('./base');
 const getBabelOptions = require('./utils/getBabelOptions')
+const getCSSOptions = require('./utils/getCSSOptions')
+const getImagesOptions = require('./utils/getImagesOptions')
 
 module.exports = function(env) {
   return webpackMerge(commonConfig(), {
@@ -24,45 +28,17 @@ module.exports = function(env) {
       __dirname: false,
     },
 
-    entry: path.join(process.cwd(), '.noxt/server/ssr-server.js'),
+    entry: [
+      path.join(process.cwd(), 'src/app/styles/global/app.scss'),
+      path.join(process.cwd(), '.noxt/server/ssr-server.js'),
+    ],
 
     output: {
       filename: '../../server.bundle.js'
     },
 
     module: {
-      loaders: [
-        {
-          test: /\.(jpe?g|png|gif|svg)$/i,
-          exclude: /node_modules/,
-          loaders: [
-            {
-              loader: 'file-loader',
-              query: {
-                name: 'images/min/[name]-[hash:8].[ext]',
-              }
-            },
-            {
-              loader: 'image-webpack-loader',
-              query: {
-                mozjpeg: {
-                  progressive: true,
-                },
-                gifsicle: {
-                  interlaced: false,
-                },
-                optipng: {
-                  optimizationLevel: 4,
-                },
-                pngquant: {
-                  quality: '75-90',
-                  speed: 3,
-                },
-              },
-            }
-          ],
-        }
-      ]
+      loaders: getBabelOptions('production').concat(getImagesOptions('production')).concat(getCSSOptions('production'))
     },
 
     plugins: [
@@ -76,6 +52,19 @@ module.exports = function(env) {
         sourceMap: true
       }),
       new webpack.optimize.LimitChunkCountPlugin({ maxChunks: 1 }),
+      new webpack.LoaderOptionsPlugin({
+        test: /\.scss$/,
+        options: {
+          context: process.cwd(),
+          postcss: [
+            autoprefixer({ browsers: ['last 2 versions', 'IE >= 10'] }),
+          ],
+        },
+      }),
+      new ExtractTextPlugin({
+        filename: '[name]-[contenthash].css',
+        allChunks: true,
+      })
     ],
 
     externals: [nodeExternals()]

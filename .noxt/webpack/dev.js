@@ -6,6 +6,8 @@ const webpackMerge = require('webpack-merge');
 const config = require('../config');
 const commonConfig = require('./base');
 const getBabelOptions = require('./utils/getBabelOptions')
+const getCSSOptions = require('./utils/getCSSOptions')
+const getImagesOptions = require('./utils/getImagesOptions')
 
 module.exports = function(env) {
   return webpackMerge(commonConfig(), {
@@ -28,16 +30,7 @@ module.exports = function(env) {
     },
 
     module: {
-      loaders: [
-        {
-          test: /\.(jpe?g|png|gif|svg)$/i,
-          exclude: /node_modules/,
-          loader: 'file-loader',
-          query: {
-            name: 'images/[name].[ext]?[hash:8]',
-          },
-        }
-      ]
+      loaders: getBabelOptions('development').concat(getImagesOptions('development')).concat(getCSSOptions('development'))
     },
 
     plugins: [

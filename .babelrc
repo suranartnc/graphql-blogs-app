@@ -1,6 +1,5 @@
 {
   "presets": [
-    "stage-1",
     "react"
   ],
   "plugins": [
@@ -18,6 +17,7 @@
         "static": "./static"
       }
     }]
+
   ],
   "env": {
     "server-runtime": {
@@ -29,7 +29,8 @@
               "node": "current"
             }
           }
-        ]
+        ],
+        "stage-1"
       ],
       "plugins": [
         [
@@ -50,10 +51,32 @@
               "node": "current"
             }
           }
-        ]
+        ],
+        "stage-1"
       ]
     },
     "production": {
+      "presets": [
+        [
+          "env",
+          {
+            "targets": {
+              "browsers": ["last 2 versions", "IE >= 10"]
+            },
+            "modules": false,
+            "loose": true
+          }
+        ],
+        "stage-1"
+      ],
+      "plugins": [
+        "lodash",
+        "transform-react-constant-elements",
+        "transform-react-remove-prop-types",
+        "transform-react-pure-class-to-function"
+      ]
+    },
+    "server-bundle": {
       "presets": [
         [
           "env",
@@ -64,7 +87,8 @@
             "modules": false,
             "loose": true
           }
-        ]
+        ],
+        "stage-1"
       ],
       "plugins": [
         "lodash",
