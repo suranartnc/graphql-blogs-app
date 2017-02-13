@@ -16,7 +16,7 @@
     "start-ssr-prod-bundle": "node ./server.bundle.js",
     "lint": "eslint --ext .js src",
     "stylelint": "stylelint ./src/app/styles/**/*.scss --syntax scss",
-    "storybook": "start-storybook -p 6006",
+    "storybook": "start-storybook -p 9002 -c .storybook",
     "build-storybook": "build-storybook"
   },
   "betterScripts": {

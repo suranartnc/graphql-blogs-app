@@ -1,17 +1,9 @@
-import React from 'react';
-import { storiesOf, action, linkTo } from '@kadira/storybook';
-import Button from './Button';
-import Welcome from './Welcome';
+import React from 'react'
+import { storiesOf } from '@kadira/storybook'
 
-storiesOf('Welcome', module)
+import Styleguide from 'components/Styleguide'
+
+storiesOf('Styleguide', module)
   .add('to Storybook', () => (
-    <Welcome showApp={linkTo('Button')}/>
-  ));
-
-storiesOf('Button', module)
-  .add('with text', () => (
-    <Button onClick={action('clicked')}>Hello Button</Button>
+    <Styleguide />
   ))
-  .add('with some emoji', () => (
-    <Button onClick={action('clicked')}>😀 😎 👍 💯</Button>
-  ));
