@@ -8,7 +8,7 @@ import update from 'immutability-helper'
 import { GET_POSTS } from 'app/modules/post/graphql/postQueries'
 
 import logo from 'static/images/react.png'
-import styles from '../styles/pages/Homepage.scss'
+import styles from 'styles/pages/Homepage.scss'
 
 class HomePage extends Component {
 

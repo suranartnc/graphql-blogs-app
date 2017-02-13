@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import Helmet from 'react-helmet'
 
-import styles from '../styles/pages/About.scss'
+import styles from 'styles/pages/About.scss'
 
 class AboutPage extends Component {
   render () {
