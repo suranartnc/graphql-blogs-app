@@ -1,7 +1,5 @@
 :global {
-  @import "helpers/variables";
-  @import "helpers/functions";
-  @import "helpers/mixins";
+  @import "shared-helpers";
   @import "base/normalize";
   @import "base/base";
   @import "base/typography";
