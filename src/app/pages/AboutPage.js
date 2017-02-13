@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import Helmet from 'react-helmet'
 
-import '../styles/pages/About.scss'
+import styles from '../styles/pages/About.scss'
 
 class AboutPage extends Component {
   render () {
@@ -16,7 +16,7 @@ class AboutPage extends Component {
             }
           ]}
         />
-        <p styleName="red">About page</p>
+        <p className={styles.red}>About page</p>
       </div>
     )
   }

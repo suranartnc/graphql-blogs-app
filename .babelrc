@@ -5,16 +5,6 @@
   ],
   "plugins": [
     "transform-decorators-legacy",
-    [
-      "react-css-modules",
-      {
-        "generateScopedName": "[name]__[local]___[hash:base64:5]",
-        "filetypes": {
-          ".scss" : "postcss-scss"
-        },
-        "webpackHotModuleReloading": true
-      }
-    ],
     ["module-resolver", {
       "root": ["./src"],
       "alias": {
