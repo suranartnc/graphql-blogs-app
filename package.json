@@ -37,7 +37,7 @@
       "command": "webpack --env=server-bundle --config ./.noxt/webpack/webpack.config.js",
       "env": {
         "NODE_ENV": "production",
-        "BABEL_ENV": "production"
+        "BABEL_ENV": "server-bundle"
       }
     },
     "build-client": {

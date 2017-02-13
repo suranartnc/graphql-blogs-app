@@ -57,7 +57,7 @@ module.exports = function(env) {
         options: {
           context: process.cwd(),
           postcss: [
-            autoprefixer({ browsers: ['last 2 versions', 'IE > 10'] }),
+            autoprefixer({ browsers: ['last 2 versions', 'IE >= 10'] }),
           ],
         },
       }),
