@@ -9,6 +9,8 @@ const webpackMerge = require('webpack-merge');
 
 const commonConfig = require('./base');
 const getBabelOptions = require('./utils/getBabelOptions')
+const getCSSOptions = require('./utils/getCSSOptions')
+const getImagesOptions = require('./utils/getImagesOptions')
 
 module.exports = function(env) {
   return webpackMerge(commonConfig(), {
@@ -24,71 +26,7 @@ module.exports = function(env) {
     },
 
     module: {
-      loaders: [
-        {
-          test: /\.css$/,
-          exclude: /node_modules/,
-          loader: ExtractTextPlugin.extract({
-            fallbackLoader: 'style-loader',
-            loader: 'css-loader',
-          }),
-        },
-        {
-          test: /\.scss$/,
-          exclude: /node_modules/,
-          loader: ExtractTextPlugin.extract({
-            fallbackLoader: 'style-loader',
-            loader: [
-              {
-                loader: 'css-loader',
-                query: {
-                  modules: true,
-                  importLoaders: 2,
-                  localIdentName: '[name]__[local]___[hash:base64:5]',
-                  minimize: true,
-                },
-              },
-              'postcss-loader',
-              {
-                loader: 'sass-loader',
-                query: {
-                  includePaths: [path.join(process.cwd(), 'src/app/styles')],
-                },
-              },
-            ],
-          }),
-        },
-        {
-          test: /\.(jpe?g|png|gif|svg)$/i,
-          exclude: /node_modules/,
-          loaders: [
-            {
-              loader: 'file-loader',
-              query: {
-                name: 'images/min/[name]-[hash:8].[ext]',
-              }
-            },
-            {
-              loader: 'image-webpack-loader',
-              query: {
-                mozjpeg: {
-                  progressive: true,
-                },
-                gifsicle: {
-                  interlaced: false,
-                },
-                optipng: {
-                  optimizationLevel: 4,
-                },
-                pngquant: {
-                  quality: '75-90',
-                  speed: 3,
-                },
-              },
-            }
-          ],
-        },
-      ],
+      loaders: getBabelOptions('production').concat(getImagesOptions('production')).concat(getCSSOptions('production'))
     },
 
     plugins: [
