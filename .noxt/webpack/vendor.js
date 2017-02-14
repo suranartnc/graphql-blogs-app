@@ -8,7 +8,6 @@ module.exports = function(env) {
         'es6-promise',
         'isomorphic-fetch',
         'react',
-        'react-css-modules',
         'react-dom',
         'react-helmet',
         'react-redux',
@@ -19,7 +18,8 @@ module.exports = function(env) {
         'apollo-client',
         'graphql-tag',
         'immutability-helper',
-        'react-apollo'
+        'react-apollo',
+        'try-require'
       ],
     },
 
