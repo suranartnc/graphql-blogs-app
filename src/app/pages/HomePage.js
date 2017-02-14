@@ -34,10 +34,10 @@ function PostList ({ data: { loading, posts } = { posts: [] } }) {
 PostList.propTypes = {
   data: PropTypes.shape({
     loading: PropTypes.bool.isRequired,
-    posts: PropTypes.shape({
+    posts: PropTypes.arrayOf(PropTypes.shape({
       _id: PropTypes.string.isRequired,
       title: PropTypes.string.isRequired
-    })
+    }))
   })
 }
 
