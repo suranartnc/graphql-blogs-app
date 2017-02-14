@@ -1,5 +1,9 @@
 .container {
-  display: flex;
-  font-weight: bold;
-  color: red;
+  color: #222;
+  text-transform: uppercase;
+
+  img {
+    width: 300px;
+  }
 }
+
