@@ -2,7 +2,7 @@ import React, {Component, PropTypes} from 'react'
 
 import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
-import update from 'immutability-helper'
+// import update from 'immutability-helper'
 
 class WritePage extends Component {
 
@@ -91,7 +91,7 @@ export default graphql(addPost, {
       // updateQueries map the name of a query to a function that receives the previous result
       //   that this query received and the result returned by the mutation
 
-      // Note that the function must not alter the prev object (use mmutable data)
+      // Note that the function must not alter the prev object (use immutable data)
 
       // Once the mutation fires and the result arrives from the server (or, a result is provided through optimistic UI),
       // our updateQueries function for the Comment query will be called and the Comment query will be updated accordingly
