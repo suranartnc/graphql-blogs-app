@@ -4,12 +4,12 @@ import useScroll from 'react-router-scroll/lib/useScroll'
 import { syncHistoryWithStore } from 'react-router-redux'
 
 import { Provider } from 'react-redux'
-import getRoutes from 'noxt/app/routes'
-import createStore from 'noxt/app/redux/createStore'
+import getRoutes from 'core/app/routes'
+import createStore from 'core/app/redux/createStore'
 
 import { ApolloProvider } from 'react-apollo'
-import createApolloClient from 'noxt/app/apollo/createApolloClient'
-import { getNetworkInterface, authorizationMiddleware } from 'noxt/app/apollo/transport'
+import createApolloClient from 'core/app/apollo/createApolloClient'
+import { getNetworkInterface, authorizationMiddleware } from 'core/app/apollo/transport'
 
 const networkInterface = getNetworkInterface('/graphql', {})
 networkInterface.use(authorizationMiddleware)

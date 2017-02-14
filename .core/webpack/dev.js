@@ -20,7 +20,7 @@ module.exports = function(env) {
       'react-hot-loader/patch',
       `webpack-hot-middleware/client?path=http://${config.host}:${config.wdsPort}/__webpack_hmr`,
       path.join(process.cwd(), 'src/app/styles/global/app.scss'),
-      path.join(process.cwd(), '.noxt/app/app.dev.js'),
+      path.join(process.cwd(), '.core/app/app.dev.js'),
     ],
 
     output: {

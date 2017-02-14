@@ -1,5 +1,5 @@
 import { createBatchingNetworkInterface } from 'apollo-client'
-import config from 'noxt/config'
+import config from 'core/config'
 
 export function getNetworkInterface (uri = '/graphql', headers = {}) {
 
