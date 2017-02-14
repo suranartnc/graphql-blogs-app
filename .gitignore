@@ -3,12 +3,9 @@
 
 logs
 *.log
-npm-debug.log*
+*.map
 
 node_modules
 
 static/build
-static/assets.json
-
 server.bundle.js
-*.map
