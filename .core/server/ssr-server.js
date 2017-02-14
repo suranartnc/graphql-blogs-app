@@ -11,8 +11,8 @@ import bodyParser from 'body-parser'
 import favicon from 'serve-favicon'
 import proxy from 'http-proxy-middleware'
 
-import ssrMiddleware from 'noxt/server/ssrMiddleware'
-import config from 'noxt/config'
+import ssrMiddleware from 'core/server/ssrMiddleware'
+import config from 'core/config'
 
 const app = express()
 

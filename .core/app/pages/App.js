@@ -4,7 +4,7 @@ import Helmet from 'react-helmet'
 function App (props) {
   return (
     <div>
-      <Helmet title="Noxt.js" />
+      <Helmet title="core.js" />
       { props.children }
     </div>
   )

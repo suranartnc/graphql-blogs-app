@@ -6,19 +6,19 @@
   "scripts": {
     "dev": "npm-run-all --parallel start-ssr-dev start-wds",
     "build": "npm run build-vendor && npm run build-client && npm run build-server",
-    "build-vendor": "webpack --env=vendor -p --config ./.noxt/webpack/webpack.config.js",
+    "build-vendor": "webpack --env=vendor -p --config ./.core/webpack/webpack.config.js",
     "build-client": "better-npm-run build-client",
     "build-server": "better-npm-run build-server",
     "start": "node ./server.bundle.js",
     "start-ssr-dev": "better-npm-run start-ssr-dev",
     "start-ssr-prod": "better-npm-run start-ssr-prod",
-    "start-wds": "node ./.noxt/server/dev-server",
+    "start-wds": "node ./.core/server/dev-server",
     "start-ssr-prod-bundle": "node ./server.bundle.js",
     "lint": "eslint --ext .js src"
   },
   "betterScripts": {
     "start-ssr-dev": {
-      "command": "nodemon ./.noxt/server/ssr-server.js --exec babel-node",
+      "command": "nodemon ./.core/server/ssr-server.js --exec babel-node",
       "env": {
         "NODE_ENV": "development",
         "BABEL_ENV": "server-runtime",
@@ -26,7 +26,7 @@
       }
     },
     "start-ssr-prod": {
-      "command": "babel-node ./.noxt/server/ssr-server.js",
+      "command": "babel-node ./.core/server/ssr-server.js",
       "env": {
         "NODE_ENV": "production",
         "BABEL_ENV": "server-runtime",
@@ -34,14 +34,14 @@
       }
     },
     "build-server": {
-      "command": "webpack --env=server-bundle --config ./.noxt/webpack/webpack.config.js",
+      "command": "webpack --env=server-bundle --config ./.core/webpack/webpack.config.js",
       "env": {
         "NODE_ENV": "production",
         "BABEL_ENV": "server-bundle"
       }
     },
     "build-client": {
-      "command": "webpack --env=prod --config ./.noxt/webpack/webpack.config.js",
+      "command": "webpack --env=prod --config ./.core/webpack/webpack.config.js",
       "env": {
         "NODE_ENV": "production",
         "BABEL_ENV": "production"

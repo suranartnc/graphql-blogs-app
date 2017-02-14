@@ -8,7 +8,7 @@ import AboutPage from 'app/pages/AboutPage'
 import WritePage from 'app/pages/WritePage'
 import EntryPage from 'app/pages/EntryPage'
 
-import ErrorPage from 'noxt/app/pages/ErrorPage'
+import ErrorPage from 'core/app/pages/ErrorPage'
 
 export default function getRoutes () {
   return (

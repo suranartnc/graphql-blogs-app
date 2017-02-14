@@ -30,7 +30,7 @@ module.exports = function(env) {
 
     entry: [
       path.join(process.cwd(), 'src/app/styles/global/app.scss'),
-      path.join(process.cwd(), '.noxt/server/ssr-server.js'),
+      path.join(process.cwd(), '.core/server/ssr-server.js'),
     ],
 
     output: {

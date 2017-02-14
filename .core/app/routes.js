@@ -1,9 +1,9 @@
 import React from 'react'
 import { Route, IndexRoute } from 'react-router'
 
-import App from 'noxt/app/pages/App'
-import Homepage from 'noxt/app/pages/Homepage'
-import ErrorPage from 'noxt/app/pages/ErrorPage'
+import App from 'core/app/pages/App'
+import Homepage from 'core/app/pages/Homepage'
+import ErrorPage from 'core/app/pages/ErrorPage'
 
 import getCustomRoutes from 'app/routes'
 

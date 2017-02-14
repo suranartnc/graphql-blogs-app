@@ -6,15 +6,15 @@ import 'isomorphic-fetch'
 import tryRequire from 'try-require'
 
 import getRoutes from '../app/routes'
-import config from 'noxt/config'
+import config from 'core/config'
 
 import { ApolloProvider, renderToStringWithData  } from 'react-apollo'
-import createApolloClient from 'noxt/app/apollo/createApolloClient'
-import { getNetworkInterface, authorizationMiddleware } from 'noxt/app/apollo/transport'
+import createApolloClient from 'core/app/apollo/createApolloClient'
+import { getNetworkInterface, authorizationMiddleware } from 'core/app/apollo/transport'
 
-import createStore from 'noxt/app/redux/createStore'
+import createStore from 'core/app/redux/createStore'
 import { Provider } from 'react-redux'
-import ErrorPage from 'noxt/app/pages/ErrorPage'
+import ErrorPage from 'core/app/pages/ErrorPage'
 
 const wdsPath = `http://${config.host}:${config.wdsPort}/build/`
 const serverPath = `http://${config.host}:${config.port}/`
