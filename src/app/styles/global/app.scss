@@ -1,3 +1,7 @@
 :global {
+  @import "shared-helpers";
   @import "base/normalize";
+  @import "base/base";
+  @import "base/typography";
+  @import "layout/grid";
 }

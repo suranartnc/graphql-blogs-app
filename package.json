@@ -14,7 +14,10 @@
     "start-ssr-prod": "better-npm-run start-ssr-prod",
     "start-wds": "node ./.core/server/dev-server",
     "start-ssr-prod-bundle": "node ./server.bundle.js",
-    "lint": "eslint --ext .js src"
+    "lint": "eslint --ext .js src",
+    "stylelint": "stylelint ./src/app/styles/**/*.scss --syntax scss",
+    "storybook": "start-storybook -p 9002 -c .storybook",
+    "build-storybook": "build-storybook"
   },
   "betterScripts": {
     "start-ssr-dev": {
@@ -118,6 +121,7 @@
     "webpack-node-externals": "^1.5.4"
   },
   "devDependencies": {
+    "@kadira/storybook": "^2.21.0",
     "babel-eslint": "^7.1.1",
     "eslint": "^3.12.2",
     "eslint-config-standard": "^6.2.1",
@@ -125,6 +129,8 @@
     "eslint-plugin-promise": "^3.4.0",
     "eslint-plugin-react": "^6.8.0",
     "eslint-plugin-standard": "^2.0.1",
-    "react-hot-loader": "3.0.0-beta.6"
+    "react-hot-loader": "3.0.0-beta.6",
+    "stylelint": "^7.8.0",
+    "stylelint-config-standard": "^16.0.0"
   }
 }
