@@ -1,97 +1,76 @@
-import React, {Component, PropTypes} from 'react'
+import React, { PropTypes } from 'react'
 import Helmet from 'react-helmet'
 import { Link } from 'react-router'
 
-import { graphql, withApollo } from 'react-apollo'
+import { graphql } from 'react-apollo'
 import update from 'immutability-helper'
-
+import { pure, branch, renderComponent, withHandlers, compose } from 'recompose'
 import { GET_POSTS } from 'app/modules/post/graphql/postQueries'
 
 import logo from 'static/images/react.png'
 import styles from 'styles/pages/Homepage.scss'
 
-class HomePage extends Component {
+const Preloader = () => (
+  <div>Loading...</div>
+)
 
-  renderPosts () {
-    const { data: { loading, posts } } = this.props
-    if (loading === true) {
-      return <div>Loading...</div>
-    }
-    return posts.map(post => (
-      <article key={post._id}>
-        <h2 className={styles.title}><Link to={`/post/${post._id}`}>{post.title}</Link></h2>
-      </article>
-    ))
-  }
+const displayLoadingState = branch(
+  (props) => props.data.loading,
+  renderComponent(Preloader),
+)
 
-  onNextPageClicked = (e) => {
-    this.props.loadNextPage()
-  }
-
-  render () {
-    return (
-      <div className={styles.container}>
-        <Helmet
-          title="Home"
-          meta={[
-            {
-              name: 'description',
-              content: 'This is homepage.'
-            }
-          ]}
-        />
-        <img src={logo} width="200" />
-        {this.renderPosts()}
-        <button onClick={this.onNextPageClicked}>Next page</button>
-      </div>
-    )
-  }
+function PostList ({ data: { loading, posts } = { posts: [] } }) {
+  return (
+    <div>
+      {posts.map(post => (
+        <article key={post._id}>
+          <h2 className={styles.title}><Link to={`/post/${post._id}`}>{post.title}</Link></h2>
+        </article>
+      ))}
+    </div>
+  )
 }
 
-/*
-  The structure of the data prop
-
-  data: {
-    posts: { ... },
-
-    loading: false,
-    error: null,
-    refetch() { ... },
-    fetchMore() { ... },
-    startPolling() { ... },
-    stopPolling() { ... },
-    // ... more methods from the QuerySubscription object
-  }
-*/
-
-HomePage.propTypes = {
-  client: PropTypes.shape({
-    query: PropTypes.func.isRequired
-  }).isRequired,
+PostList.propTypes = {
   data: PropTypes.shape({
     loading: PropTypes.bool.isRequired,
-    refetch: PropTypes.func.isRequired,
-    posts: PropTypes.arrayOf(PropTypes.shape({
+    posts: PropTypes.shape({
+      _id: PropTypes.string.isRequired,
       title: PropTypes.string.isRequired
-    }))
-  }).isRequired,
-  loadNextPage: PropTypes.func.isRequired
+    })
+  })
 }
 
-export default withApollo(graphql(GET_POSTS, {
+function HomePage ({ data, onNextPageClicked }) {
+  return (
+    <div className={styles.container}>
+      <Helmet
+        title="Home"
+        meta={[
+          {
+            name: 'description',
+            content: 'This is homepage.'
+          }
+        ]}
+      />
+      <img src={logo} width="200" />
+      <PostList data={data} />
+      <button onClick={onNextPageClicked}>Next page</button>
+    </div>
+  )
+}
+
+HomePage.propTypes = {
+  data: PropTypes.object.isRequired,
+  onNextPageClicked: PropTypes.func.isRequired
+}
+
+const data = graphql(GET_POSTS, {
   options: {
-    // pollInterval: 5000   // auto refetch every 5 seconds
-    // forceFetch: true
-    // ssr: false,          // skip this query during SSR
     variables: {
-      limit: 10,
+      limit: 5,
       offset: 0
     },
-
-    // Can be used to achieve the same goal as updateQueries, but more flexible and works with any type of action, not just mutations.
-
-    // reducer = query needs to know what actions should lead to an updated result (recommended)
-    // updateQueries = it is the mutation’s responsibility to update all the queries that may need to know about the results of this mutation.
     reducer: (previousResult, action, variables) => {
       if (action.type === 'APOLLO_MUTATION_RESULT' && action.operationName === 'addPost') {
         return update(previousResult, {
@@ -107,35 +86,27 @@ export default withApollo(graphql(GET_POSTS, {
     return {
       data,
       loadNextPage () {
-        // fetchMore => manually update the result of one query based on the data returned by another query.
         return data.fetchMore({
-
-          // merged with variables of the query associated with the component.
           variables: {
-            // limit = same as previous query
             offset: data.posts.length
           },
-
-          // needs to know how to incorporate the result of the query into the information the component is asking for
-          // updateQuery(prev, result)
-            // prev = previous result of the query in cache (no data key)
-            // result.fetchMoreResult = information returned by the fetchMore query
-            // result.queryVariables = merged query variables
-
-          // updateQuery = updateQueries with the name of query is the query associated with the component.
           updateQuery: (prev, { fetchMoreResult }) => {
             if (!fetchMoreResult.data) { return prev }
             return Object.assign({}, prev, {
               posts: [...prev.posts, ...fetchMoreResult.data.posts]
             })
           }
-
-          // It can also take a query named argument, which can be a GraphQL document containing a query that will be fetched in order to fetch more information
-          // By default, the fetchMore query is the query associated with the component
-
-          // another use case: fetch only items that have been updated and update the list just the newly items (not refetch the whole list)
         })
       }
     }
   }
-})(HomePage))
+})
+
+export default compose(
+  data,
+  displayLoadingState,
+  withHandlers({
+    onNextPageClicked: ({ loadNextPage }) => (e) => loadNextPage()
+  }),
+  pure
+)(HomePage)

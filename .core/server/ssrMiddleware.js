@@ -79,7 +79,7 @@ function renderErrorPage (status, message, store, res) {
 */
 export default function (req, res) {
 
-  const networkInterface = getNetworkInterface(`http://${config.host}:${config.port}/graphql`, req.headers)
+  const networkInterface = getNetworkInterface(`http://${config.apiHost}:${config.apiPort}/graphql`, req.headers)
   networkInterface.use(authorizationMiddleware)
 
   const client = createApolloClient({
