@@ -1,45 +1,14 @@
 import React, { PropTypes } from 'react'
 import Helmet from 'react-helmet'
-import { Link } from 'react-router'
-
 import { graphql } from 'react-apollo'
 import update from 'immutability-helper'
-import { pure, branch, renderComponent, withHandlers, compose } from 'recompose'
-import { GET_POSTS } from 'app/modules/post/graphql/postQueries'
+import { pure, withHandlers, compose } from 'recompose'
 
+import { GET_POSTS } from 'app/modules/post/graphql/postQueries'
+import withPreloader from 'hocs/withPreloader'
+import PostList from 'components/PostList'
 import logo from 'static/images/react.png'
 import styles from 'styles/pages/Homepage.scss'
-
-const Preloader = () => (
-  <div>Loading...</div>
-)
-
-const displayLoadingState = branch(
-  (props) => props.data.loading,
-  renderComponent(Preloader),
-)
-
-function PostList ({ data: { posts } = { posts: [] } }) {
-  return (
-    <div>
-      {posts.map(post => (
-        <article key={post._id}>
-          <h2 className={styles.title}><Link to={`/post/${post._id}`}>{post.title}</Link></h2>
-        </article>
-      ))}
-    </div>
-  )
-}
-
-PostList.propTypes = {
-  data: PropTypes.shape({
-    loading: PropTypes.bool.isRequired,
-    posts: PropTypes.arrayOf(PropTypes.shape({
-      _id: PropTypes.string.isRequired,
-      title: PropTypes.string.isRequired
-    }))
-  })
-}
 
 function HomePage ({ data, onNextPageClicked }) {
   return (
@@ -65,10 +34,10 @@ HomePage.propTypes = {
   onNextPageClicked: PropTypes.func.isRequired
 }
 
-const data = graphql(GET_POSTS, {
+const withData = graphql(GET_POSTS, {
   options: {
     variables: {
-      limit: 1,
+      limit: 5,
       offset: 0
     },
     reducer: (previousResult, action, variables) => {
@@ -103,8 +72,8 @@ const data = graphql(GET_POSTS, {
 })
 
 export default compose(
-  data,
-  displayLoadingState,
+  withData,
+  withPreloader,
   withHandlers({
     onNextPageClicked: ({ loadNextPage }) => (e) => loadNextPage()
   }),
