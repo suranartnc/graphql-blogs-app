@@ -21,6 +21,11 @@ WritePage.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   onTitleChange: PropTypes.func.isRequired,
   onBodyChange: PropTypes.func.isRequired,
+  mutate: PropTypes.func.isRequired,
+  title: PropTypes.string.isRequired,
+  body: PropTypes.string.isRequired,
+  setTitle: PropTypes.func.isRequired,
+  setBody: PropTypes.func.isRequired,
   router: PropTypes.shape({
     push: PropTypes.func.isRequired
   })
