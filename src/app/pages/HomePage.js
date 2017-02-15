@@ -1,7 +1,6 @@
 import React, { PropTypes } from 'react'
 import Helmet from 'react-helmet'
 import { graphql } from 'react-apollo'
-import update from 'immutability-helper'
 import { pure, withHandlers, compose } from 'recompose'
 
 import { GET_POSTS } from 'app/modules/post/graphql/postQueries'
@@ -36,19 +35,10 @@ HomePage.propTypes = {
 
 const withData = graphql(GET_POSTS, {
   options: {
+    forceFetch: true,
     variables: {
       limit: 5,
       offset: 0
-    },
-    reducer: (previousResult, action, variables) => {
-      if (action.type === 'APOLLO_MUTATION_RESULT' && action.operationName === 'addPost') {
-        return update(previousResult, {
-          posts: {
-            $unshift: [action.result.data.addPost.post]
-          }
-        })
-      }
-      return previousResult
     }
   },
   props ({ data }) {
