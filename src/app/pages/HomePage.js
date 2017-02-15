@@ -19,7 +19,7 @@ const displayLoadingState = branch(
   renderComponent(Preloader),
 )
 
-function PostList ({ data: { loading, posts } = { posts: [] } }) {
+function PostList ({ data: { posts } = { posts: [] } }) {
   return (
     <div>
       {posts.map(post => (
@@ -68,7 +68,7 @@ HomePage.propTypes = {
 const data = graphql(GET_POSTS, {
   options: {
     variables: {
-      limit: 5,
+      limit: 1,
       offset: 0
     },
     reducer: (previousResult, action, variables) => {
