@@ -9,16 +9,16 @@ import express from 'express'
 import cookieParser from 'cookie-parser'
 import bodyParser from 'body-parser'
 import favicon from 'serve-favicon'
-import proxy from 'http-proxy-middleware'
+// import proxy from 'http-proxy-middleware'
 
 import ssrMiddleware from 'core/server/ssrMiddleware'
 import config from 'core/config'
 
 const app = express()
 
-app.use('/graphql', proxy({
-  target: `http://${config.apiHost}:${config.apiPort}`
-}))
+// app.use('/graphql', proxy({
+//   target: `http://${config.apiHost}:${config.apiPort}`
+// }))
 
 app.use(favicon(path.join(process.cwd(), 'static/favicon.ico')))
 app.use(express.static(path.join(process.cwd(), 'static')))

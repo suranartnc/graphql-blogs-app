@@ -11,7 +11,9 @@ import { ApolloProvider } from 'react-apollo'
 import createApolloClient from 'core/app/apollo/createApolloClient'
 import { getNetworkInterface, authorizationMiddleware } from 'core/app/apollo/transport'
 
-const networkInterface = getNetworkInterface('/graphql', {})
+import config from 'core/config'
+
+const networkInterface = getNetworkInterface(`http://${config.apiHost}:${config.apiPort}/graphql`, {})
 networkInterface.use(authorizationMiddleware)
 
 const client = createApolloClient({
