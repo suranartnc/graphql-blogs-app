@@ -12,7 +12,6 @@ function PostList ({ data: { posts } = { posts: [] } }) {
 
 PostList.propTypes = {
   data: PropTypes.shape({
-    loading: PropTypes.bool.isRequired,
     posts: PropTypes.arrayOf(PostItem.propTypes.post)
   })
 }

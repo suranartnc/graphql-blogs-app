@@ -30,7 +30,10 @@ function HomePage ({ data, onNextPageClicked }) {
 }
 
 HomePage.propTypes = {
-  data: PropTypes.object.isRequired,
+  data: PropTypes.shape({
+    loading: PropTypes.bool.isRequired,
+    fetchMore: PropTypes.func.isRequired
+  }),
   onNextPageClicked: PropTypes.func.isRequired
 }
 
