@@ -40,24 +40,6 @@ const withData = graphql(GET_POSTS, {
       limit: 5,
       offset: 0
     }
-  },
-  props ({ data }) {
-    return {
-      data,
-      loadNextPage () {
-        return data.fetchMore({
-          variables: {
-            offset: data.posts.length
-          },
-          updateQuery: (prev, { fetchMoreResult }) => {
-            if (!fetchMoreResult.data) { return prev }
-            return Object.assign({}, prev, {
-              posts: [...prev.posts, ...fetchMoreResult.data.posts]
-            })
-          }
-        })
-      }
-    }
   }
 })
 
@@ -65,7 +47,19 @@ export default compose(
   withData,
   withPreloader,
   withHandlers({
-    onNextPageClicked: ({ loadNextPage }) => (e) => loadNextPage()
+    onNextPageClicked: ({ data: { posts, fetchMore } }) => event => {
+      return fetchMore({
+        variables: {
+          offset: posts.length
+        },
+        updateQuery: (prev, { fetchMoreResult }) => {
+          if (!fetchMoreResult.data) { return prev }
+          return Object.assign({}, prev, {
+            posts: [...prev.posts, ...fetchMoreResult.data.posts]
+          })
+        }
+      })
+    }
   }),
   pure
 )(HomePage)
