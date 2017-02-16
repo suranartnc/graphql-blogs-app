@@ -70,7 +70,12 @@
         "stage-1"
       ],
       "plugins": [
-        "lodash",
+        [
+          "lodash",
+          {
+            "id": ["lodash", "recompose"]
+          }
+        ],
         "transform-react-constant-elements",
         "transform-react-remove-prop-types",
         "transform-react-pure-class-to-function"
