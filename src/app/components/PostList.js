@@ -1,10 +1,11 @@
 import React, { PropTypes } from 'react'
-import { Link } from 'react-router'
-import styles from 'styles/components/PostList.scss'
+
+import PostItem from 'components/PostItem'
 
 function PostList ({ data: { posts } = { posts: [] } }) {
   return (
     <div>
+<<<<<<< HEAD
       {posts.map(post => (
         <article key={post._id}>
           <div className={styles.thumbnail}>
@@ -20,17 +21,16 @@ function PostList ({ data: { posts } = { posts: [] } }) {
           </div>
         </article>
       ))}
+=======
+      {posts.map(post => <PostItem key={post._id} post={post} />)}
+>>>>>>> origin/master
     </div>
   )
 }
 
 PostList.propTypes = {
   data: PropTypes.shape({
-    loading: PropTypes.bool.isRequired,
-    posts: PropTypes.arrayOf(PropTypes.shape({
-      _id: PropTypes.string.isRequired,
-      title: PropTypes.string.isRequired
-    }))
+    posts: PropTypes.arrayOf(PostItem.propTypes.post)
   })
 }
 

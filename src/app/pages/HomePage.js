@@ -4,6 +4,7 @@ import { graphql } from 'react-apollo'
 import { pure, withHandlers, compose } from 'recompose'
 
 import { GET_POSTS } from 'app/modules/post/graphql/postQueries'
+import { fetchMore as fetchMoreUtil } from 'utils/apollo'
 import withPreloader from 'hocs/withPreloader'
 import PostList from 'components/PostList'
 import logo from 'static/images/react.png'
@@ -29,43 +30,30 @@ function HomePage ({ data, onNextPageClicked }) {
 }
 
 HomePage.propTypes = {
-  data: PropTypes.object.isRequired,
+  data: PropTypes.shape({
+    loading: PropTypes.bool.isRequired,
+    fetchMore: PropTypes.func.isRequired
+  }),
   onNextPageClicked: PropTypes.func.isRequired
 }
 
-const withData = graphql(GET_POSTS, {
-  options: {
-    forceFetch: true,
-    variables: {
-      limit: 5,
-      offset: 0
-    }
-  },
-  props ({ data }) {
-    return {
-      data,
-      loadNextPage () {
-        return data.fetchMore({
-          variables: {
-            offset: data.posts.length
-          },
-          updateQuery: (prev, { fetchMoreResult }) => {
-            if (!fetchMoreResult.data) { return prev }
-            return Object.assign({}, prev, {
-              posts: [...prev.posts, ...fetchMoreResult.data.posts]
-            })
-          }
-        })
+export default compose(
+  graphql(GET_POSTS, {
+    options: {
+      forceFetch: true,
+      variables: {
+        limit: 5,
+        offset: 0
       }
     }
-  }
-})
-
-export default compose(
-  withData,
+  }),
   withPreloader,
   withHandlers({
-    onNextPageClicked: ({ loadNextPage }) => (e) => loadNextPage()
+    onNextPageClicked: ({ data: { posts, fetchMore } }) => event => fetchMoreUtil({
+      name: 'posts',
+      data: posts,
+      fetchMore
+    })
   }),
   pure
 )(HomePage)

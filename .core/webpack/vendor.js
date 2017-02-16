@@ -18,8 +18,7 @@ module.exports = function(env) {
         'apollo-client',
         'graphql-tag',
         'immutability-helper',
-        'react-apollo',
-        'try-require'
+        'react-apollo'
       ],
     },
 
