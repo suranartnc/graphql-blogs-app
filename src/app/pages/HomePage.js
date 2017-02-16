@@ -4,6 +4,7 @@ import { graphql } from 'react-apollo'
 import { pure, withHandlers, compose } from 'recompose'
 
 import { GET_POSTS } from 'app/modules/post/graphql/postQueries'
+import { fetchMore as fetchMoreUtil } from 'utils/apollo'
 import withPreloader from 'hocs/withPreloader'
 import PostList from 'components/PostList'
 import logo from 'static/images/react.png'
@@ -45,19 +46,11 @@ export default compose(
   }),
   withPreloader,
   withHandlers({
-    onNextPageClicked: ({ data: { posts, fetchMore } }) => event => {
-      return fetchMore({
-        variables: {
-          offset: posts.length
-        },
-        updateQuery: (prev, { fetchMoreResult }) => {
-          if (!fetchMoreResult.data) { return prev }
-          return Object.assign({}, prev, {
-            posts: [...prev.posts, ...fetchMoreResult.data.posts]
-          })
-        }
-      })
-    }
+    onNextPageClicked: ({ data: { posts, fetchMore } }) => event => fetchMoreUtil({
+      name: 'posts',
+      data: posts,
+      fetchMore
+    })
   }),
   pure
 )(HomePage)
