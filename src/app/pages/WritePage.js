@@ -5,12 +5,12 @@ import { pure, withState, withHandlers, compose } from 'recompose'
 
 import { ADD_POST } from 'app/modules/post/graphql/postMutations'
 
-function WritePage ({ onSubmit, onTitleChange, onBodyChange }) {
+function WritePage ({ onSubmit, onInputChange }) {
   return (
     <div>
       <form onSubmit={onSubmit}>
-        <input type="text" onChange={onTitleChange} />
-        <textarea onChange={onBodyChange} />
+        <input type="text" onChange={onInputChange('title')} />
+        <textarea onChange={onInputChange('body')} />
         <button>Submit</button>
       </form>
     </div>
@@ -18,31 +18,32 @@ function WritePage ({ onSubmit, onTitleChange, onBodyChange }) {
 }
 
 WritePage.propTypes = {
+  input: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    body: PropTypes.string.isRequired
+  }).isRequired,
+  onInputChange: PropTypes.func.isRequired,
+  setInput: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
-  onTitleChange: PropTypes.func.isRequired,
-  onBodyChange: PropTypes.func.isRequired,
   mutate: PropTypes.func.isRequired,
-  title: PropTypes.string.isRequired,
-  body: PropTypes.string.isRequired,
-  setTitle: PropTypes.func.isRequired,
-  setBody: PropTypes.func.isRequired,
   router: PropTypes.shape({
     push: PropTypes.func.isRequired
   })
 }
 
 export default compose(
-  withState('title', 'setTitle', ''),
-  withState('body', 'setBody', ''),
   graphql(ADD_POST),
+  withState('input', 'setInput', {
+    title: '',
+    body: ''
+  }),
   withHandlers({
-    onTitleChange: ({ setTitle }) => event => {
-      setTitle(event.target.value)
+    onInputChange: ({ input, setInput }) => inputField => event => {
+      setInput(Object.assign({}, input, {
+        [inputField]: event.target.value
+      }))
     },
-    onBodyChange: ({ setBody }) => event => {
-      setBody(event.target.value)
-    },
-    onSubmit: ({ mutate, title, body, router }) => event => {
+    onSubmit: ({ mutate, input: { title, body }, router }) => event => {
       event.preventDefault()
       mutate({
         variables: {
