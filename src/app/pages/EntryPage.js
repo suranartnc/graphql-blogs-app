@@ -25,16 +25,14 @@ EntryPage.propTypes = {
   }).isRequired
 }
 
-const withData = graphql(GET_POST, {
-  options: (ownProps) => ({
-    variables: {
-      id: ownProps.params.id
-    }
-  })
-})
-
 export default compose(
-  withData,
+  graphql(GET_POST, {
+    options: ({ params: { id } }) => ({
+      variables: {
+        id
+      }
+    })
+  }),
   withPreloader,
   pure
 )(EntryPage)

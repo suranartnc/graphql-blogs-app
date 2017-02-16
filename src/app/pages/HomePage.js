@@ -33,18 +33,16 @@ HomePage.propTypes = {
   onNextPageClicked: PropTypes.func.isRequired
 }
 
-const withData = graphql(GET_POSTS, {
-  options: {
-    forceFetch: true,
-    variables: {
-      limit: 5,
-      offset: 0
-    }
-  }
-})
-
 export default compose(
-  withData,
+  graphql(GET_POSTS, {
+    options: {
+      forceFetch: true,
+      variables: {
+        limit: 5,
+        offset: 0
+      }
+    }
+  }),
   withPreloader,
   withHandlers({
     onNextPageClicked: ({ data: { posts, fetchMore } }) => event => {
