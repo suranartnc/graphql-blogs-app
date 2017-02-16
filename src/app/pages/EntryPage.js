@@ -6,10 +6,10 @@ import { GET_POST } from 'app/modules/post/graphql/postQueries'
 import withPreloader from 'hocs/withPreloader'
 import PostEntry from 'components/PostEntry'
 
-function EntryPage ({ data }) {
+function EntryPage ({ data: { post } }) {
   return (
     <div>
-      <PostEntry data={data} />
+      <PostEntry post={post} />
     </div>
   )
 }

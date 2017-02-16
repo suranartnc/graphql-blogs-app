@@ -1,26 +1,18 @@
 import React, { PropTypes } from 'react'
-import { Link } from 'react-router'
-import styles from 'styles/components/PostList.scss'
+
+import PostItem from 'components/PostItem'
 
 function PostList ({ data: { posts } = { posts: [] } }) {
   return (
     <div>
-      {posts.map(post => (
-        <article key={post._id}>
-          <h2 className={styles.title}><Link to={`/post/${post._id}`}>{post.title}</Link></h2>
-        </article>
-      ))}
+      {posts.map(post => <PostItem key={post._id} post={post} />)}
     </div>
   )
 }
 
 PostList.propTypes = {
   data: PropTypes.shape({
-    loading: PropTypes.bool.isRequired,
-    posts: PropTypes.arrayOf(PropTypes.shape({
-      _id: PropTypes.string.isRequired,
-      title: PropTypes.string.isRequired
-    }))
+    posts: PropTypes.arrayOf(PostItem.propTypes.post)
   })
 }
 
