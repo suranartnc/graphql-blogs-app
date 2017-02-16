@@ -9,3 +9,12 @@ export const GET_POSTS = gql`
   }
   ${commonFields}
 `
+export const GET_POST = gql`
+  query getPost($id: String!) {
+    post(_id: $id) {
+      _id
+      title
+      body
+    }
+  }
+`

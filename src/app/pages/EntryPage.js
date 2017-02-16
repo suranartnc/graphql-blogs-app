@@ -1,30 +1,17 @@
-import React, {Component, PropTypes} from 'react'
-
-import gql from 'graphql-tag'
+import React, { PropTypes } from 'react'
 import { graphql } from 'react-apollo'
+import { compose, pure } from 'recompose'
 
-class EntryPage extends Component {
+import { GET_POST } from 'app/modules/post/graphql/postQueries'
+import withPreloader from 'hocs/withPreloader'
+import PostEntry from 'components/PostEntry'
 
-  renderPost () {
-    const { data: { loading, post } } = this.props
-    if (loading === true) {
-      return <div>Loading...</div>
-    }
-    return (
-      <article>
-        <h1>{post.title}</h1>
-        <p dangerouslySetInnerHTML={{ __html: post.body }} />
-      </article>
-    )
-  }
-
-  render () {
-    return (
-      <div>
-        {this.renderPost()}
-      </div>
-    )
-  }
+function EntryPage ({ data }) {
+  return (
+    <div>
+      <PostEntry data={data} />
+    </div>
+  )
 }
 
 EntryPage.propTypes = {
@@ -38,34 +25,16 @@ EntryPage.propTypes = {
   }).isRequired
 }
 
-const GET_POST = gql`
-  query getPost($id: String!) {
-    post(_id: $id) {
-      _id
-      title
-      body
-    }
-  }
-`
-
-/*
-  graphql = redux's connect
-  graphql(query, config)
-  query = gql`xxxx`
-  config: {
-    options(ownProps)         => eg. set variables for the query/mutation, pollInterval
-    name                      => rename 'data'
-    props({ ownProps, data })   => control mapping data to props (Query)
-    props({ ownProps, mutate }) => control mapping data to props (Mutation)
-    skip(ownProps)            => eg. skip query for unauthorized user
-    withRef                   => access child component, // MyComponentWithUpvote.getWrappedInstance() returns MyComponent instance
-    shouldResubscribe
-  }
-*/
-export default graphql(GET_POST, {
+const withData = graphql(GET_POST, {
   options: (ownProps) => ({
     variables: {
       id: ownProps.params.id
     }
   })
-})(EntryPage)
+})
+
+export default compose(
+  withData,
+  withPreloader,
+  pure
+)(EntryPage)
