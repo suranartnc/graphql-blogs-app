@@ -9,11 +9,19 @@ const mockPost = {
   title: 'ฟังความเห็นหนุ่มญี่ปุ่นให้รู้ไปเลย! เทคนิคสารภาพรักอย่างไรให้ได้ผล',
   desc: 'วันนี้เราจะไปฟังความเห็นของหนุ่มญี่ปุ่นให้รู้ไปเลยว่าการสารภาพรักแบบไหนที่มีโอกาสสำเร็จมากที่สุด',
   category: 'แฟชั่นผู้ชาย',
-  category_link: '#',
+  category_link: 'http://www.google.co.th',
   date: '2017-02-14 18:57'
 }
 
-storiesOf('PostLists.Style1', module)
+storiesOf('PostItem.Style1', module)
+  .addDecorator((story) => (
+    <div style={{
+      width: '300px',
+      margin: '15px'
+    }}>
+      {story()}
+    </div>
+  ))
   .add('Normal', () => (
     <PostItem post={mockPost} />
   ))

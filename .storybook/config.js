@@ -5,7 +5,7 @@ import 'styles/storybook/base.scss'
 
 function loadStories () {
   require('../stories')
-  require('../stories/PostListStory.js')
+  require('../stories/PostItemStory.js')
 }
 
 configure(loadStories, module)
