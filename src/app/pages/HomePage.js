@@ -5,6 +5,7 @@ import { pure, withHandlers, compose } from 'recompose'
 
 import { GET_POSTS } from 'app/modules/post/graphql/postQueries'
 import { fetchMore as fetchMoreUtil } from 'utils/apollo'
+import withCache from 'hocs/withCache'
 import withPreloader from 'hocs/withPreloader'
 import PostList from 'components/PostList'
 import logo from 'static/images/react.png'
@@ -38,6 +39,7 @@ HomePage.propTypes = {
 }
 
 export default compose(
+  withCache,
   graphql(GET_POSTS, {
     options: {
       forceFetch: true,
