@@ -23,7 +23,12 @@ function PostItem ({ post }) {
 PostItem.propTypes = {
   post: PropTypes.shape({
     _id: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired
+    title: PropTypes.string.isRequired,
+    desc: PropTypes.string.isRequired,
+    img: PropTypes.string,
+    category: PropTypes.string.isRequired,
+    category_link: PropTypes.string.isRequired,
+    date: PropTypes.string.isRequired
   }).isRequired
 }
 
