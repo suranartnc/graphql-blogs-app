@@ -17,6 +17,6 @@ const CenterDecorator = (story) => (
 
 storiesOf('Styleguide', module)
   .addDecorator(CenterDecorator)
-  .add('to Storybook', () => (
+  .add('Color', () => (
     <Styleguide />
   ))
