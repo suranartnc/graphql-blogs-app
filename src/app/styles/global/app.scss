@@ -1,3 +1,14 @@
 :global {
+  // Core variables and mixins
+  @import "custom-variables";
+  @import "bootstrap/variables";
+  @import "bootstrap/mixins";
 
+  // Reset and dependencies
+  @import "bootstrap/normalize";
+  @import "bootstrap/print";
+
+  // Core CSS
+  @import "base";
+  @import "bootstrap/grid";
 }
