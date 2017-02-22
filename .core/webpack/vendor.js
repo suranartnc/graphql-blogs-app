@@ -1,5 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
+const AssetsPlugin = require('assets-webpack-plugin');
 
 module.exports = function(env) {
   return {
@@ -33,8 +34,13 @@ module.exports = function(env) {
     },
 
     plugins: [
+      new AssetsPlugin({
+        filename: 'assets-vendors.json',
+        path: path.join(process.cwd(), 'static', 'build'),
+        prettyPrint: true,
+      }),
       new webpack.DllPlugin({
-        path: path.join(process.cwd(), 'static', 'build', 'vendor-[name]-manifest-[hash].json'),
+        path: path.join(process.cwd(), 'static', 'build', 'vendor-[name]-manifest.json'),
         name: '[name]_lib',
       }),
     ],
