@@ -27,14 +27,14 @@ module.exports = function(env) {
     },
 
     output: {
-      filename: 'vendor-[name].js',
+      filename: 'vendor-[name]-[hash].js',
       path: path.join(process.cwd(), 'static', 'build'),
       library: '[name]_lib',
     },
 
     plugins: [
       new webpack.DllPlugin({
-        path: path.join(process.cwd(), 'static', 'build', 'vendor-[name]-manifest.json'),
+        path: path.join(process.cwd(), 'static', 'build', 'vendor-[name]-manifest-[hash].json'),
         name: '[name]_lib',
       }),
     ],
