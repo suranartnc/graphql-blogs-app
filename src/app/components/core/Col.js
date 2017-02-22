@@ -1,4 +1,4 @@
-import isobject from 'lodash.isobject'
+import { isobject } from 'lodash'
 import React, { PropTypes } from 'react'
 import classNames from 'classnames'
 import { mapToCssModules } from 'utils/coreui'
