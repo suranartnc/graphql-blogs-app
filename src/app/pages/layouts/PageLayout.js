@@ -1,11 +1,11 @@
 import React, {PropTypes} from 'react'
-import Nav from 'components/Nav'
+import Header from 'components/Header'
 import { Container, Row, Col } from 'core/app/components'
 
 const PageLayout = props => {
   return (
     <div>
-      <Nav />
+      <Header />
       <Container>
         <Row>
           <Col>
