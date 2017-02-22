@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import Helmet from 'react-helmet'
 
-import { Container, Row, Col } from 'components/core'
+import { Container, Row, Col } from 'core/app/components'
 
 import styles from 'styles/pages/Grid.scss'
 
