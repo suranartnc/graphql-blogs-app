@@ -19,7 +19,8 @@ module.exports = function(env) {
         'graphql-tag',
         'immutability-helper',
         'react-apollo',
-        'classnames'
+        'classnames',
+        'recompose'
       ],
     },
 
