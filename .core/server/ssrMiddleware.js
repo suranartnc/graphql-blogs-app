@@ -50,6 +50,7 @@ function renderPage (content, initialState = {}) {
         <div id="root">${content}</div>
         ${renderToStaticMarkup(<InitialStateScript state={initialState} />)}
         <script src="${serverPath}build/vendor-react.js"></script>
+        <script src="${serverPath}build/vendor-utils.js"></script>
         ${process.env.NODE_ENV === 'production'
           ? `<script src="${assetsManifest.main.js}"></script>`
           : `<script src="${wdsPath}main.js"></script>`
