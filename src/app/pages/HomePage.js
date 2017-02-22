@@ -39,7 +39,7 @@ export default compose(
     options: {
       forceFetch: true,
       variables: {
-        limit: 5,
+        limit: 9,
         offset: 0
       }
     }

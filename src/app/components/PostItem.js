@@ -5,12 +5,14 @@ import styles from 'styles/components/PostItem.scss'
 
 function PostItem ({ post: { _id, title }, count }) {
   return (
-    <li key={_id} className={styles.postItem}>
-      <img src={`http://lorempixel.com/400/250/nature/${count}`} alt={title} />
+    <article key={_id} className={styles.postItem}>
       <Link to={`/post/${_id}`}>
-        <h2 className={styles.postTitle}>{title}</h2>
+        <img src={`http://lorempixel.com/400/250/nature/${count}`} alt={title} />
       </Link>
-    </li>
+      <h2 className={styles.postTitle}>
+        <Link to={`/post/${_id}`}>{title}</Link>
+      </h2>
+    </article>
   )
 }
 
@@ -19,7 +21,8 @@ PostItem.propTypes = {
     _id: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     body: PropTypes.string.isRequired
-  }).isRequired
+  }).isRequired,
+  count: PropTypes.string
 }
 
 export default PostItem
