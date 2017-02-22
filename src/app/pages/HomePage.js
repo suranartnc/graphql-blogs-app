@@ -7,11 +7,10 @@ import { GET_POSTS } from 'app/modules/post/graphql/postQueries'
 import { fetchMore as fetchMoreUtil } from 'utils/apollo'
 import withPreloader from 'hocs/withPreloader'
 import PostList from 'components/PostList'
-import styles from 'styles/pages/Homepage.scss'
 
 function HomePage ({ data, onNextPageClicked }) {
   return (
-    <div className={styles.container}>
+    <div>
       <Helmet
         title="Home"
         meta={[
