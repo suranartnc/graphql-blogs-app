@@ -5,7 +5,9 @@ import PostItem from 'components/PostItem'
 function PostList ({ data: { posts } = { posts: [] } }) {
   return (
     <div>
-      {posts.map(post => <PostItem key={post._id} post={post} />)}
+      <ul>
+        {posts.map(post => <PostItem key={post._id} post={post} />)}
+      </ul>
     </div>
   )
 }
