@@ -65,7 +65,10 @@ module.exports = function (env) {
             {
               loader: 'sass-loader',
               query: {
-                includePaths: [path.join(process.cwd(), 'src/app/styles')],
+                includePaths: [
+                  path.join(process.cwd(), '.core/app/styles'),
+                  path.join(process.cwd(), 'src/app/styles')
+                ],
               },
             },
           ],
