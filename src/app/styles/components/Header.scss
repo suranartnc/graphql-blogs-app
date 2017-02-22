@@ -20,8 +20,6 @@
 
 .logo {
   color: #fff;
-  margin-right: 40px;
-
   h1 {
     font-size: 3rem;
     text-transform: uppercase;
@@ -30,6 +28,7 @@
     & > a {
       color: #fff;
       text-decoration: none;
+      padding: 0 30px;
     }
   }
 }
