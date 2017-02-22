@@ -3,9 +3,10 @@ import { Link } from 'react-router'
 
 import styles from 'styles/components/PostItem.scss'
 
-function PostItem ({ post: { _id, title } }) {
+function PostItem ({ post: { _id, title }, count }) {
   return (
     <li key={_id} className={styles.postItem}>
+      <img src={`http://lorempixel.com/400/250/nature/${count}`} alt={title} />
       <Link to={`/post/${_id}`}>
         <h2 className={styles.postTitle}>{title}</h2>
       </Link>

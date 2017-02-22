@@ -6,7 +6,7 @@ function PostList ({ data: { posts } = { posts: [] } }) {
   return (
     <div>
       <ul>
-        {posts.map(post => <PostItem key={post._id} post={post} />)}
+        {posts.map((post, index) => <PostItem key={post._id} post={post} count={index} />)}
       </ul>
     </div>
   )
