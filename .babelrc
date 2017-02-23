@@ -76,7 +76,8 @@
           }
         ],
         "stage-1"
-      ]
+      ],
+      "plugins": ["transform-ensure-ignore"]
     },
     "production": {
       "presets": [

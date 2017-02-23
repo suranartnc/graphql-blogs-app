@@ -29,9 +29,10 @@ const store = createStore(client, initialState);
 const routes = getRoutes(store)
 const history = syncHistoryWithStore(browserHistory, store);
 
-const Root = () => (
+const Root = (props) => (
   <ApolloProvider store={store} client={client}>
     <Router
+      {...props}
       history={history}
       routes={routes}
       render={applyRouterMiddleware(useScroll())}
