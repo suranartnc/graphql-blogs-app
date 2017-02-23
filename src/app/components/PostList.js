@@ -1,13 +1,16 @@
 import React, { PropTypes } from 'react'
 
 import PostItem from 'components/PostItem'
+import s from 'styles/components/PostList.scss'
 
 function PostList ({ data: { posts } = { posts: [] } }) {
   return (
-    <div>
-      <ul>
-        {posts.map(post => <PostItem key={post._id} post={post} />)}
-      </ul>
+    <div className={s.container}>
+      {posts.map((post, index) => {
+        return (
+          <PostItem key={post._id} post={post} count={index} />
+        )
+      })}
     </div>
   )
 }

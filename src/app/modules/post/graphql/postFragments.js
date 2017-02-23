@@ -4,6 +4,6 @@ export const commonFields = gql`
   fragment commonFields on PostType {
     _id
     title
-    body
+    excerpt
   }
 `

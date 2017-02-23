@@ -1,12 +1,11 @@
 const path = require('path');
 const webpack = require('webpack');
+const AssetsPlugin = require('assets-webpack-plugin');
 
 module.exports = function(env) {
   return {
     entry: {
       react: [
-        'es6-promise',
-        'isomorphic-fetch',
         'react',
         'react-dom',
         'react-helmet',
@@ -14,25 +13,34 @@ module.exports = function(env) {
         'react-router',
         'react-router-redux',
         'react-router-scroll',
+        'react-apollo',
+        'recompose',
         'redux',
+      ],
+      utils: [
         'apollo-client',
+        'classnames',
+        'es6-promise',
         'graphql-tag',
         'immutability-helper',
-        'react-apollo',
-        'classnames',
-        'recompose'
+        'isomorphic-fetch',
       ],
     },
 
     output: {
-      filename: 'vendor-[name].js',
+      filename: 'vendor-[name]-[hash].js',
       path: path.join(process.cwd(), 'static', 'build'),
       library: '[name]_lib',
     },
 
     plugins: [
+      new AssetsPlugin({
+        filename: 'assets-vendors.json',
+        path: path.join(process.cwd(), 'static', 'build'),
+        prettyPrint: true,
+      }),
       new webpack.DllPlugin({
-        path: path.join(process.cwd(), 'static', 'build', '[name]-manifest.json'),
+        path: path.join(process.cwd(), 'static', 'build', 'vendor-[name]-manifest.json'),
         name: '[name]_lib',
       }),
     ],
