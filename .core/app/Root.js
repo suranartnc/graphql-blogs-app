@@ -20,7 +20,7 @@ const client = createApolloClient({
   networkInterface,
 
   // skip force fetching fires too early during initialization, let's check the data in the cache first
-  ssrForceFetchDelay: 100
+  ssrForceFetchDelay: 500
 })
 
 // Rehydrate the client using the initial state passed from the server
