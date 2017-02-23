@@ -17,18 +17,10 @@ import { Provider } from 'react-redux'
 import ErrorPage from 'core/app/pages/ErrorPage'
 
 const wdsPath = `http://${config.host}:${config.wdsPort}/build/`
-const serverPath = `http://${config.host}:${config.port}/`
-const staticPath = `${serverPath}build/`
 
-const assetsVendorsManifest = tryRequire('../../static/build/assets-vendors.json')
 let assetsManifest = null
 if (process.env.NODE_ENV === 'production') {
   assetsManifest = tryRequire('../../static/build/assets.json')
-  assetsVendorsManifest.utils.js = `${staticPath}${assetsVendorsManifest.utils.js}`
-  assetsVendorsManifest.react.js = `${staticPath}${assetsVendorsManifest.react.js}`
-} else {
-  assetsVendorsManifest.utils.js = `${wdsPath}${assetsVendorsManifest.utils.js}`
-  assetsVendorsManifest.react.js = `${wdsPath}${assetsVendorsManifest.react.js}`
 }
 
 function renderPage (content, initialState = {}) {
@@ -56,11 +48,9 @@ function renderPage (content, initialState = {}) {
       <body>
         <div id="root">${content}</div>
         ${renderToStaticMarkup(<InitialStateScript state={initialState} />)}
-        <script src="${assetsVendorsManifest.utils.js}"></script>
-        <script src="${assetsVendorsManifest.react.js}"></script>
         ${process.env.NODE_ENV === 'production'
-          ? `<script src="${assetsManifest.main.js}"></script>`
-          : `<script src="${wdsPath}main.js"></script>`
+          ? `<script src="${assetsManifest.main.js}" async></script>`
+          : `<script src="${wdsPath}main.js" async></script>`
         }
       </body>
     </html>

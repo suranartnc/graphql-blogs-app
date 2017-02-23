@@ -69,15 +69,7 @@ module.exports = function(env) {
           ],
         },
       }),
-      new webpack.DllReferencePlugin({
-        context: process.cwd(),
-        manifest: require('../../static/build/vendor-react-manifest.json'),
-      }),
-      new webpack.DllReferencePlugin({
-        context: process.cwd(),
-        manifest: require('../../static/build/vendor-utils-manifest.json'),
-      }),
-      new ProgressBarPlugin(),
+      new ProgressBarPlugin()
     ],
 
     node: {
