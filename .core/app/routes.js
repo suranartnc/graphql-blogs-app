@@ -7,7 +7,7 @@ import ErrorPage from 'core/app/pages/ErrorPage'
 
 import getCustomRoutes from 'app/routes'
 
-export default function getRoutes (store) {
+export default function getRoutes (store = null) {
   return (
     <Route path="/" component={App}>
       {getCustomRoutes()}

@@ -42,15 +42,7 @@ module.exports = function(env) {
           NODE_ENV: JSON.stringify('development'),
           BROWSER: JSON.stringify(true),
         },
-      }),
-      new webpack.DllReferencePlugin({
-        context: process.cwd(),
-        manifest: require('../../static/build/vendor-react-manifest.json'),
-      }),
-      new webpack.DllReferencePlugin({
-        context: process.cwd(),
-        manifest: require('../../static/build/vendor-utils-manifest.json'),
-      }),
+      })
     ],
 
     performance: {

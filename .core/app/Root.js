@@ -20,7 +20,7 @@ const client = createApolloClient({
   networkInterface,
 
   // skip force fetching fires too early during initialization, let's check the data in the cache first
-  ssrForceFetchDelay: 100
+  ssrForceFetchDelay: 500
 })
 
 // Rehydrate the client using the initial state passed from the server
@@ -29,9 +29,10 @@ const store = createStore(client, initialState);
 const routes = getRoutes(store)
 const history = syncHistoryWithStore(browserHistory, store);
 
-const Root = () => (
+const Root = (props) => (
   <ApolloProvider store={store} client={client}>
     <Router
+      {...props}
       history={history}
       routes={routes}
       render={applyRouterMiddleware(useScroll())}
