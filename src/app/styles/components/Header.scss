@@ -1,0 +1,47 @@
+@import "shared";
+
+.container {
+  background: #292b30;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+
+  &:before {
+    content: "";
+    height: 4px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: #ffde00;
+  }
+}
+
+.logo {
+  color: #fff;
+  h1 {
+    font-size: 3rem;
+    text-transform: uppercase;
+
+    &,
+    & > a {
+      color: #fff;
+      text-decoration: none;
+      padding: 0 30px;
+    }
+  }
+}
+
+.writeButton {
+  display: inline-block;
+  text-transform: uppercase;
+  color: #fff;
+  border: 1px solid #fff;
+  padding: 10px 20px;
+
+  @include hover-focus {
+    color: #ddd;
+  }
+
+}

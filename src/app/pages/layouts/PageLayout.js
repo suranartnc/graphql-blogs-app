@@ -1,18 +1,15 @@
 import React, {PropTypes} from 'react'
-import Nav from 'components/Nav'
-import { Container, Row, Col } from 'core/app/components'
+import Header from 'components/Header'
+
+import s from 'styles/pages/Layout.scss'
 
 const PageLayout = props => {
   return (
     <div>
-      <Nav />
-      <Container>
-        <Row>
-          <Col>
-            {props.children}
-          </Col>
-        </Row>
-      </Container>
+      <Header />
+      <main className={s.main}>
+        {props.children}
+      </main>
     </div>
   )
 }
