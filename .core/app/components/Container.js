@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react'
 import classNames from 'classnames'
-import { mapToCssModules } from 'utils/coreui'
+import { mapToCssModules } from 'core/app/utils/coreui'
 
 const propTypes = {
   tag: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
