@@ -43,14 +43,15 @@ function renderPage (content, initialState = {}) {
         ${head.title.toString()}
         ${head.meta.toString()}
         ${head.link.toString()}
-        ${process.env.NODE_ENV === 'production' ? `<link rel="stylesheet" href="${assetsManifest.main.css}" />` : ''}
+        ${process.env.NODE_ENV === 'production' ? `<link rel="stylesheet" href="${assetsManifest.app.css}" />` : ''}
       </head>
       <body>
         <div id="root">${content}</div>
         ${renderToStaticMarkup(<InitialStateScript state={initialState} />)}
-        ${process.env.NODE_ENV === 'production'
-          ? `<script src="${assetsManifest.main.js}" async></script>`
-          : `<script src="${wdsPath}main.js" async></script>`
+        ${process.env.NODE_ENV === 'production' ?
+          `<script src="${assetsManifest.vendor.js}"></script>
+          <script src="${assetsManifest.app.js}" async></script>`:
+          `<script src="${wdsPath}main.js" async></script>`
         }
       </body>
     </html>
