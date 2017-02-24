@@ -42,7 +42,11 @@ module.exports = function(env) {
           NODE_ENV: JSON.stringify('development'),
           BROWSER: JSON.stringify(true),
         },
-      })
+      }),
+      new webpack.DllReferencePlugin({
+        context: process.cwd(),
+        manifest: require('../../static/build/vendor-ddl-manifest.json'),
+      }),
     ],
 
     performance: {

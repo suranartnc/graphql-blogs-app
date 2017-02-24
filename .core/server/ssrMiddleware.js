@@ -16,6 +16,7 @@ import createStore from 'core/app/redux/createStore'
 import { Provider } from 'react-redux'
 import ErrorPage from 'core/app/pages/ErrorPage'
 
+const staticPath = `http://${config.host}:${config.port}/build/`
 const wdsPath = `http://${config.host}:${config.wdsPort}/build/`
 
 let assetsManifest = null
@@ -51,7 +52,8 @@ function renderPage (content, initialState = {}) {
         ${process.env.NODE_ENV === 'production' ?
           `<script src="${assetsManifest.vendor.js}"></script>
           <script src="${assetsManifest.app.js}" async></script>`:
-          `<script src="${wdsPath}main.js" async></script>`
+          `<script src="${staticPath}vendor-ddl.js"></script>
+          <script src="${wdsPath}main.js" async></script>`
         }
       </body>
     </html>
