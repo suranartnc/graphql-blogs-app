@@ -4,68 +4,71 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "npm-run-all --parallel start-ssr-dev start-wds",
-    "dev-watch": "npm-run-all --parallel start-ssr-dev-watch start-wds",
+    "dev": "npm-run-all --parallel start-ssr start-wds",
+    "dev-watch": "npm-run-all --parallel start-ssr-dev start-wds",
     "build": "npm run build-client && npm run build-server",
     "build-vendor": "webpack --env=vendor --config ./.core/webpack/webpack.config.js",
     "build-client": "better-npm-run build-client",
     "build-client-analyze": "better-npm-run build-client-analyze",
     "build-server": "better-npm-run build-server",
-    "start": "node ./server.bundle.js",
+    "start": "better-npm-run start-ssr-bundle",
+    "start-ssr": "better-npm-run start-ssr",
     "start-ssr-dev": "better-npm-run start-ssr-dev",
-    "start-ssr-dev-watch": "better-npm-run start-ssr-dev-watch",
     "start-ssr-prod": "better-npm-run start-ssr-prod",
     "start-wds": "node ./.core/server/dev-server",
-    "start-ssr-prod-bundle": "node ./server.bundle.js",
     "lint": "eslint --ext .js src",
     "stylelint": "stylelint ./src/app/styles/**/*.scss --syntax scss",
     "storybook": "start-storybook -p 9002 -c .storybook",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "benchmark": "loadtest -n 100 -c 50 http://localhost:3000"
   },
   "betterScripts": {
-    "start-ssr-dev": {
-      "command": "babel-node ./.core/server/ssr-server.js",
+    "start-ssr": {
+      "command": "node ./.core/server/index.js",
       "env": {
         "NODE_ENV": "development",
-        "BABEL_ENV": "server-runtime",
         "BABEL_DISABLE_CACHE": 1
       }
     },
-    "start-ssr-dev-watch": {
-      "command": "nodemon ./.core/server/ssr-server.js --exec babel-node",
+    "start-ssr-dev": {
+      "command": "nodemon ./.core/server/index.js",
       "env": {
         "NODE_ENV": "development",
-        "BABEL_ENV": "server-runtime",
         "BABEL_DISABLE_CACHE": 1
       }
     },
     "start-ssr-prod": {
-      "command": "babel-node ./.core/server/ssr-server.js",
+      "command": "node ./.core/server/index.js",
       "env": {
         "NODE_ENV": "production",
-        "BABEL_ENV": "server-runtime",
         "BABEL_DISABLE_CACHE": 1
+      }
+    },
+    "start-ssr-bundle": {
+      "command": "node ./.core/server/index.js",
+      "env": {
+        "NODE_ENV": "production",
+        "BABEL_DISABLE_CACHE": 1,
+        "USE_BUNDLE": true
       }
     },
     "build-server": {
       "command": "webpack --env=server-bundle --config ./.core/webpack/webpack.config.js",
       "env": {
         "NODE_ENV": "production",
-        "BABEL_ENV": "server-bundle"
+        "BABEL_DISABLE_CACHE": 1
       }
     },
     "build-client": {
       "command": "webpack --env=prod --config ./.core/webpack/webpack.config.js",
       "env": {
-        "NODE_ENV": "production",
-        "BABEL_ENV": "production"
+        "NODE_ENV": "production"
       }
     },
     "build-client-analyze": {
       "command": "webpack --env=prod --json --config ./.core/webpack/webpack.config.js  | webpack-bundle-size-analyzer",
       "env": {
-        "NODE_ENV": "production",
-        "BABEL_ENV": "production"
+        "NODE_ENV": "production"
       }
     }
   },
@@ -113,6 +116,7 @@
     "immutability-helper": "^2.1.1",
     "isomorphic-fetch": "^2.2.1",
     "json-loader": "^0.5.4",
+    "loadtest": "^2.3.0",
     "node-sass": "^4.1.1",
     "npm-run-all": "^3.1.2",
     "postcss-loader": "^1.2.1",
