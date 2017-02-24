@@ -16,10 +16,6 @@ module.exports = function(env) {
   return webpackMerge(commonConfig(), {
 
     entry: {
-      app: [
-        path.join(process.cwd(), 'src/app/styles/global/app.scss'),
-        path.join(process.cwd(), '.core/app/app.prod.js'),
-      ],
       vendor: [
         'react',
         'react-dom',
@@ -32,12 +28,16 @@ module.exports = function(env) {
         'recompose',
         'redux',
         'apollo-client',
-        'classnames',
-        'es6-promise',
         'graphql-tag',
+        'classnames',
         'immutability-helper',
-        'isomorphic-fetch'
-      ]
+        'es6-promise',
+        'isomorphic-fetch',
+      ],
+      app: [
+        path.join(process.cwd(), 'src/app/styles/global/app.scss'),
+        path.join(process.cwd(), '.core/app/app.prod.js'),
+      ],
     },
 
     output: {
@@ -90,8 +90,8 @@ module.exports = function(env) {
         },
       }),
       new webpack.optimize.CommonsChunkPlugin({
-        name: "vendor",
-        minChunks: Infinity
+        name: 'vendor',
+        minChunks: Infinity,
       }),
       new ProgressBarPlugin()
     ],

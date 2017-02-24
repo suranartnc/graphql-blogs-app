@@ -50,7 +50,7 @@ function renderPage (content, initialState = {}) {
         ${renderToStaticMarkup(<InitialStateScript state={initialState} />)}
         ${process.env.NODE_ENV === 'production' ?
           `<script src="${assetsManifest.vendor.js}"></script>
-          <script src="${assetsManifest.app.js}"></script>`:
+          <script src="${assetsManifest.app.js}" async></script>`:
           `<script src="${wdsPath}main.js" async></script>`
         }
       </body>
