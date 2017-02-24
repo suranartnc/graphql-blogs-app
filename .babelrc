@@ -33,13 +33,36 @@
         "stage-1"
       ],
       "plugins": [
+        "transform-ensure-ignore",
         [
-          "babel-plugin-webpack-loaders",
+          "webpack-loaders",
           {
             "config": "./.core/webpack/server-runtime.js",
             "verbose": false
           }
         ]
+      ]
+    },
+    "server-bundle": {
+      "presets": [
+        [
+          "env",
+          {
+            "targets": {
+              "node": "current"
+            },
+            "modules": false,
+            "loose": true
+          }
+        ],
+        "stage-1"
+      ],
+      "plugins": [
+        "lodash",
+        "transform-ensure-ignore",
+        "transform-react-constant-elements",
+        "transform-react-remove-prop-types",
+        "transform-react-pure-class-to-function"
       ]
     },
     "development": {
@@ -53,7 +76,8 @@
           }
         ],
         "stage-1"
-      ]
+      ],
+      "plugins": ["transform-ensure-ignore"]
     },
     "production": {
       "presets": [
@@ -76,27 +100,6 @@
             "id": ["lodash", "recompose"]
           }
         ],
-        "transform-react-constant-elements",
-        "transform-react-remove-prop-types",
-        "transform-react-pure-class-to-function"
-      ]
-    },
-    "server-bundle": {
-      "presets": [
-        [
-          "env",
-          {
-            "targets": {
-              "node": "current"
-            },
-            "modules": false,
-            "loose": true
-          }
-        ],
-        "stage-1"
-      ],
-      "plugins": [
-        "lodash",
         "transform-react-constant-elements",
         "transform-react-remove-prop-types",
         "transform-react-pure-class-to-function"

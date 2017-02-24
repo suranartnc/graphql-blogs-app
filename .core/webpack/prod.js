@@ -15,10 +15,30 @@ const getImagesOptions = require('./utils/getImagesOptions')
 module.exports = function(env) {
   return webpackMerge(commonConfig(), {
 
-    entry: [
-      path.join(process.cwd(), 'src/app/styles/global/app.scss'),
-      path.join(process.cwd(), '.core/app/app.prod.js'),
-    ],
+    entry: {
+      vendor: [
+        'react',
+        'react-dom',
+        'react-helmet',
+        'react-redux',
+        'react-router',
+        'react-router-redux',
+        'react-router-scroll',
+        'react-apollo',
+        'recompose',
+        'redux',
+        'apollo-client',
+        'graphql-tag',
+        'classnames',
+        'immutability-helper',
+        'es6-promise',
+        'isomorphic-fetch',
+      ],
+      app: [
+        path.join(process.cwd(), 'src/app/styles/global/app.scss'),
+        path.join(process.cwd(), '.core/app/app.prod.js'),
+      ],
+    },
 
     output: {
       filename: '[name]-[chunkhash].js',
@@ -69,15 +89,11 @@ module.exports = function(env) {
           ],
         },
       }),
-      new webpack.DllReferencePlugin({
-        context: process.cwd(),
-        manifest: require('../../static/build/vendor-react-manifest.json'),
+      new webpack.optimize.CommonsChunkPlugin({
+        name: 'vendor',
+        minChunks: Infinity,
       }),
-      new webpack.DllReferencePlugin({
-        context: process.cwd(),
-        manifest: require('../../static/build/vendor-utils-manifest.json'),
-      }),
-      new ProgressBarPlugin(),
+      new ProgressBarPlugin()
     ],
 
     node: {
