@@ -8,6 +8,8 @@ import { fetchMore as fetchMoreUtil } from 'utils/apollo'
 import withPreloader from 'hocs/withPreloader'
 import PostList from 'components/PostList'
 
+import s from 'styles/pages/Home.scss'
+
 function HomePage ({ data, onNextPageClicked }) {
   return (
     <div>
@@ -21,7 +23,9 @@ function HomePage ({ data, onNextPageClicked }) {
         ]}
       />
       <PostList data={data} />
-      <button onClick={onNextPageClicked}>Next page</button>
+      <div className={s.loadbox}>
+        <button className={s.loadmore} onClick={onNextPageClicked}>Next page</button>
+      </div>
     </div>
   )
 }
