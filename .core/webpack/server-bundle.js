@@ -20,25 +20,57 @@ module.exports = function(env) {
     target: 'node',
 
     node: {
-      console: false,
-      global: false,
-      process: false,
-      Buffer: false,
-      __filename: false,
-      __dirname: false,
+      __filename: true,
+      __dirname: true,
     },
 
     entry: [
-      path.join(process.cwd(), 'src/app/styles/global/app.scss'),
       path.join(process.cwd(), '.core/server/ssr-server.js'),
     ],
 
     output: {
-      filename: '../../server.bundle.js'
+      path: path.join(process.cwd()),
+      filename: 'server.bundle.js'
     },
 
     module: {
-      loaders: getBabelOptions('production').concat(getImagesOptions('production')).concat(getCSSOptions('production'))
+      loaders: [
+        {
+          test: /\.js$/,
+          exclude: /node_modules/,
+          loader: 'babel-loader',
+          options: {
+           presets: [
+              [
+                "env",
+                {
+                  "targets": {
+                    "node": "current"
+                  }
+                }
+              ],
+              "stage-1"
+            ],
+            plugins: [
+              [
+                'babel-plugin-webpack-loaders', {
+                  'config': './.core/webpack/server.js',
+                  "verbose": false
+                }
+              ],
+              "lodash",
+              "transform-ensure-ignore",
+              "transform-react-constant-elements",
+              "transform-react-remove-prop-types",
+              "transform-react-pure-class-to-function"
+            ]
+          },
+        },
+        {
+          test: /\.json$/,
+          loader: 'json-loader',
+        }
+      ]
     },
 
     plugins: [
@@ -51,20 +83,7 @@ module.exports = function(env) {
       new UglifyJsPlugin({
         sourceMap: true
       }),
-      new webpack.optimize.LimitChunkCountPlugin({ maxChunks: 1 }),
-      new webpack.LoaderOptionsPlugin({
-        test: /\.scss$/,
-        options: {
-          context: process.cwd(),
-          postcss: [
-            autoprefixer({ browsers: ['last 2 versions', 'IE >= 10'] }),
-          ],
-        },
-      }),
-      new ExtractTextPlugin({
-        filename: '[name]-[contenthash].css',
-        allChunks: true,
-      })
+      new webpack.optimize.LimitChunkCountPlugin({ maxChunks: 1 })
     ],
 
     externals: [nodeExternals()]
