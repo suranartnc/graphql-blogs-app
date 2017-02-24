@@ -7,6 +7,7 @@
     "dev": "npm-run-all --parallel start-ssr-dev start-wds",
     "dev-watch": "npm-run-all --parallel start-ssr-dev-watch start-wds",
     "build": "npm run build-client && npm run build-server",
+    "build-vendor": "webpack --env=vendor --config ./.core/webpack/webpack.config.js",
     "build-client": "better-npm-run build-client",
     "build-client-analyze": "better-npm-run build-client-analyze",
     "build-server": "better-npm-run build-server",

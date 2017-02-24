@@ -11,29 +11,13 @@ const commonConfig = require('./base');
 const getBabelOptions = require('./utils/getBabelOptions')
 const getCSSOptions = require('./utils/getCSSOptions')
 const getImagesOptions = require('./utils/getImagesOptions')
+const getVendors = require('./utils/getVendors')
 
 module.exports = function(env) {
   return webpackMerge(commonConfig(), {
 
     entry: {
-      vendor: [
-        'react',
-        'react-dom',
-        'react-helmet',
-        'react-redux',
-        'react-router',
-        'react-router-redux',
-        'react-router-scroll',
-        'react-apollo',
-        'recompose',
-        'redux',
-        'apollo-client',
-        'graphql-tag',
-        'classnames',
-        'immutability-helper',
-        'es6-promise',
-        'isomorphic-fetch',
-      ],
+      vendor: getVendors(),
       app: [
         path.join(process.cwd(), 'src/app/styles/global/app.scss'),
         path.join(process.cwd(), '.core/app/app.prod.js'),
