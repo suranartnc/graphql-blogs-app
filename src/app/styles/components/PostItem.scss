@@ -1,9 +1,13 @@
+@import "global/global-shared";
+
 .postItem {
   font-size: 2rem;
   flex: 1 0 percentage(4/12);
 }
 
 .postTitle {
+  @include main-font(400, 'normal');
+
   font-size: 1.5rem;
   margin-bottom: 10px;
 
@@ -19,6 +23,8 @@
 }
 
 .postDesc {
+  @include main-font(300, 'normal');
+
   font-weight: 400;
   font-size: 1.1rem;
   line-height: 1.55;
