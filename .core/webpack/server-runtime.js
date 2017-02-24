@@ -8,7 +8,7 @@ const getImagesOptions = require('./utils/getImagesOptions')
 module.exports = function(env) {
   return webpackMerge(commonConfig(), {
     module: {
-      loaders: getBabelOptions('development').concat(getImagesOptions('development')).concat(getCSSOptions('development'))
+      loaders: getImagesOptions('development').concat(getCSSOptions('development'))
     },
   })
 }

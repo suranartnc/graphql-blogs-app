@@ -20,7 +20,8 @@
     "lint": "eslint --ext .js src",
     "stylelint": "stylelint ./src/app/styles/**/*.scss --syntax scss",
     "storybook": "start-storybook -p 9002 -c .storybook",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "benchmark": "loadtest -n 100 -c 50 http://localhost:3000"
   },
   "betterScripts": {
     "start-ssr-dev": {
@@ -113,6 +114,7 @@
     "immutability-helper": "^2.1.1",
     "isomorphic-fetch": "^2.2.1",
     "json-loader": "^0.5.4",
+    "loadtest": "^2.3.0",
     "node-sass": "^4.1.1",
     "npm-run-all": "^3.1.2",
     "postcss-loader": "^1.2.1",
