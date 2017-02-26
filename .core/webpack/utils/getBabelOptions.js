@@ -21,7 +21,7 @@ module.exports = function (env) {
             [
               "babel-plugin-webpack-loaders",
               {
-                "config": "./.core/webpack/server.js",
+                "config": "./.core/webpack/babel.js",
                 "verbose": false
               }
             ],
@@ -55,7 +55,7 @@ module.exports = function (env) {
             [
               "babel-plugin-webpack-loaders",
               {
-                "config": "./.core/webpack/server.js",
+                "config": "./.core/webpack/babel.js",
                 "verbose": false
               }
             ],
