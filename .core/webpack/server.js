@@ -1,60 +1,53 @@
 const path = require('path');
+const webpack = require('webpack');
 
-module.exports = function() {
-  return {
+const webpackMerge = require('webpack-merge');
+const nodeExternals = require('webpack-node-externals');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+
+const commonConfig = require('./base');
+const getBabelOptions = require('./utils/getBabelOptions')
+
+module.exports = function(env) {
+  return webpackMerge(commonConfig(), {
+
+    devtool: 'source-map',
+
+    target: 'node',
+
+    node: {
+      __filename: true,
+      __dirname: true,
+    },
+
+    entry: [
+      path.join(process.cwd(), '.core/server/ssr-server.js'),
+    ],
 
     output: {
-      publicPath: '/build/',
-      libraryTarget: 'commonjs2',
+      path: path.join(process.cwd()),
+      filename: 'server.bundle.js'
     },
 
     module: {
       loaders: [
-        {
-          test: /\.css$/,
-          use: [
-            'style-loader',
-            'css-loader',
-          ],
-        },
-        {
-          test: /\.scss$/,
-          use: [
-            'style-loader',
-            {
-              loader: 'css-loader',
-              options: {
-                module: true,
-                importLoaders: 1,
-                sourceMap: true,
-                localIdentName: '[name]__[local]___[hash:base64:5]',
-              },
-            },
-            {
-              loader: 'sass-loader',
-              options: {
-                sourceMap: true,
-                includePaths: [
-                  path.join(process.cwd(), '.core/app/styles'),
-                  path.join(process.cwd(), 'src/app/styles')
-                ],
-              },
-            },
-          ],
-        },
-        {
-          test: /\.(eot|svg|ttf|woff|woff2)$/,
-          loader: 'file-loader',
-        },
-        {
-          test: /\.(jpe?g|png|gif|svg)$/i,
-          exclude: /node_modules/,
-          loader: 'file-loader',
-          query: {
-            name: 'images/min/[name]-[hash:8].[ext]',
-          }
-        },
-      ],
+        ...getBabelOptions('server-bundle')
+      ]
     },
-  }
+
+    plugins: [
+      new webpack.DefinePlugin({
+        'process.env': {
+          NODE_ENV: JSON.stringify('production'),
+          BROWSER: JSON.stringify(false),
+        },
+      }),
+      new UglifyJsPlugin({
+        sourceMap: true
+      }),
+      new webpack.optimize.LimitChunkCountPlugin({ maxChunks: 1 })
+    ],
+
+    externals: [nodeExternals()]
+  })
 }
