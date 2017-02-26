@@ -19,16 +19,47 @@ module.exports = function (env) {
           ],
           plugins: [
             [
-              'babel-plugin-webpack-loaders', {
-                'config': './.core/webpack/server.js',
+              "babel-plugin-webpack-loaders",
+              {
+                "config": "./.core/webpack/server.js",
                 "verbose": false
               }
             ],
-            "lodash",
             "transform-ensure-ignore",
+            "lodash",
             "transform-react-constant-elements",
             "transform-react-remove-prop-types",
             "transform-react-pure-class-to-function"
+          ]
+        },
+      }
+    ],
+    "server-runtime": [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: 'babel-loader',
+        options: {
+          presets: [
+            [
+              "env",
+              {
+                "targets": {
+                  "node": "current"
+                }
+              }
+            ],
+            "stage-1"
+          ],
+          plugins: [
+            [
+              "babel-plugin-webpack-loaders",
+              {
+                "config": "./.core/webpack/server.js",
+                "verbose": false
+              }
+            ],
+            "transform-ensure-ignore",
           ]
         },
       }
