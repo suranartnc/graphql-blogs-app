@@ -4,13 +4,9 @@ const webpack = require('webpack');
 const webpackMerge = require('webpack-merge');
 const nodeExternals = require('webpack-node-externals');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-const autoprefixer = require('autoprefixer');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const commonConfig = require('./base');
 const getBabelOptions = require('./utils/getBabelOptions')
-const getCSSOptions = require('./utils/getCSSOptions')
-const getImagesOptions = require('./utils/getImagesOptions')
 
 module.exports = function(env) {
   return webpackMerge(commonConfig(), {
@@ -35,41 +31,7 @@ module.exports = function(env) {
 
     module: {
       loaders: [
-        {
-          test: /\.js$/,
-          exclude: /node_modules/,
-          loader: 'babel-loader',
-          options: {
-           presets: [
-              [
-                "env",
-                {
-                  "targets": {
-                    "node": "current"
-                  }
-                }
-              ],
-              "stage-1"
-            ],
-            plugins: [
-              [
-                'babel-plugin-webpack-loaders', {
-                  'config': './.core/webpack/server.js',
-                  "verbose": false
-                }
-              ],
-              "lodash",
-              "transform-ensure-ignore",
-              "transform-react-constant-elements",
-              "transform-react-remove-prop-types",
-              "transform-react-pure-class-to-function"
-            ]
-          },
-        },
-        {
-          test: /\.json$/,
-          loader: 'json-loader',
-        }
+        ...getBabelOptions('server-bundle')
       ]
     },
 
