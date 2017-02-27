@@ -1,11 +1,14 @@
 import React, { PropTypes } from 'react'
 import PostEntry from 'components/PostEntry'
 
+import { Container } from 'core/app/components'
+import s from 'styles/pages/Entry.scss'
+
 function EntryPage ({ data: { post } }) {
   return (
-    <div>
+    <Container className={s.container}>
       <PostEntry post={post} />
-    </div>
+    </Container>
   )
 }
 

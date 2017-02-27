@@ -1,0 +1,21 @@
+@import "global/global-shared";
+
+.PostEntry {
+  padding: 0;
+}
+
+.header {
+  text-align: center;
+}
+
+.title {
+  font-size: 3rem;
+  text-transform: uppercase;
+  margin-bottom: 40px;
+}
+
+.content {
+  @include main-font(300);
+
+  font-size: 1.4rem;
+}
