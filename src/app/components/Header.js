@@ -3,7 +3,7 @@ import {Link} from 'react-router'
 
 import Nav from 'components/Nav'
 import s from 'styles/components/Header.scss'
-import LogoImg from 'static/images/logo.svg'
+import LogoImg from 'images/logo.svg'
 
 function Header () {
   return (
