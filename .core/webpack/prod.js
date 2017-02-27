@@ -30,7 +30,11 @@ module.exports = function(env) {
     },
 
     module: {
-      loaders: getBabelOptions('production').concat(getImagesOptions('production')).concat(getCSSOptions('production'))
+      loaders: [
+        ...getBabelOptions('production'),
+        ...getImagesOptions('production'),
+        ...getCSSOptions('production')
+      ]
     },
 
     plugins: [
