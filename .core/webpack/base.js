@@ -11,7 +11,7 @@ module.exports = function() {
     module: {
       loaders: [
         {
-          test: /\.(eot|svg|ttf|woff|woff2)$/,
+          test: /\.(eot|ttf|woff|woff2)$/,
           loader: 'file-loader',
         },
         {
