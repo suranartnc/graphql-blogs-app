@@ -1,7 +1,7 @@
 import React from 'react'
 import { Route, IndexRoute } from 'react-router'
 
-import PageLayout from 'pages/layouts/PageLayout'
+import PageLayout from 'components/layouts/PageLayout'
 
 export default function getRoutes () {
   return (
@@ -9,35 +9,35 @@ export default function getRoutes () {
       <IndexRoute
         getComponent={(nextState, cb) => {
           require.ensure([], require => {
-            cb(null, require('./HomePage').default)
+            cb(null, require('../containers/HomePageContainer').default)
           }, 'home')
         }}
       />
       <Route path="/about"
         getComponent={(nextState, cb) => {
           require.ensure([], require => {
-            cb(null, require('./AboutPage').default)
+            cb(null, require('../containers/AboutPageContainer').default)
           }, 'about')
         }}
       />
       <Route path="/grid"
         getComponent={(nextState, cb) => {
           require.ensure([], require => {
-            cb(null, require('./GridPage').default)
+            cb(null, require('../containers/GridPageContainer').default)
           }, 'grid')
         }}
       />
       <Route path="/write"
         getComponent={(nextState, cb) => {
           require.ensure([], require => {
-            cb(null, require('./WritePage').default)
+            cb(null, require('../containers/WritePageContainer').default)
           }, 'write')
         }}
       />
       <Route path="/post/:id"
         getComponent={(nextState, cb) => {
           require.ensure([], require => {
-            cb(null, require('./EntryPage').default)
+            cb(null, require('../containers/EntryPageContainer').default)
           }, 'entry')
         }}
       />

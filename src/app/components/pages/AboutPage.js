@@ -1,7 +1,7 @@
 import React from 'react'
 import Helmet from 'react-helmet'
 
-import s from 'styles/pages/About.scss'
+import s from 'styles/components/pages/About.scss'
 
 function AboutPage () {
   return (

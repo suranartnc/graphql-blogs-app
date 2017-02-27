@@ -1,11 +1,11 @@
 @import "global/global-shared";
 
 .container {
-  background: #292b30 url('../../../../static/images/header_bg.png');
+  background: #292b30 url('../../../images/header_bg.png');
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px;
+  padding: 29px 15px 25px;
 
   &:before {
     content: "";
@@ -24,6 +24,7 @@
   h1 {
     @include main-font(400, 'normal');
 
+    line-height: 0;
     font-size: 3rem;
     text-transform: uppercase;
 
@@ -32,7 +33,12 @@
       color: #fff;
       text-decoration: none;
       padding: 0 30px;
+      display: inline-block;
     }
+  }
+
+  img {
+    width: 150px;
   }
 }
 

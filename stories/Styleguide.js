@@ -1,7 +1,7 @@
 import React from 'react'
 
 import styles from 'styles/storybook/styleguide.scss'
-import logo from 'static/images/react.png'
+import logo from 'images/react.png'
 
 const componentName = () => {
   return (

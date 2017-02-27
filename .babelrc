@@ -10,11 +10,10 @@
         "core": "./.core/",
         "components": "./src/app/components",
         "hocs": "./src/app/hocs",
+        "images": "./src/app/images",
         "modules": "./src/app/modules",
-        "pages": "./src/app/pages",
         "styles": "./src/app/styles",
-        "utils": "./src/app/utils",
-        "static": "./static"
+        "utils": "./src/app/utils"
       }
     }]
   ]
