@@ -3,7 +3,7 @@ import { graphql } from 'react-apollo'
 import { pure, withHandlers, compose } from 'recompose'
 import { ADD_POST } from 'app/modules/post/graphql/postMutations'
 
-import WritePage from 'pages/WritePage'
+import WritePage from 'components/pages/WritePage'
 
 export default compose(
   graphql(ADD_POST),
