@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react'
-import { pure, withState, withHandlers, compose } from 'recompose'
+import withForm from 'hocs/withForm'
 
 function WriteForm ({ onSubmit, onInputChange }) {
   return (
@@ -18,25 +18,11 @@ WriteForm.propTypes = {
   }).isRequired,
   onInputChange: PropTypes.func.isRequired,
   setInput: PropTypes.func.isRequired,
-  createPost: PropTypes.func.isRequired,
+  submitForm: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired
 }
 
-export default compose(
-  withState('input', 'setInput', {
-    title: '',
-    body: ''
-  }),
-  withHandlers({
-    onInputChange: ({ input, setInput }) => inputField => event => {
-      setInput(Object.assign({}, input, {
-        [inputField]: event.target.value
-      }))
-    },
-    onSubmit: ({ input, createPost }) => event => {
-      event.preventDefault()
-      return createPost(input)
-    }
-  }),
-  pure
-)(WriteForm)
+export default withForm({
+  title: '',
+  body: ''
+})(WriteForm)

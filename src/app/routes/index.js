@@ -9,35 +9,35 @@ export default function getRoutes () {
       <IndexRoute
         getComponent={(nextState, cb) => {
           require.ensure([], require => {
-            cb(null, require('./pages/HomePage').default)
+            cb(null, require('./HomePage').default)
           }, 'home')
         }}
       />
       <Route path="/about"
         getComponent={(nextState, cb) => {
           require.ensure([], require => {
-            cb(null, require('./pages/AboutPage').default)
+            cb(null, require('./AboutPage').default)
           }, 'about')
         }}
       />
       <Route path="/grid"
         getComponent={(nextState, cb) => {
           require.ensure([], require => {
-            cb(null, require('./pages/GridPage').default)
+            cb(null, require('./GridPage').default)
           }, 'grid')
         }}
       />
       <Route path="/write"
         getComponent={(nextState, cb) => {
           require.ensure([], require => {
-            cb(null, require('./pages/WritePage').default)
+            cb(null, require('./WritePage').default)
           }, 'write')
         }}
       />
       <Route path="/post/:id"
         getComponent={(nextState, cb) => {
           require.ensure([], require => {
-            cb(null, require('./pages/EntryPage').default)
+            cb(null, require('./EntryPage').default)
           }, 'entry')
         }}
       />
@@ -45,7 +45,7 @@ export default function getRoutes () {
         status="404"
         getComponent={(nextState, cb) => {
           require.ensure([], require => {
-            cb(null, require('../../.core/app/pages/ErrorPage').default)
+            cb(null, require('../../../.core/app/pages/ErrorPage').default)
           }, 'error')
         }}
       />

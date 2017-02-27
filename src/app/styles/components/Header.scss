@@ -1,7 +1,7 @@
-@import "shared";
+@import "global/global-shared";
 
 .container {
-  background: #292b30;
+  background: #292b30 url('../../../../static/images/header_bg.png');
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -20,7 +20,10 @@
 
 .logo {
   color: #fff;
+
   h1 {
+    @include main-font(400, 'normal');
+
     font-size: 3rem;
     text-transform: uppercase;
 
@@ -34,6 +37,8 @@
 }
 
 .writeButton {
+  @include main-font(300, 'normal');
+
   display: inline-block;
   text-transform: uppercase;
   color: #fff;

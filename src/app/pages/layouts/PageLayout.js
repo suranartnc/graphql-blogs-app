@@ -3,12 +3,12 @@ import Header from 'components/Header'
 
 import s from 'styles/pages/Layout.scss'
 
-const PageLayout = props => {
+function PageLayout ({ children }) {
   return (
     <div>
       <Header />
       <main className={s.main}>
-        {props.children}
+        {children}
       </main>
     </div>
   )

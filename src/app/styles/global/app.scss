@@ -1,9 +1,7 @@
-:global {
-  // Core variables and mixins
-  @import "custom-variables";
-  @import "bootstrap/variables";
-  @import "bootstrap/mixins";
+// Core variables and mixins
+@import "global-shared";
 
+:global {
   // Reset and dependencies
   @import "bootstrap/normalize";
   @import "bootstrap/print";
