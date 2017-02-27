@@ -1,0 +1,9 @@
+@mixin main-font($weight: false, $style: false) {
+  font-family: 'open-sans';
+  @if $weight {
+    font-weight: $weight;
+  }
+  @if $style {
+    font-style: $style;
+  }
+}

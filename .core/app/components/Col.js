@@ -1,7 +1,7 @@
 import { isObject } from 'lodash'
 import React, { PropTypes } from 'react'
 import classNames from 'classnames'
-import { mapToCssModules } from 'utils/coreui'
+import { mapToCssModules } from 'core/app/utils/coreui'
 
 const colWidths = ['xs', 'sm', 'md', 'lg', 'xl']
 const stringOrNumberProp = PropTypes.oneOfType([PropTypes.number, PropTypes.string])

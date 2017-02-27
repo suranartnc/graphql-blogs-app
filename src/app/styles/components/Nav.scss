@@ -1,14 +1,24 @@
+@import "global/global-shared";
+
 .container {
   text-align: left;
   flex-grow: 1;
 
   li {
+    @include main-font(300, 'normal');
+
+    font-weight: 300;
     display: inline-block;
+
     a {
       display: inline-block;
       color: #fff;
       text-transform: uppercase;
       padding: 5px 30px;
+
+      @include hover-focus {
+        text-decoration: none;
+      }
     }
   }
 }
