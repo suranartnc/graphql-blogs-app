@@ -1,10 +1,10 @@
-import HomePage from 'pages/HomePage'
-
 import { graphql } from 'react-apollo'
 import { pure, withHandlers, compose } from 'recompose'
 import { GET_POSTS } from 'app/modules/post/graphql/postQueries'
 import { fetchMore as fetchMoreUtil } from 'utils/apollo'
 import withPreloader from 'hocs/withPreloader'
+
+import HomePage from 'components/pages/HomePage'
 
 export default compose(
   graphql(GET_POSTS, {
