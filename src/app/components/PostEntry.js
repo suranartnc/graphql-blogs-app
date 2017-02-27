@@ -1,10 +1,16 @@
 import React, { PropTypes } from 'react'
 
+import s from 'styles/components/PostEntry.scss'
+
 function PostEntry ({ post }) {
   return (
-    <article>
-      <h1>{post.title}</h1>
-      <p dangerouslySetInnerHTML={{ __html: post.body }} />
+    <article className={s.PostEntry}>
+      <div className={s.header}>
+        <h1 className={s.title}>{post.title}</h1>
+      </div>
+      <div className={s.content}>
+        <p dangerouslySetInnerHTML={{ __html: post.body }} />
+      </div>
     </article>
   )
 }

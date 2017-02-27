@@ -3,6 +3,8 @@
 .postItem {
   font-size: 2rem;
   flex: 1 0 percentage(4/12);
+  display: flex;
+  flex-direction: column;
 }
 
 .postTitle {
@@ -22,12 +24,12 @@
   padding: 30px 40px;
   border-right: 1px solid #eee;
   border-bottom: 1px solid #eee;
+  flex-grow: 1;
 }
 
 .postDesc {
-  @include main-font(300, 'normal');
+  @include main-font(300);
 
-  font-weight: 400;
   font-size: 1.1rem;
   line-height: 1.55;
 }
