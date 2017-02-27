@@ -1,9 +1,10 @@
 import React from 'react'
 import {Link} from 'react-router'
 
-import Nav from 'components/Nav'
-import s from 'styles/components/Header.scss'
+import Nav from './Nav'
 import LogoImg from 'images/logo.svg'
+
+import s from 'styles/components/commons/Header.scss'
 
 function Header () {
   return (

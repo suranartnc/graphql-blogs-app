@@ -1,7 +1,7 @@
 import React from 'react'
 import { Route, IndexRoute } from 'react-router'
 
-import PageLayout from 'components/pages/layouts/PageLayout'
+import PageLayout from 'components/layouts/PageLayout'
 
 export default function getRoutes () {
   return (
