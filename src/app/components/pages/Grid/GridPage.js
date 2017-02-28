@@ -3,7 +3,7 @@ import Helmet from 'react-helmet'
 
 import { Container, Row, Col } from 'core/app/components'
 
-import s from 'styles/components/pages/Grid.scss'
+import s from './styles.scss'
 
 function GridPage () {
   return (

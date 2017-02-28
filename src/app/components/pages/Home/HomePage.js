@@ -1,9 +1,9 @@
 import React, { PropTypes } from 'react'
 import Helmet from 'react-helmet'
 
-import PostList from 'components/PostList'
+import PostList from 'components/modules/Post/PostList/PostList'
 
-import s from 'styles/components/pages/Home.scss'
+import s from './styles.scss'
 
 function HomePage ({ data, onNextPageClicked }) {
   return (

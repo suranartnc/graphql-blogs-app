@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react'
 import { Link } from 'react-router'
 
-import s from 'styles/components/PostItem.scss'
+import s from './styles.scss'
 
 function PostItem ({ post: { _id, title, excerpt, author }, count }) {
   return (

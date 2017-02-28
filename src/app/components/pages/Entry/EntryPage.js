@@ -1,8 +1,8 @@
 import React, { PropTypes } from 'react'
-import PostEntry from 'components/PostEntry'
+import PostEntry from 'components/modules/Post/PostEntry/PostEntry'
 
 import { Container } from 'core/app/components'
-import s from 'styles/components/pages/Entry.scss'
+import s from './styles.scss'
 
 function EntryPage ({ data: { post } }) {
   return (
