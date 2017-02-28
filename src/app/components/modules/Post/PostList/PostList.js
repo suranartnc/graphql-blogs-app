@@ -8,7 +8,7 @@ function PostList ({ data: { posts } = { posts: [] } }) {
     <div className={s.container}>
       {posts.map((post, index) => {
         return (
-          <PostItem key={post._id} post={post} count={index} />
+          <PostItem key={post._id} post={post} count={index} theme="dark" />
         )
       })}
     </div>

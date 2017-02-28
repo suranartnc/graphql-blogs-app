@@ -1,9 +1,9 @@
 import React, {PropTypes} from 'react'
-import Header from 'components/commons/Header/Header'
+import Header from '../commons/Header/Header'
 
 import s from './styles.scss'
 
-function PageLayout ({ children }) {
+function FullLayout ({ children }) {
   return (
     <div>
       <Header />
@@ -14,8 +14,8 @@ function PageLayout ({ children }) {
   )
 }
 
-PageLayout.propTypes = {
+FullLayout.propTypes = {
   children: PropTypes.node.isRequired
 }
 
-export default PageLayout
+export default FullLayout
