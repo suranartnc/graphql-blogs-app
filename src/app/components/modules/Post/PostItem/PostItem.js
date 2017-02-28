@@ -22,7 +22,7 @@ function PostItem (props) {
   } = props
 
   const renderPostItemClass = PostItemClass(props)
-  console.log(renderPostItemClass)
+
   return (
     <article key={_id} className={renderPostItemClass}>
       <div className={s.thumbnail}>
