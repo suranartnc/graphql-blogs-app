@@ -72,14 +72,7 @@ module.exports = function (env) {
         options: {
           cacheDirectory: true,
           presets: [
-            [
-              "env",
-              {
-                "targets": {
-                  "node": "current"
-                }
-              }
-            ],
+            "es2015",
             "stage-1"
           ],
           plugins: ["transform-ensure-ignore"]

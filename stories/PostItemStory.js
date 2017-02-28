@@ -1,7 +1,7 @@
 import React from 'react'
 import { storiesOf } from '@kadira/storybook'
 
-import PostItem from 'components/PostItem'
+import PostItem from 'components/modules/Post/PostItem/PostItem'
 
 const mockPost = {
   _id: '234432',

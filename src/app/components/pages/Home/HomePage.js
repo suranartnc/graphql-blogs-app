@@ -33,4 +33,4 @@ HomePage.propTypes = {
   onNextPageClicked: PropTypes.func.isRequired
 }
 
-export default HomePageContainer(HomePage)
+export default HomePage

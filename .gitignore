@@ -6,6 +6,7 @@ logs
 *.map
 
 node_modules
+storybook-static
 
 static/build
 server.bundle.js
