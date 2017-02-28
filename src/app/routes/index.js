@@ -9,35 +9,35 @@ export default function getRoutes () {
       <IndexRoute
         getComponent={(nextState, cb) => {
           require.ensure([], require => {
-            cb(null, require('../containers/HomePageContainer').default)
+            cb(null, require('../components/pages/Home/HomePageContainer').default)
           }, 'home')
         }}
       />
       <Route path="/about"
         getComponent={(nextState, cb) => {
           require.ensure([], require => {
-            cb(null, require('../containers/AboutPageContainer').default)
+            cb(null, require('../components/pages/About/AboutPageContainer').default)
           }, 'about')
         }}
       />
       <Route path="/grid"
         getComponent={(nextState, cb) => {
           require.ensure([], require => {
-            cb(null, require('../containers/GridPageContainer').default)
+            cb(null, require('../components/pages/Grid/GridPageContainer').default)
           }, 'grid')
         }}
       />
       <Route path="/write"
         getComponent={(nextState, cb) => {
           require.ensure([], require => {
-            cb(null, require('../containers/WritePageContainer').default)
+            cb(null, require('../components/pages/Write/WritePageContainer').default)
           }, 'write')
         }}
       />
       <Route path="/post/:id"
         getComponent={(nextState, cb) => {
           require.ensure([], require => {
-            cb(null, require('../containers/EntryPageContainer').default)
+            cb(null, require('../components/pages/Entry/EntryPageContainer').default)
           }, 'entry')
         }}
       />

@@ -3,7 +3,7 @@ import { compose, pure } from 'recompose'
 import { GET_POST } from 'app/modules/post/graphql/postQueries'
 import withPreloader from 'hocs/withPreloader'
 
-import EntryPage from 'components/pages/Entry/EntryPage'
+import EntryPage from './EntryPage'
 
 export default compose(
   graphql(GET_POST, {
