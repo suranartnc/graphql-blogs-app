@@ -1,11 +1,11 @@
 import React from 'react'
 import { Route, IndexRoute } from 'react-router'
 
-import PageLayout from 'components/layouts/PageLayout'
+import FullLayout from 'components/layouts/Full/FullLayout'
 
 export default function getRoutes () {
   return (
-    <Route component={PageLayout}>
+    <Route component={FullLayout}>
       <IndexRoute
         getComponent={(nextState, cb) => {
           require.ensure([], require => {
