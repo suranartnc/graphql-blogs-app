@@ -3,25 +3,12 @@ import { storiesOf } from '@kadira/storybook'
 
 import HomePage from 'components/pages/Home/HomePage'
 import withPreloader from 'hocs/withPreloader'
+import mockData from './utils/mockData'
 
 const props = {
   data: {
     loading: true,
-    posts: [
-      {
-        _id: '1',
-        title: 'ฟังความเห็นหนุ่มญี่ปุ่นให้รู้ไปเลย! เทคนิคสารภาพรักอย่างไรให้ได้ผล',
-        excerpt: 'วันนี้เราจะไปฟังความเห็นของหนุ่มญี่ปุ่นให้รู้ไปเลยว่าการสารภาพรักแบบไหนที่มีโอกาสสำเร็จมากที่สุด'
-      }, {
-        _id: '2',
-        title: 'ฟังความเห็นหนุ่มญี่ปุ่นให้รู้ไปเลย! เทคนิคสารภาพรักอย่างไรให้ได้ผล',
-        excerpt: 'วันนี้เราจะไปฟังความเห็นของหนุ่มญี่ปุ่นให้รู้ไปเลยว่าการสารภาพรักแบบไหนที่มีโอกาสสำเร็จมากที่สุด'
-      }, {
-        _id: '3',
-        title: 'ฟังความเห็นหนุ่มญี่ปุ่นให้รู้ไปเลย! เทคนิคสารภาพรักอย่างไรให้ได้ผล',
-        excerpt: 'วันนี้เราจะไปฟังความเห็นของหนุ่มญี่ปุ่นให้รู้ไปเลยว่าการสารภาพรักแบบไหนที่มีโอกาสสำเร็จมากที่สุด'
-      }
-    ]
+    posts: mockData(3)
   },
   onNextPageClicked: function (e) {
     console.log('onNextPageClicked', e)
