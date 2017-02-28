@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react'
 
-import s from 'styles/components/PostEntry.scss'
+import s from './styles.scss'
 
 function PostEntry ({ post }) {
   return (

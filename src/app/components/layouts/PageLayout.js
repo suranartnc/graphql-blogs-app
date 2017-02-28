@@ -1,7 +1,7 @@
 import React, {PropTypes} from 'react'
-import Header from 'components/commons/Header'
+import Header from 'components/commons/Header/Header'
 
-import s from 'styles/components/layouts/Layout.scss'
+import s from './styles.scss'
 
 function PageLayout ({ children }) {
   return (

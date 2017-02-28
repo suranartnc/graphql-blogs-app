@@ -1,6 +1,6 @@
 import React, { PropTypes} from 'react'
 
-import WriteForm from 'components/WriteForm'
+import WriteForm from 'components/modules/WriteForm'
 
 function WritePage ({ submitForm }) {
   return (
