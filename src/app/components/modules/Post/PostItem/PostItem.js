@@ -3,7 +3,7 @@ import { Link } from 'react-router'
 
 import s from './styles.scss'
 
-function PostItem ({ post: { _id, title, excerpt, author }, count }) {
+function PostItem ({ post: { _id, title, excerpt }, count }) {
   return (
     <article key={_id} className={s.postItem}>
       <div className={s.thumbnail}>
