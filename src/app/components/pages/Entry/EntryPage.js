@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react'
 
-import PostEntry from '../../modules/Post/PostEntry/PostEntry'
+import PostEntry from 'components/modules/Post/PostEntry/PostEntry'
 import { Container } from 'core/app/components'
 import s from './styles.scss'
 
