@@ -4,7 +4,7 @@ import {Link} from 'react-router'
 import Nav from '../Nav/Nav'
 import LogoImg from './images/logo.svg'
 
-import s from './styles.scss'
+import s from './Header.scss'
 
 function Header () {
   return (

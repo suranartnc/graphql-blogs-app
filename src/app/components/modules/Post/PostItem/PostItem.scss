@@ -8,7 +8,7 @@
 }
 
 .postTitle {
-  @include main-font(400, 'normal');
+  @include main-font(400);
 
   font-size: 1.5rem;
   margin-bottom: 10px;

@@ -1,7 +1,7 @@
 import React from 'react'
 import {Link} from 'react-router'
 
-import s from './styles.scss'
+import s from './Nav.scss'
 
 function Nav () {
   return (

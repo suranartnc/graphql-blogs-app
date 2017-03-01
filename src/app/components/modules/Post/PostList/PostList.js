@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react'
 
 import PostItem from '../PostItem/PostItem'
-import s from './styles.scss'
+import s from './PostList.scss'
 
 function PostList ({ data: { posts } = { posts: [] } }) {
   return (

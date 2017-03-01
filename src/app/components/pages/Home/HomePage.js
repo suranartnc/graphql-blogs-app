@@ -3,7 +3,7 @@ import Helmet from 'react-helmet'
 
 import PostList from 'components/modules/Post/PostList/PostList'
 
-import s from './styles.scss'
+import s from './HomePage.scss'
 
 function HomePage ({ data, onNextPageClicked }) {
   return (
