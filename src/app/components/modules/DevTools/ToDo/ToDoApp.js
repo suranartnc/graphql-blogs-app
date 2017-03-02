@@ -42,8 +42,10 @@ function ToDoList ({ todos, subTasks = false }) {
 function Progress ({ todos }) {
   const percent = calProgress(todos)
   return (
-    <div className={s.progressContainer}>
-      <ProgressBar percent={percent} />
+    <div>
+      <div className={s.progressContainer}>
+        <ProgressBar percent={percent} />
+      </div>
       <p className={s.percent}>{percent} %</p>
     </div>
   )
