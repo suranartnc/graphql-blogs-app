@@ -6,6 +6,7 @@
     "baseUrl": "./",
     "paths": {
       "core/*": [".core/*"],
+      "src/*": ["src/*"],
       "components/*": ["src/app/components/*"],
       "hocs/*": ["src/app/hocs/*"],
       "images/*": ["src/app/images/*"],

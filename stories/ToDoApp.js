@@ -1,41 +1,8 @@
 import React from 'react'
 import { storiesOf } from '@kadira/storybook'
 
-import ToDoApp from 'components/modules/ToDo/ToDoApp'
-
-const todos = [
-  {
-    title: 'CI/CD',
-    done: true
-  }, {
-    title: 'UI',
-    done: true
-  }, {
-    title: 'Page'
-  }
-]
-
-const todosWithSubTasks = [
-  ...todos,
-  {
-    title: 'API',
-    done: true,
-    tasks: [
-      {
-        title: 'Solr'
-      }, {
-        title: 'Discussion',
-        tasks: [
-          {
-            title: 'Get'
-          }, {
-            title: 'Set'
-          }
-        ]
-      }
-    ]
-  }
-]
+import ToDoApp from 'components/modules/DevTools/ToDo/ToDoApp'
+import { todos, todosWithSubTasks } from 'src/config/tasks'
 
 const styles = {
   width: '100%',
