@@ -1,19 +1,7 @@
 import React from 'react'
+import cx from 'classnames'
 
 import s from './ToDoApp.scss'
-
-const todos = [
-  {
-    title: 'CI/CD',
-    status: true
-  }, {
-    title: 'UI'
-  }, {
-    title: 'API'
-  }, {
-    title: 'Page'
-  }
-]
 
 function CheckBox ({ todo }) {
   return (
@@ -24,16 +12,23 @@ function CheckBox ({ todo }) {
 }
 
 function ToDoItem ({ todo }) {
+  const renderSubTasks = () => {
+    if (todo.tasks) {
+      return <ToDoList todos={todo.tasks} subTasks />
+    }
+    return null
+  }
   return (
     <li className={s.item}>
       <CheckBox todo={todo} />
+      {renderSubTasks()}
     </li>
   )
 }
 
-function ToDoList ({ todos }) {
+function ToDoList ({ todos, subTasks = false }) {
   return (
-    <div>
+    <div className={cx(s.list, { 'sub-tasks': subTasks })}>
       {todos.map((todo, index) => {
         return <ToDoItem key={index} todo={todo} />
       })}
@@ -41,7 +36,7 @@ function ToDoList ({ todos }) {
   )
 }
 
-function Progress () {
+function Progress ({ todos }) {
   const todoAllCount = todos.length
   const todoDoneCount = todos.filter((todo) => {
     return todo.status
@@ -64,12 +59,12 @@ function ProgressBar ({ percent }) {
   )
 }
 
-function ToDoApp () {
+function ToDoApp ({ todos }) {
   return (
     <div className={s.container}>
       <h2 className={s.title}>To-do List</h2>
       <ToDoList todos={todos} />
-      <Progress />
+      <Progress todos={todos} />
     </div>
   )
 }

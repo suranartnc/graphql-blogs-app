@@ -11,8 +11,14 @@
   margin-bottom: 10px;
 }
 
-.item {
+.list {
   list-style: none;
+  &:global(.sub-tasks) {
+    margin-left: 17px;
+  }
+}
+
+.item {
   font-size: 14px;
 }
 
