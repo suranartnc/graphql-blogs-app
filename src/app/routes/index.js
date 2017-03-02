@@ -45,7 +45,7 @@ export default function getRoutes () {
         status="404"
         getComponent={(nextState, cb) => {
           require.ensure([], require => {
-            cb(null, require('../../../.core/app/pages/ErrorPage').default)
+            cb(null, require('../components/pages/Error/ErrorPageContainer').default)
           }, 'error')
         }}
       />
