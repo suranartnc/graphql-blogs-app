@@ -19,10 +19,10 @@ function ToDoItem ({ todo }) {
     return null
   }
   return (
-    <li className={s.item}>
+    <div className={s.item}>
       <CheckBox todo={todo} />
       {renderSubTasks()}
-    </li>
+    </div>
   )
 }
 
@@ -36,12 +36,36 @@ function ToDoList ({ todos, subTasks = false }) {
   )
 }
 
-function Progress ({ todos }) {
-  const todoAllCount = todos.length
-  const todoDoneCount = todos.filter((todo) => {
+function findSubTasks (todos) {
+  let subTasks = []
+  todos.forEach((todo) => {
+    if (todo.tasks) {
+      subTasks = [
+        ...subTasks,
+        ...findSubTasks(todo.tasks)
+      ]
+      return
+    }
+    subTasks = [
+      ...subTasks,
+      todo
+    ]
+  })
+  return subTasks
+}
+
+function calProgress (todos) {
+  let allTasks = findSubTasks(todos)
+  const todoAllCount = allTasks.length
+  const todoDoneCount = allTasks.filter((todo) => {
     return todo.status
   }).length
   const percent = todoDoneCount / todoAllCount * 100
+  return percent
+}
+
+function Progress ({ todos }) {
+  const percent = calProgress(todos)
   return (
     <div className={s.progressContainer}>
       <ProgressBar percent={percent} />

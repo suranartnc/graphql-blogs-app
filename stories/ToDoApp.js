@@ -8,9 +8,11 @@ const todos = [
     title: 'CI/CD',
     status: true
   }, {
-    title: 'UI'
+    title: 'UI',
+    status: true
   }, {
-    title: 'Page'
+    title: 'Page',
+    status: true
   }
 ]
 
@@ -18,12 +20,19 @@ const todosWithSubTasks = [
   ...todos,
   {
     title: 'API',
+    status: true,
     tasks: [
       {
-        title: 'Solr',
-        status: true
+        title: 'Solr'
       }, {
-        title: 'Discussion'
+        title: 'Discussion',
+        tasks: [
+          {
+            title: 'Get'
+          }, {
+            title: 'Set'
+          }
+        ]
       }
     ]
   }
@@ -31,7 +40,7 @@ const todosWithSubTasks = [
 
 const styles = {
   width: '100%',
-  'max-width': '300px',
+  maxWidth: '300px',
   margin: '0 auto'
 }
 
