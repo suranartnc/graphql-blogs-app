@@ -65,7 +65,7 @@ function calProgress (todos) {
   const todoDoneCount = allTasks.filter((todo) => {
     return todo.status
   }).length
-  const percent = todoDoneCount / todoAllCount * 100
+  const percent = (todoDoneCount / todoAllCount * 100).toFixed(2)
   return percent
 }
 
@@ -91,7 +91,7 @@ function ProgressBar ({ percent }) {
 function ToDoApp ({ todos }) {
   return (
     <div className={s.container}>
-      <h2 className={s.title}>To-do List</h2>
+      <h2 className={s.title}>Tasks</h2>
       <ToDoList todos={todos} />
       <Progress todos={todos} />
     </div>
