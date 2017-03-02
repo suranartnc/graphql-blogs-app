@@ -12,8 +12,13 @@ function CheckBox ({ todo }) {
 }
 
 function ToDoItem ({ todo }) {
-  const renderSubTasks = () => {
+  const renderSubTasks = (todo) => {
     if (todo.tasks) {
+      if (todo.status === true) {
+        todo.tasks.forEach((todo) => {
+          todo.status = true
+        })
+      }
       return <ToDoList todos={todo.tasks} subTasks />
     }
     return null
@@ -21,7 +26,7 @@ function ToDoItem ({ todo }) {
   return (
     <div className={s.item}>
       <CheckBox todo={todo} />
-      {renderSubTasks()}
+      {renderSubTasks(todo)}
     </div>
   )
 }

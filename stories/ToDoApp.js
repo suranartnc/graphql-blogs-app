@@ -20,12 +20,12 @@ const todosWithSubTasks = [
   ...todos,
   {
     title: 'API',
-    status: true,
     tasks: [
       {
         title: 'Solr'
       }, {
         title: 'Discussion',
+        status: true,
         tasks: [
           {
             title: 'Get'
