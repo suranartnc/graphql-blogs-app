@@ -7,7 +7,8 @@
     ["module-resolver", {
       "root": ["./src"],
       "alias": {
-        "core": "./.core/",
+        "core": "./.core",
+        "src": "./src",
         "components": "./src/app/components",
         "hocs": "./src/app/hocs",
         "images": "./src/app/images",

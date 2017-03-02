@@ -7,6 +7,7 @@ function loadStories () {
   require('../stories')
   require('../stories/PostItemStory.js')
   require('../stories/HomePage.js')
+  require('../stories/ToDoApp.js')
 }
 
 configure(loadStories, module)
