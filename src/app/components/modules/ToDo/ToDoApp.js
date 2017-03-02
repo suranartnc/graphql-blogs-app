@@ -1,12 +1,14 @@
 import React from 'react'
 import cx from 'classnames'
 
+import { calProgress, prepareTodo } from './ToDoUtils'
+
 import s from './ToDoApp.scss'
 
 function CheckBox ({ todo }) {
   return (
     <label>
-      <input type="checkbox" checked={todo.status} disabled readOnly /> {todo.title}
+      <input type="checkbox" checked={todo.done} disabled readOnly /> {todo.title}
     </label>
   )
 }
@@ -14,12 +16,8 @@ function CheckBox ({ todo }) {
 function ToDoItem ({ todo }) {
   const renderSubTasks = (todo) => {
     if (todo.tasks) {
-      if (todo.status === true) {
-        todo.tasks.forEach((todo) => {
-          todo.status = true
-        })
-      }
-      return <ToDoList todos={todo.tasks} subTasks />
+      const preparedTodo = prepareTodo(todo)
+      return <ToDoList todos={preparedTodo.tasks} subTasks />
     }
     return null
   }
@@ -39,34 +37,6 @@ function ToDoList ({ todos, subTasks = false }) {
       })}
     </div>
   )
-}
-
-function findSubTasks (todos) {
-  let subTasks = []
-  todos.forEach((todo) => {
-    if (todo.tasks) {
-      subTasks = [
-        ...subTasks,
-        ...findSubTasks(todo.tasks)
-      ]
-      return
-    }
-    subTasks = [
-      ...subTasks,
-      todo
-    ]
-  })
-  return subTasks
-}
-
-function calProgress (todos) {
-  let allTasks = findSubTasks(todos)
-  const todoAllCount = allTasks.length
-  const todoDoneCount = allTasks.filter((todo) => {
-    return todo.status
-  }).length
-  const percent = (todoDoneCount / todoAllCount * 100).toFixed(2)
-  return percent
 }
 
 function Progress ({ todos }) {

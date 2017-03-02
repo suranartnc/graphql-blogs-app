@@ -6,13 +6,12 @@ import ToDoApp from 'components/modules/ToDo/ToDoApp'
 const todos = [
   {
     title: 'CI/CD',
-    status: true
+    done: true
   }, {
     title: 'UI',
-    status: true
+    done: true
   }, {
-    title: 'Page',
-    status: true
+    title: 'Page'
   }
 ]
 
@@ -20,12 +19,12 @@ const todosWithSubTasks = [
   ...todos,
   {
     title: 'API',
+    done: true,
     tasks: [
       {
         title: 'Solr'
       }, {
         title: 'Discussion',
-        status: true,
         tasks: [
           {
             title: 'Get'
