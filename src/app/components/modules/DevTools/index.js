@@ -27,7 +27,7 @@ class DevTools extends Component {
         <div className={cx({ 'hide': !this.state.expand })}>
           <ToDoApp todos={todos} />
         </div>
-        <button className={s.button} onClick={this.onCloseButtonClicked}>{buttonName}</button>
+        <button className={cx(s.button, { 'fixed': this.state.expand })} onClick={this.onCloseButtonClicked}>{buttonName}</button>
       </div>
     )
   }

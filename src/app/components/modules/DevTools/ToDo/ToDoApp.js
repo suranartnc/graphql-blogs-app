@@ -63,9 +63,9 @@ function ProgressBar ({ percent }) {
 function ToDoApp ({ todos }) {
   return (
     <div className={s.container}>
+      <Progress todos={todos} />
       <h2 className={s.title}>Tasks</h2>
       <ToDoList todos={todos} />
-      <Progress todos={todos} />
     </div>
   )
 }
