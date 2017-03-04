@@ -5,7 +5,7 @@ function generateArticles (limit = 10) {
 
   for (let i = 0; i < limit; ++i) {
     articles.push({
-      id: i + 1,
+      _id: `${i + 1}`,
       title: faker.lorem.sentence(),
       excerpt: faker.lorem.paragraphs(2),
       body: faker.lorem.paragraphs()

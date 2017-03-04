@@ -1,14 +1,17 @@
 import React from 'react'
 import { storiesOf } from '@kadira/storybook'
 
-import HomePage from 'components/pages/Home/HomePage'
+import HomePage from './HomePage'
 import withPreloader from 'hocs/withPreloader'
-import mockData from './utils/mockData'
+import mockData from 'utils/mockData'
 
 const props = {
   data: {
     loading: true,
-    posts: mockData(3)
+    posts: mockData(3),
+    fetchMore: function () {
+
+    }
   },
   onNextPageClicked: function (e) {
     console.log('onNextPageClicked', e)

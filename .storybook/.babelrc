@@ -1,16 +1,14 @@
 {
   "presets": [
     "react",
-    "es2015",
-    "stage-1"
+    "es2015"
   ],
   "plugins": [
-    "transform-decorators-legacy",
     ["module-resolver", {
       "root": ["./src"],
       "alias": {
-        "core": "./.core/",
-        "src": "./src/",
+        "core": "./.core",
+        "src": "./src",
         "components": "./src/app/components",
         "hocs": "./src/app/hocs",
         "images": "./src/app/images",

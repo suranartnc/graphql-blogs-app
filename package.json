@@ -18,7 +18,7 @@
     "start-wds": "node ./.core/server/dev-server",
     "lint": "eslint --ext .js src",
     "stylelint": "stylelint ./src/app/styles/**/*.scss --syntax scss",
-    "storybook": "start-storybook -p 9002 -c .storybook",
+    "storybook": "start-storybook -p 9009 -c .storybook",
     "build-storybook": "build-storybook",
     "benchmark": "loadtest -n 100 -c 50 http://localhost:3000"
   },
