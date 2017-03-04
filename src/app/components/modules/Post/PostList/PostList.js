@@ -1,9 +1,17 @@
 import React, { PropTypes } from 'react'
 
-import PostItem from '../PostItem/PostItem'
 import s from './styles.scss'
 
-function PostList ({ data: { posts } = { posts: [] } }) {
+function PostList (props) {
+  const {
+    data: {
+      posts
+    } = {
+      posts: []
+    },
+    PostItem
+  } = props
+
   return (
     <div className={s.container}>
       {posts.map((post, index) => {
@@ -17,8 +25,11 @@ function PostList ({ data: { posts } = { posts: [] } }) {
 
 PostList.propTypes = {
   data: PropTypes.shape({
-    posts: PropTypes.arrayOf(PostItem.propTypes.post)
-  })
+    posts: PropTypes.arrayOf(PropTypes.shape({
+      _id: PropTypes.string.isRequired
+    }))
+  }),
+  PostItem: PropTypes.func.isRequired
 }
 
 export default PostList

@@ -3,13 +3,16 @@ import React from 'react'
 import { storiesOf } from '@kadira/storybook'
 
 import PostList from './PostList'
+import PostItem from '../PostItem/PostItem'
+
 import mockData from 'utils/mockData'
 
 const props = {
   data: {
     loading: true,
-    posts: mockData(3)
-  }
+    posts: mockData(4)
+  },
+  PostItem
 }
 
 storiesOf('PostList', module)
