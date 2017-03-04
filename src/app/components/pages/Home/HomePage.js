@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react'
 import Helmet from 'react-helmet'
 
 import PostList from 'components/modules/Post/PostList/PostList'
+import PostItem from 'components/modules/Post/PostItem/PostItem'
 
 import s from './styles.scss'
 
@@ -17,7 +18,7 @@ function HomePage ({ data, onNextPageClicked }) {
           }
         ]}
       />
-      <PostList data={data} />
+      <PostList data={data} PostItem={PostItem} />
       <div className={s.loadbox}>
         <button className={s.loadmore} onClick={onNextPageClicked}>Next page</button>
       </div>
