@@ -1,6 +1,9 @@
 const path = require('path')
 
 module.exports = {
+
+  devtool: 'cheap-module-source-map',
+
   module: {
     loaders: [
       {
@@ -8,8 +11,8 @@ module.exports = {
         loader: 'style!css?modules&sourceMap&localIdentName=[name]__[local]___[hash:base64:5]!sass?outputStyle=expanded&sourceMap',
       },
       {
-        test: /\.(jpe?g|png|gif|svg)$/i,
-        loader: 'file?name=images/[name].[ext]?[hash:8]'
+        test: /\.(svg)$/i,
+        loader: 'file-loader'
       },
       {
         test: /\.(eot|ttf|woff|woff2)$/,

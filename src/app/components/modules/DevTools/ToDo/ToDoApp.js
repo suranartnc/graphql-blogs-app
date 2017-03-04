@@ -1,28 +1,31 @@
 import React from 'react'
 import cx from 'classnames'
 
+import { calProgress, prepareTodo } from './ToDoUtils'
+
 import s from './ToDoApp.scss'
 
 function CheckBox ({ todo }) {
   return (
     <label>
-      <input type="checkbox" checked={todo.status} disabled readOnly /> {todo.title}
+      <input type="checkbox" checked={todo.done} disabled readOnly /> {todo.title}
     </label>
   )
 }
 
 function ToDoItem ({ todo }) {
-  const renderSubTasks = () => {
+  const renderSubTasks = (todo) => {
     if (todo.tasks) {
-      return <ToDoList todos={todo.tasks} subTasks />
+      const preparedTodo = prepareTodo(todo)
+      return <ToDoList todos={preparedTodo.tasks} subTasks />
     }
     return null
   }
   return (
-    <li className={s.item}>
+    <div className={s.item}>
       <CheckBox todo={todo} />
-      {renderSubTasks()}
-    </li>
+      {renderSubTasks(todo)}
+    </div>
   )
 }
 
@@ -37,14 +40,12 @@ function ToDoList ({ todos, subTasks = false }) {
 }
 
 function Progress ({ todos }) {
-  const todoAllCount = todos.length
-  const todoDoneCount = todos.filter((todo) => {
-    return todo.status
-  }).length
-  const percent = todoDoneCount / todoAllCount * 100
+  const percent = calProgress(todos)
   return (
-    <div className={s.progressContainer}>
-      <ProgressBar percent={percent} />
+    <div>
+      <div className={s.progressContainer}>
+        <ProgressBar percent={percent} />
+      </div>
       <p className={s.percent}>{percent} %</p>
     </div>
   )
@@ -62,9 +63,9 @@ function ProgressBar ({ percent }) {
 function ToDoApp ({ todos }) {
   return (
     <div className={s.container}>
-      <h2 className={s.title}>To-do List</h2>
-      <ToDoList todos={todos} />
       <Progress todos={todos} />
+      <h2 className={s.title}>Tasks</h2>
+      <ToDoList todos={todos} />
     </div>
   )
 }

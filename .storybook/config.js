@@ -1,13 +1,40 @@
-import { configure } from '@kadira/storybook'
+import { configure } from '@kadira/storybook';
 
-import 'styles/global/app.scss'
-import 'styles/storybook/base.scss'
+const req = require.context('../src/app/components', true, /.stories.js$/)
 
-function loadStories () {
-  require('../stories')
-  require('../stories/PostItemStory.js')
-  require('../stories/HomePage.js')
-  require('../stories/ToDoApp.js')
+function sanitize(filename) {
+  filename = filename.replace('.stories.js', '').split('/').pop()
+  return filename
 }
 
-configure(loadStories, module)
+function sortByStoriesOf (components = []) {
+  let reorderComponents = []
+
+  components.forEach((component, index) => {
+    reorderComponents[index] = sanitize(component)
+  })
+
+  reorderComponents.sort()
+
+  reorderComponents.forEach((name, index) => {
+    components.forEach((component) => {
+      if (component.indexOf(name) != -1) {
+        reorderComponents[index] = component
+      }
+    })
+  })
+
+  return reorderComponents
+}
+
+function loadStories() {
+
+  const components = req.keys()
+  const reorderComponents = sortByStoriesOf(components)
+
+  reorderComponents.forEach((filename) => {
+    return req(filename)
+  })
+}
+
+configure(loadStories, module);
