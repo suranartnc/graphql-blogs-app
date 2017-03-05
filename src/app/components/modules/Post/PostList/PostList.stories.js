@@ -10,9 +10,9 @@ import mockData from 'utils/mockData'
 const props = {
   data: {
     loading: true,
-    posts: mockData(4)
+    posts: mockData(3)
   },
-  PostItem
+  template: PostItem
 }
 
 storiesOf('PostList', module)
