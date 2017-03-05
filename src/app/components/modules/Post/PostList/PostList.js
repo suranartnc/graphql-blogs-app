@@ -9,7 +9,7 @@ function PostList (props) {
     } = {
       posts: []
     },
-    PostItem
+    template: PostItem
   } = props
 
   return (
@@ -29,7 +29,7 @@ PostList.propTypes = {
       _id: PropTypes.string.isRequired
     }))
   }),
-  PostItem: PropTypes.func.isRequired
+  template: PropTypes.func.isRequired
 }
 
 export default PostList

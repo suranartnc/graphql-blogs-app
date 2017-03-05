@@ -18,7 +18,7 @@ function HomePage ({ data, onNextPageClicked }) {
           }
         ]}
       />
-      <PostList data={data} PostItem={PostItem} />
+      <PostList data={data} template={PostItem} />
       <div className={s.loadbox}>
         <button className={s.loadmore} onClick={onNextPageClicked}>Next page</button>
       </div>
