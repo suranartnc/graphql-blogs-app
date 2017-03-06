@@ -1,7 +1,7 @@
 import React, {PropTypes} from 'react'
 import Header from '../commons/Header/Header'
 
-import s from './styles.scss'
+import s from './FullLayout.scss'
 
 function FullLayout ({ children }) {
   return (

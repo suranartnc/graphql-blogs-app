@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react'
 
-import s from './styles.scss'
+import s from './PostList.scss'
 
 function PostList (props) {
   const {
