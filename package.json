@@ -1,7 +1,7 @@
 {
   "name": "graphql-blogs-app",
   "version": "1.0.0",
-  "description": "",
+  "description": "An example of production ready universal blog website using GraphQL with React and Apollo.",
   "main": "index.js",
   "scripts": {
     "dev": "npm-run-all --parallel start-ssr start-wds",
@@ -82,6 +82,29 @@
     "url": "https://github.com/suranartnc/graphql-blogs-app/issues"
   },
   "homepage": "https://github.com/suranartnc/graphql-blogs-app#readme",
+  "keywords": [
+    "react",
+    "isomorphic",
+    "universal",
+    "webpack",
+    "express",
+    "hot reloading",
+    "react-hot-reloader",
+    "redux",
+    "starter",
+    "boilerplate",
+    "babel",
+    "apollo",
+    "graphql",
+    "es2015",
+    "javascript",
+    "blog",
+    "ssr",
+    "css modules",
+    "sass",
+    "eslint",
+    "storybook"
+  ],
   "dependencies": {
     "apollo-client": "^0.7.3",
     "assets-webpack-plugin": "^3.5.0",
